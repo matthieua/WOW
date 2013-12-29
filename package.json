@@ -31,9 +31,6 @@
     "grunt-contrib-uglify" : "latest",
     "grunt-growl"          : "latest"
   },
-  "dependencies" : {
-    "jquery" : "latest"
-  },
   "scripts": {
     "test": "grunt travis"
   }

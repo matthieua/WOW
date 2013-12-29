@@ -66,9 +66,9 @@ jQuery ->
 
   # default plugin settings
   $.jackInTheBox::defaults =
-      boxClass:     'box'
-      animateClass: 'animated'
-      offset:       10
+    boxClass:     'box'
+    animateClass: 'animated'
+    offset:       10
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->
