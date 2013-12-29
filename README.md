@@ -12,11 +12,17 @@ Reveal CSS animation as you scroll down a page.
 
 ## Documentation
 
-- Basic usage
-
 Include [animate.css](https://github.com/daneden/animate.css)
 Include [jQuery](https://github.com/jquery/jquery)
 Include [jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
+
+### Basic usage
+
+```javascript
+$('body').jackInTheBox();
+```
+
+### Advanced usage
 
 ```javascript
 $('body').jackInTheBox({
