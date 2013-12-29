@@ -31,7 +31,7 @@
             clearTimeout(scrollTimeout);
             scrollTimeout = null;
           }
-          return scrollTimeout = setTimeout(_this.show, 40);
+          return scrollTimeout = setTimeout(_this.show, 50);
         });
       };
       this.show = function() {
