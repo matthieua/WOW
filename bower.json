@@ -1,0 +1,23 @@
+{
+  "name": "jack-in-the-box",
+  "version": "0.0.1",
+  "homepage": "https://github.com/matthieua/jackInTheBox",
+  "authors": [
+    "Matthieu Aussaguel <matthieu.aussaguel@gmail.com>"
+  ],
+  "description": "Reveal CSS animation as you scroll down a page",
+  "main": "jackInTheBox.js",
+  "keywords": [
+    "scroll",
+    "animation",
+    "reveal"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
