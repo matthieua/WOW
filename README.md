@@ -8,7 +8,7 @@ v0.0.1
 
 ## Website Url
 
--
+- coming soon
 
 ## Documentation
 
@@ -16,7 +16,7 @@ v0.0.1
 
 Include [animate.css](https://github.com/daneden/animate.css)
 Include [jQuery](https://github.com/jquery/jquery)
-Include [jquery.jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
+Include [jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
 
 ```javascript
 $('body').jackInTheBox({
@@ -25,6 +25,10 @@ $('body').jackInTheBox({
   offset:       10         //default
 });
 ```
+
+## IOS devices
+
+Please read [this page](https://developer.apple.com/library/safari/documentation/appleapplications/reference/SafariWebContent/HandlingEvents/HandlingEvents.html) before raising an issue related to events not firing on IOS.
 
 ## Bug tracker
 
