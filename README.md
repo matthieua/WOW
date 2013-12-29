@@ -20,8 +20,9 @@ Include [jquery.jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
 
 ```javascript
 $('body').jackInTheBox({
-  boxClass:      'box'      // default
-  animateClass:  'animated' // default
+  boxClass:     'box'      // default
+  animateClass: 'animated' // default
+  offset:       10         //default
 });
 ```
 

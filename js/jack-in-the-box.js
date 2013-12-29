@@ -18,7 +18,7 @@
       this.visible = function($box) {
         var viewBottom, viewTop, _bottom, _top;
         viewTop = _this.$window.scrollTop();
-        viewBottom = viewTop + _this.$window.height();
+        viewBottom = viewTop + _this.$window.height() - _this.settings.offset;
         _top = $box.offset().top;
         _bottom = _top + $box.height();
         return _top <= viewBottom && _bottom >= viewTop;
@@ -60,7 +60,8 @@
     };
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
-      animateClass: 'animated'
+      animateClass: 'animated',
+      offset: 10
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {

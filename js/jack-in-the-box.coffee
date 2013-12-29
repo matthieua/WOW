@@ -28,7 +28,7 @@ jQuery ->
     # Check if box is visible
     @visible = ($box) =>
       viewTop    = @$window.scrollTop()
-      viewBottom = viewTop + @$window.height()
+      viewBottom = viewTop + @$window.height() - @settings.offset
       _top       = $box.offset().top
       _bottom    = _top + $box.height()
 
@@ -66,8 +66,9 @@ jQuery ->
 
   # default plugin settings
   $.jackInTheBox::defaults =
-      boxClass:      'box'
-      animateClass:  'animated'
+      boxClass:     'box'
+      animateClass: 'animated'
+      offset:       10
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->
