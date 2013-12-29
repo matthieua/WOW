@@ -1,6 +1,6 @@
-# [Jack In The Box](https://github.com/matthieua/jackInTheBox) [![Build Status](https://secure.travis-ci.org/matthieua/jackInTheBox.png?branch=master)](http://travis-ci.org/matthieua/jackInTheBox)
+# Jack In The Box [![Build Status](https://secure.travis-ci.org/matthieua/jackInTheBox.png?branch=master)](http://travis-ci.org/matthieua/jackInTheBox)
 
-Jack In The Box
+Reveal CSS animation as you scroll down a page.
 
 ## Version
 

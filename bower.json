@@ -5,8 +5,8 @@
   "authors": [
     "Matthieu Aussaguel <matthieu.aussaguel@gmail.com>"
   ],
-  "description": "Reveal CSS animation as you scroll down a page",
-  "main": "jackInTheBox.js",
+  "description": "Reveal CSS animation as you scroll down a page.",
+  "main": "jack-in-the-box.js",
   "keywords": [
     "scroll",
     "animation",
