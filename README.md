@@ -8,7 +8,7 @@ Reveal CSS animation as you scroll down a page.
 
 ## Website Url
 
-- coming soon
+coming soon...
 
 ## Documentation
 
