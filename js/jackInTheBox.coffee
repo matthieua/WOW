@@ -32,7 +32,6 @@ jQuery ->
       @settings[name].apply( this, args )
 
     @init = ->
-      alert 'hey'
       @settings = $.extend( {}, @defaults, options )
 
       @setState 'ready'

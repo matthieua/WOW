@@ -1,16 +1,36 @@
 h1 {
-  font-size:     24px;
-  line-height:   48px;
+  font-size:     72px;
+  line-height:   1.5;
+  color: #2c3e50;
   font-weight:   100;
-  border-bottom: 1px solid #3c3c3c;
-}
-
-h1 strong {
-  text-transform: uppercase;
-  font-weight:    bold;
 }
 
 #container {
   width:  980px;
   margin: 0 auto;
+}
+
+section {
+  height: 300px;
+  margin: 60px 0;
+}
+
+.section--red {
+  background-color: #e74c3c;
+}
+
+.section--purple {
+  background-color: #9b59b6;
+}
+
+.section--blue {
+  background-color: #3498db;
+}
+
+.section--yellow {
+  background-color: #f1c40f;
+}
+
+.section--green {
+  background-color: #2ecc71;
 }

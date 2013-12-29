@@ -21,7 +21,6 @@
         return this.settings[name].apply(this, args);
       };
       this.init = function() {
-        alert('hey');
         this.settings = $.extend({}, this.defaults, options);
         return this.setState('ready');
       };

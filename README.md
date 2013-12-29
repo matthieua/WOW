@@ -10,6 +10,17 @@ v0.0.1
 
 -
 
+## Documentation
+
+- Basic usage
+
+Include [animate.css](https://github.com/daneden/animate.css)
+Include [jQuery](https://github.com/jquery/jquery)
+
+```javascript
+$('body').jackInTheBox();
+```
+
 ## Bug tracker
 
 If you find a bug, please raise it the [issue here](https://github.com/matthieua/jackInTheBox/issues) on Github!
