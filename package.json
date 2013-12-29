@@ -1,0 +1,40 @@
+{
+  "name"            : "jackInTheBox",
+  "title"           : "Jack In The Box",
+  "version"         : "0.0.1",
+  "description" : "",
+  "keywords": [],
+  "homepage"        : "",
+  "author"          : {
+    "name"  : "Matthieu Aussaguel",
+    "email" : "matthieu.aussaguel@gmail.com",
+    "url"   : "http://mynameismatthieu.com/"
+  },
+  "repository" : {
+    "type" : "git",
+    "url"  : "git://github.com/matthieua/jackInTheBox.git"
+  },
+  "bugs" : {
+    "url" : "https://github.com/matthieua/jackInTheBox/issues",
+    "url": "https://github.com/matthieua/jackInTheBox/blob/master/LICENSE-MIT"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://matthieuaussaguel.mit-license.org/"
+  }],
+  "devDependencies" : {
+    "grunt"                : "latest",
+    "grunt-cli"            : "latest",
+    "grunt-contrib-watch"  : "latest",
+    "grunt-contrib-coffee" : "latest",
+    "grunt-contrib-jasmine": "latest",
+    "grunt-contrib-uglify" : "latest",
+    "grunt-growl"          : "latest"
+  },
+  "dependencies" : {
+    "jquery" : "latest"
+  },
+  "scripts": {
+    "test": "grunt travis"
+  }
+}
