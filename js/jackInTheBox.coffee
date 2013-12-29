@@ -27,33 +27,32 @@ jQuery ->
 
     @init = ->
       @settings = $.extend( {}, @defaults, options )
+      @$boxes = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-      window.parallaxBrowser = ->
-        slides = $(".box").fadeTo(0, 0)
-        $(window).scroll (d, h) ->
-          slides.each (i) ->
-            a = $(this).offset().top + $(this).height() - 10
-            b = $(window).scrollTop() + $(window).height()
-            if a < b
-              $(this).show()
-              $(this).addClass "animated"
+      window.parallaxBrowser = =>
+        $(window).scroll (d, h) =>
+          @$boxes.each (index, box) =>
+            $box     = $(box)
+            elementY = $box.offset().top + $box.height() - @settings.offset
+            scrollY  = $(window).scrollTop() + $(window).height()
 
+            if elementY < scrollY
+              $box.css(visibility: 'visible').addClass @settings.animateClass
 
-
-      window.parallaxMobile = ->
-        slides = $(".slide").children().fadeTo(0, 0)
-        $(window).scroll (d, h) ->
-          slides.each (i) ->
-            a = $(this).offset().top + $(this).height() - 300
-            b = $(window).scrollTop() + $(window).height()
-            if a < b
-              $(this).show()
-              $(this).addClass "animated"
+      # window.parallaxMobile = ->
+      #   $boxes = $(".slide").children().fadeTo(0, 0)
+      #   $(window).scroll (d, h) ->
+      #     $boxes.each (i) ->
+      #       a = $(this).offset().top + $(this).height() - 300
+      #       b = $(window).scrollTop() + $(window).height()
+      #       if a < b
+      #         $(this).show()
+      #         $(this).addClass "animated"
 
       currentURL = document.URL
-      if $(window).width() > 769
-        parallaxBrowser()
-      else parallaxMobile()  if $(window).width() > 350
+      parallaxBrowser()
+      # if $(window).width() > 769
+      # else parallaxMobile()  if $(window).width() > 350
 
     # initialise the plugin
     @init()
@@ -65,7 +64,7 @@ jQuery ->
   $.jackInTheBox::defaults =
       boxClass:     'box'
       animateClass: 'animated'
-      offset:       5
+      offset:       10
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->

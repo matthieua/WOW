@@ -15,46 +15,29 @@
         return this.settings[name].apply(this, args);
       };
       this.init = function() {
-        var currentURL;
+        var currentURL,
+          _this = this;
         this.settings = $.extend({}, this.defaults, options);
+        this.$boxes = $("." + this.settings.boxClass).css({
+          visibility: 'hidden'
+        });
         window.parallaxBrowser = function() {
-          var slides;
-          slides = $(".box").fadeTo(0, 0);
           return $(window).scroll(function(d, h) {
-            return slides.each(function(i) {
-              var a, b;
-              a = $(this).offset().top + $(this).height() - 10;
-              b = $(window).scrollTop() + $(window).height();
-              if (a < b) {
-                $(this).show();
-                return $(this).addClass("animated");
-              }
-            });
-          });
-        };
-        window.parallaxMobile = function() {
-          var slides;
-          slides = $(".slide").children().fadeTo(0, 0);
-          return $(window).scroll(function(d, h) {
-            return slides.each(function(i) {
-              var a, b;
-              a = $(this).offset().top + $(this).height() - 300;
-              b = $(window).scrollTop() + $(window).height();
-              if (a < b) {
-                $(this).show();
-                return $(this).addClass("animated");
+            return _this.$boxes.each(function(index, box) {
+              var $box, elementY, scrollY;
+              $box = $(box);
+              elementY = $box.offset().top + $box.height() - _this.settings.offset;
+              scrollY = $(window).scrollTop() + $(window).height();
+              if (elementY < scrollY) {
+                return $box.css({
+                  visibility: 'visible'
+                }).addClass(_this.settings.animateClass);
               }
             });
           });
         };
         currentURL = document.URL;
-        if ($(window).width() > 769) {
-          return parallaxBrowser();
-        } else {
-          if ($(window).width() > 350) {
-            return parallaxMobile();
-          }
-        }
+        return parallaxBrowser();
       };
       this.init();
       return this;
@@ -62,7 +45,7 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 5
+      offset: 10
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {
