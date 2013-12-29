@@ -16,6 +16,7 @@ v0.0.1
 
 Include [animate.css](https://github.com/daneden/animate.css)
 Include [jQuery](https://github.com/jquery/jquery)
+Include [jquery.jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
 
 ```javascript
 $('body').jackInTheBox({
