@@ -25,34 +25,34 @@ jQuery ->
     @callSettingFunction = ( name, args = [] ) ->
       @settings[name].apply( this, args )
 
+
+    # Calculate the box position for every element
+    @calculateBoxesPosition = =>
+      @$boxes.each (index, box) =>
+        $box = $(box)
+        $box.data('positionY', $box.offset().top + $box.height() - @settings.offset)
+
+    @parallaxBrowser = =>
+      @$window.scroll =>
+        @$boxes.each (index, box) =>
+          $box    = $(box)
+          scrollY = @$window.scrollTop() + @$window.height()
+          if $(box).data('positionY') < scrollY
+            $box.css(visibility: 'visible').addClass @settings.animateClass
+
     @init = ->
       @settings = $.extend( {}, @defaults, options )
-      @$boxes = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+      @$window  = $(window)
 
-      window.parallaxBrowser = =>
-        $(window).scroll (d, h) =>
-          @$boxes.each (index, box) =>
-            $box     = $(box)
-            elementY = $box.offset().top + $box.height() - @settings.offset
-            scrollY  = $(window).scrollTop() + $(window).height()
+      @settings.offset = if @$window.width() > 769
+        @settings.desktopOffset
+      else if @$window.width() > 350
+        @settings.mobileOffset
 
-            if elementY < scrollY
-              $box.css(visibility: 'visible').addClass @settings.animateClass
+      @calculateBoxesPosition()
 
-      # window.parallaxMobile = ->
-      #   $boxes = $(".slide").children().fadeTo(0, 0)
-      #   $(window).scroll (d, h) ->
-      #     $boxes.each (i) ->
-      #       a = $(this).offset().top + $(this).height() - 300
-      #       b = $(window).scrollTop() + $(window).height()
-      #       if a < b
-      #         $(this).show()
-      #         $(this).addClass "animated"
-
-      currentURL = document.URL
-      parallaxBrowser()
-      # if $(window).width() > 769
-      # else parallaxMobile()  if $(window).width() > 350
+      @parallaxBrowser() if @settings.offset?
 
     # initialise the plugin
     @init()
@@ -62,9 +62,10 @@ jQuery ->
 
   # default plugin settings
   $.jackInTheBox::defaults =
-      boxClass:     'box'
-      animateClass: 'animated'
-      offset:       10
+      boxClass:      'box'
+      animateClass:  'animated'
+      desktopOffset: 10
+      mobileOffset:  300
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->
