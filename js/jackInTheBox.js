@@ -15,20 +15,20 @@
         }
         return this.settings[name].apply(this, args);
       };
-      this.calculateBoxesPosition = function() {
-        return _this.$boxes.each(function(index, box) {
-          var $box;
-          $box = $(box);
-          return $box.data('positionY', $box.offset().top + $box.height() - _this.settings.offset);
-        });
+      this.visible = function($box) {
+        var viewBottom, viewTop, _bottom, _top;
+        viewTop = _this.$window.scrollTop();
+        viewBottom = viewTop + _this.$window.height();
+        _top = $box.offset().top;
+        _bottom = _top + $box.height();
+        return _top <= viewBottom && _bottom >= viewTop;
       };
-      this.parallaxBrowser = function() {
+      this.show = function() {
         return _this.$window.scroll(function() {
           return _this.$boxes.each(function(index, box) {
-            var $box, scrollY;
+            var $box;
             $box = $(box);
-            scrollY = _this.$window.scrollTop() + _this.$window.height();
-            if ($(box).data('positionY') < scrollY) {
+            if (_this.visible($box)) {
               return $box.css({
                 visibility: 'visible'
               }).addClass(_this.settings.animateClass);
@@ -38,14 +38,12 @@
       };
       this.init = function() {
         this.settings = $.extend({}, this.defaults, options);
+        this.$window = $(window);
         this.$boxes = $("." + this.settings.boxClass).css({
           visibility: 'hidden'
         });
-        this.$window = $(window);
-        this.settings.offset = this.$window.width() > 769 ? this.settings.desktopOffset : this.$window.width() > 350 ? this.settings.mobileOffset : void 0;
-        this.calculateBoxesPosition();
-        if (this.settings.offset != null) {
-          return this.parallaxBrowser();
+        if (this.$boxes.length) {
+          return this.show();
         }
       };
       this.init();
@@ -53,9 +51,7 @@
     };
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
-      animateClass: 'animated',
-      desktopOffset: 10,
-      mobileOffset: 300
+      animateClass: 'animated'
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {

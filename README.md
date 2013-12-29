@@ -18,7 +18,10 @@ Include [animate.css](https://github.com/daneden/animate.css)
 Include [jQuery](https://github.com/jquery/jquery)
 
 ```javascript
-$('body').jackInTheBox();
+$('body').jackInTheBox({
+  boxClass:      'box'      // default
+  animateClass:  'animated' // default
+});
 ```
 
 ## Bug tracker

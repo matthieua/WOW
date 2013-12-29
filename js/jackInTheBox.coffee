@@ -25,34 +25,31 @@ jQuery ->
     @callSettingFunction = ( name, args = [] ) ->
       @settings[name].apply( this, args )
 
+    # Check if box is visible
+    @visible = ($box) =>
+      viewTop    = @$window.scrollTop()
+      viewBottom = viewTop + @$window.height()
+      _top       = $box.offset().top
+      _bottom    = _top + $box.height()
 
-    # Calculate the box position for every element
-    @calculateBoxesPosition = =>
-      @$boxes.each (index, box) =>
-        $box = $(box)
-        $box.data('positionY', $box.offset().top + $box.height() - @settings.offset)
+      _top <= viewBottom and _bottom >= viewTop
 
-    @parallaxBrowser = =>
+    # Show box is visible on scroll
+    @show = =>
       @$window.scroll =>
         @$boxes.each (index, box) =>
           $box    = $(box)
-          scrollY = @$window.scrollTop() + @$window.height()
-          if $(box).data('positionY') < scrollY
+          if (@visible($box))
             $box.css(visibility: 'visible').addClass @settings.animateClass
 
+    # Set initial settings
     @init = ->
       @settings = $.extend( {}, @defaults, options )
-      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+
       @$window  = $(window)
+      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-      @settings.offset = if @$window.width() > 769
-        @settings.desktopOffset
-      else if @$window.width() > 350
-        @settings.mobileOffset
-
-      @calculateBoxesPosition()
-
-      @parallaxBrowser() if @settings.offset?
+      @show() if @$boxes.length
 
     # initialise the plugin
     @init()
@@ -64,8 +61,6 @@ jQuery ->
   $.jackInTheBox::defaults =
       boxClass:      'box'
       animateClass:  'animated'
-      desktopOffset: 10
-      mobileOffset:  300
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->
