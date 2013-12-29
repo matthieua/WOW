@@ -22,15 +22,3 @@ describe 'jackInTheBox', ->
       plugin = new $.jackInTheBox( @$element, options )
 
       expect( plugin.settings.message ).toBe( options.message )
-
-  describe 'plugin state', ->
-    beforeEach ->
-      @plugin = new $.jackInTheBox( @$element )
-
-    it 'should have a ready state', ->
-      expect( @plugin.getState() ).toBe 'ready'
-
-    it 'should be updatable', ->
-      @plugin.setState( 'new state' )
-
-      expect( @plugin.getState() ).toBe 'new state'

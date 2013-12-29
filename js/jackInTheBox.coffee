@@ -17,12 +17,6 @@ jQuery ->
     # jQuery version of DOM element attached to the plugin
     @$element = $ element
 
-    # set current state
-    @setState = ( _state ) -> state = _state
-
-    #get current state
-    @getState = -> state
-
     # get particular plugin setting
     @getSetting = ( key ) ->
       @settings[ key ]
@@ -34,7 +28,32 @@ jQuery ->
     @init = ->
       @settings = $.extend( {}, @defaults, options )
 
-      @setState 'ready'
+      window.parallaxBrowser = ->
+        slides = $(".box").fadeTo(0, 0)
+        $(window).scroll (d, h) ->
+          slides.each (i) ->
+            a = $(this).offset().top + $(this).height() - 10
+            b = $(window).scrollTop() + $(window).height()
+            if a < b
+              $(this).show()
+              $(this).addClass "animated"
+
+
+
+      window.parallaxMobile = ->
+        slides = $(".slide").children().fadeTo(0, 0)
+        $(window).scroll (d, h) ->
+          slides.each (i) ->
+            a = $(this).offset().top + $(this).height() - 300
+            b = $(window).scrollTop() + $(window).height()
+            if a < b
+              $(this).show()
+              $(this).addClass "animated"
+
+      currentURL = document.URL
+      if $(window).width() > 769
+        parallaxBrowser()
+      else parallaxMobile()  if $(window).width() > 350
 
     # initialise the plugin
     @init()
