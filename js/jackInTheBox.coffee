@@ -35,12 +35,19 @@ jQuery ->
       _top <= viewBottom and _bottom >= viewTop
 
     # Show box is visible on scroll
-    @show = =>
+    @scrollHandler = =>
+      scrollTimeout = null
       @$window.scroll =>
-        @$boxes.each (index, box) =>
-          $box = $(box)
-          if (@visible($box))
-            $box.css(visibility: 'visible').addClass @settings.animateClass
+        if (scrollTimeout)
+          clearTimeout(scrollTimeout)
+          scrollTimeout = null
+        scrollTimeout = setTimeout(@show, 50)
+
+    @show = =>
+      @$boxes.each (index, box) =>
+        $box = $(box)
+        if (@visible($box))
+          $box.css(visibility: 'visible').addClass @settings.animateClass
 
     # Set initial settings
     @init = ->
@@ -49,7 +56,7 @@ jQuery ->
       @$window  = $(window)
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-      @show() if @$boxes.length
+      @scrollHandler() if @$boxes.length
 
     # initialise the plugin
     @init()

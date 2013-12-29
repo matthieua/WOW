@@ -23,17 +23,26 @@
         _bottom = _top + $box.height();
         return _top <= viewBottom && _bottom >= viewTop;
       };
-      this.show = function() {
+      this.scrollHandler = function() {
+        var scrollTimeout;
+        scrollTimeout = null;
         return _this.$window.scroll(function() {
-          return _this.$boxes.each(function(index, box) {
-            var $box;
-            $box = $(box);
-            if (_this.visible($box)) {
-              return $box.css({
-                visibility: 'visible'
-              }).addClass(_this.settings.animateClass);
-            }
-          });
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = null;
+          }
+          return scrollTimeout = setTimeout(_this.show, 40);
+        });
+      };
+      this.show = function() {
+        return _this.$boxes.each(function(index, box) {
+          var $box;
+          $box = $(box);
+          if (_this.visible($box)) {
+            return $box.css({
+              visibility: 'visible'
+            }).addClass(_this.settings.animateClass);
+          }
         });
       };
       this.init = function() {
@@ -43,7 +52,7 @@
           visibility: 'hidden'
         });
         if (this.$boxes.length) {
-          return this.show();
+          return this.scrollHandler();
         }
       };
       this.init();
