@@ -38,7 +38,7 @@ jQuery ->
     @show = =>
       @$window.scroll =>
         @$boxes.each (index, box) =>
-          $box    = $(box)
+          $box = $(box)
           if (@visible($box))
             $box.css(visibility: 'visible').addClass @settings.animateClass
 
