@@ -39,9 +39,9 @@ $('body').jackInTheBox({
 });
 ```
 
-## IOS devices
+## Mobile devices
 
-Please read [this page](https://developer.apple.com/library/safari/documentation/appleapplications/reference/SafariWebContent/HandlingEvents/HandlingEvents.html) before raising an issue related to events not firing on IOS.
+By default, we won't trigger the animations on mobile devices (Android, webOS, iPhone, iPad, iPod, BlackBerry, IEMobile, Opera Mini). For more details, please read [this page](https://developer.apple.com/library/safari/documentation/appleapplications/reference/SafariWebContent/HandlingEvents/HandlingEvents.html) before raising an issue / feature request related to events not firing on mobile devices.
 
 ## Bug tracker
 

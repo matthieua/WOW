@@ -15,13 +15,16 @@
         }
         return this.settings[name].apply(this, args);
       };
+      this.mobileDevice = function() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      };
       this.visible = function($box) {
-        var viewBottom, viewTop, _bottom, _top;
+        var bottom, top, viewBottom, viewTop;
         viewTop = _this.$window.scrollTop();
         viewBottom = viewTop + _this.$window.height() - _this.settings.offset;
-        _top = $box.offset().top;
-        _bottom = _top + $box.height();
-        return _top <= viewBottom && _bottom >= viewTop;
+        top = $box.offset().top;
+        bottom = top + $box.height();
+        return top <= viewBottom && bottom >= viewTop;
       };
       this.scrollHandler = function() {
         var scrollTimeout;
@@ -47,12 +50,14 @@
       };
       this.init = function() {
         this.settings = $.extend({}, this.defaults, options);
-        this.$window = $(window);
-        this.$boxes = $("." + this.settings.boxClass).css({
-          visibility: 'hidden'
-        });
-        if (this.$boxes.length) {
-          return this.scrollHandler();
+        if (!this.mobileDevice()) {
+          this.$window = $(window);
+          this.$boxes = $("." + this.settings.boxClass).css({
+            visibility: 'hidden'
+          });
+          if (this.$boxes.length) {
+            return this.scrollHandler();
+          }
         }
       };
       this.init();

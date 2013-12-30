@@ -25,14 +25,18 @@ jQuery ->
     @callSettingFunction = ( name, args = [] ) ->
       @settings[name].apply( this, args )
 
+    # Check if mobile device
+    @mobileDevice = =>
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
     # Check if box is visible
     @visible = ($box) =>
       viewTop    = @$window.scrollTop()
       viewBottom = viewTop + @$window.height() - @settings.offset
-      _top       = $box.offset().top
-      _bottom    = _top + $box.height()
+      top        = $box.offset().top
+      bottom     = top + $box.height()
 
-      _top <= viewBottom and _bottom >= viewTop
+      top <= viewBottom and bottom >= viewTop
 
     # Show box is visible on scroll
     @scrollHandler = =>
@@ -53,10 +57,11 @@ jQuery ->
     @init = ->
       @settings = $.extend( {}, @defaults, options )
 
-      @$window  = $(window)
-      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+      unless @mobileDevice()
+        @$window  = $(window)
+        @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-      @scrollHandler() if @$boxes.length
+        @scrollHandler() if @$boxes.length
 
     # initialise the plugin
     @init()
