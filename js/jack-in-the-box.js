@@ -60,7 +60,7 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 10
+      offset: 0
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {

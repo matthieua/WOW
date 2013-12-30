@@ -69,7 +69,7 @@ jQuery ->
   $.jackInTheBox::defaults =
     boxClass:     'box'
     animateClass: 'animated'
-    offset:       10
+    offset:       0
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->

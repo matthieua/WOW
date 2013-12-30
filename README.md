@@ -35,7 +35,7 @@ $('body').jackInTheBox();
 $('body').jackInTheBox({
   boxClass:     'box',      // default
   animateClass: 'animated', // default
-  offset:       10          // default
+  offset:       0           // default
 });
 ```
 
