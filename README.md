@@ -16,6 +16,13 @@ Include [animate.css](https://github.com/daneden/animate.css)
 Include [jQuery](https://github.com/jquery/jquery)
 Include [jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
 
+### HTML
+
+```html
+  <section class="box slideInLeft"></section>
+  <section class="box slideInRight"></section>
+```
+
 ### Basic usage
 
 ```javascript
