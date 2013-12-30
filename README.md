@@ -4,7 +4,7 @@ Reveal CSS animation as you scroll down a page.
 
 ## Version
 
-0.0.2
+0.0.3
 
 ## Website Url
 

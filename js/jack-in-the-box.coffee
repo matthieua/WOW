@@ -1,7 +1,7 @@
 #
 # Name    : jackInTheBox
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.0.2
+# Version : 0.0.3
 # Repo    : https://github.com/matthieua/jackInTheBox
 # Website : -
 #
@@ -40,13 +40,10 @@ jQuery ->
 
     # Show box is visible on scroll
     @scrollHandler = =>
-      scrollTimeout = null
       @$window.scroll =>
-        if (scrollTimeout)
-          clearTimeout(scrollTimeout)
-          scrollTimeout = null
-        scrollTimeout = setTimeout(@show, 50)
+        @show()
 
+    # show visible elements
     @show = =>
       @$boxes.each (index, box) =>
         $box = $(box)
@@ -57,14 +54,13 @@ jQuery ->
     @init = ->
       @settings = $.extend( {}, @defaults, options )
 
-      unless @mobileDevice()
-        @$window  = $(window)
-        @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
+      @$window  = $(window)
+      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-        @scrollHandler() if @$boxes.length
+      @scrollHandler() if @$boxes.length
 
     # initialise the plugin
-    @init()
+    @init() unless @mobileDevice()
 
     # make the plugin chainable
     this

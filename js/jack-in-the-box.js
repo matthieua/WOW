@@ -27,14 +27,8 @@
         return top <= viewBottom && bottom >= viewTop;
       };
       this.scrollHandler = function() {
-        var scrollTimeout;
-        scrollTimeout = null;
         return _this.$window.scroll(function() {
-          if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = null;
-          }
-          return scrollTimeout = setTimeout(_this.show, 50);
+          return _this.show();
         });
       };
       this.show = function() {
@@ -50,17 +44,17 @@
       };
       this.init = function() {
         this.settings = $.extend({}, this.defaults, options);
-        if (!this.mobileDevice()) {
-          this.$window = $(window);
-          this.$boxes = $("." + this.settings.boxClass).css({
-            visibility: 'hidden'
-          });
-          if (this.$boxes.length) {
-            return this.scrollHandler();
-          }
+        this.$window = $(window);
+        this.$boxes = $("." + this.settings.boxClass).css({
+          visibility: 'hidden'
+        });
+        if (this.$boxes.length) {
+          return this.scrollHandler();
         }
       };
-      this.init();
+      if (!this.mobileDevice()) {
+        this.init();
+      }
       return this;
     };
     $.jackInTheBox.prototype.defaults = {
