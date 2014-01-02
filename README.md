@@ -8,15 +8,15 @@ Advantages:
 - Smaller than javascript parallax plugin, like Scrollorama (they do fantastic things, but can be too much heavier for simple needs)
 - Super simple to install, and works with animate.css, so if you already use it's even faster to setup
 - Fast execution and lightweight code: the browser will like it ;-)
-- You can chnage the settings - See below
+- You can change the settings - See below
 
 ## Version
 
 0.0.3
 
-## Website Url
+## Are you smarter than us?
 
-coming soon...
+So far we deactivated it by default on mobile devices (see below why...). You know a solution to fix this problem? contribute or contact us!
 
 ## Documentation
 
