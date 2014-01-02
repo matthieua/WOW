@@ -1,6 +1,14 @@
 # Jack In The Box [![Build Status](https://secure.travis-ci.org/matthieua/jackInTheBox.png?branch=master)](http://travis-ci.org/matthieua/jackInTheBox)
 
 Reveal CSS animation as you scroll down a page.
+By default, you should use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
+But you can easily change the settings to your favorite animation library.
+
+Advantages:
+- Smaller than javascript parallax plugin, like Scrollorama (they do fantastic things, but can be too much heavier for simple needs)
+- Super simple to install, and works with animate.css, so if you already use it's even faster to setup
+- Fast execution and lightweight code: the browser will like it ;-)
+- You can chnage the settings - See below
 
 ## Version
 
