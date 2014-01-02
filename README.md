@@ -20,9 +20,9 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 
 ## Documentation
 
-Include [animate.css](https://github.com/daneden/animate.css)
-Include [jQuery](https://github.com/jquery/jquery)
-Include [jack-in-the-box.js](https://github.com/matthieua/jackInTheBox)
+### Dependencies
+- [animate.css](https://github.com/daneden/animate.css)
+- [jQuery](https://github.com/jquery/jquery)
 
 ### HTML
 
