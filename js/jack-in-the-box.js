@@ -49,7 +49,8 @@
           visibility: 'hidden'
         });
         if (this.$boxes.length) {
-          return this.scrollHandler();
+          this.scrollHandler();
+          return this.show();
         }
       };
       if (!this.mobileDevice()) {

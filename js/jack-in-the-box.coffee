@@ -57,7 +57,9 @@ jQuery ->
       @$window  = $(window)
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
-      @scrollHandler() if @$boxes.length
+      if @$boxes.length
+        @scrollHandler()
+        @show()
 
     # initialise the plugin
     @init() unless @mobileDevice()
