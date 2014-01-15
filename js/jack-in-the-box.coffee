@@ -1,7 +1,7 @@
 #
 # Name    : jackInTheBox
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.0.4
+# Version : 0.0.5
 # Repo    : https://github.com/matthieua/jackInTheBox
 # Website : -
 #
