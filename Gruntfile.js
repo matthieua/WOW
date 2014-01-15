@@ -9,7 +9,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'js/',
           src: '*.js',
-          dest: 'js/',
+          dest: '',
           ext: '.min.js'
         }],
         options: {
