@@ -23,7 +23,7 @@ jQuery ->
 
     # call one of the plugin setting functions
     @callSettingFunction = ( name, args = [] ) ->
-      @settings[name].apply( this, args )
+      @settings[name].apply( @, args )
 
     # Check if mobile device
     @mobileDevice = =>
@@ -65,7 +65,7 @@ jQuery ->
     @init() unless @mobileDevice()
 
     # make the plugin chainable
-    this
+    @
 
   # default plugin settings
   $.jackInTheBox::defaults =
@@ -74,7 +74,7 @@ jQuery ->
     offset:       0
 
   $.fn.jackInTheBox = ( options ) ->
-    this.each ->
-      if $( this ).data( 'jackInTheBox' ) is undefined
-        plugin = new $.jackInTheBox( this, options )
-        $( this).data( 'jackInTheBox', plugin )
+    @each ->
+      if $( @ ).data( 'jackInTheBox' ) is undefined
+        plugin = new $.jackInTheBox( @, options )
+        $( @ ).data( 'jackInTheBox', plugin )
