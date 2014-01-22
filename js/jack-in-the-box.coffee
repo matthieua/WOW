@@ -77,4 +77,4 @@ jQuery ->
     this.each ->
       if $( this ).data( 'jackInTheBox' ) is undefined
         plugin = new $.jackInTheBox( this, options )
-        $( this).data( 'jackInTheBox', plugin )
+        $( this ).data( 'jackInTheBox', plugin )
