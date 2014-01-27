@@ -38,7 +38,7 @@
           if (_this.visible($box)) {
             return $box.css({
               visibility: 'visible'
-            }).addClass(_this.settings.animateClass);
+            }).addClass(_this.settings.animateClass + ' ' + $box.data(_this.settings.dataName));
           }
         });
       };
@@ -61,7 +61,8 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 0
+      offset: 0,
+      dataName: 'animation'
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {
