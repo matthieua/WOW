@@ -1,5 +1,7 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'uglify']
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -62,7 +64,7 @@ module.exports = function(grunt) {
         'js/*.coffee',
         'spec/coffeescripts/**/*.coffee'
       ],
-      tasks: ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'build']
+      tasks: mainTasks
     },
     growl : {
       coffee : {
@@ -83,10 +85,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  // Default and Build tasks
-  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
   grunt.registerTask('default', mainTasks);
-  grunt.registerTask('build', mainTasks.concat(['uglify']));
 
   // Travis CI task.
   grunt.registerTask('travis', ['coffee', 'jasmine']);

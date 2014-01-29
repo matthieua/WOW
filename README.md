@@ -9,7 +9,7 @@ Advantages:
 - Super simple to install, and works with animate.css, so if you already use it, that will be very fast to setup
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - See below
-- 
+-
 
 ## Demo
 
@@ -18,7 +18,7 @@ See an example on [NastyIcons.com](http://www.nastyicons.com)
 
 ## Version
 
-0.0.5
+0.0.6
 
 ## Are you smarter than us?
 
