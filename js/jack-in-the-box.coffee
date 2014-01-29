@@ -62,7 +62,7 @@ jQuery ->
         @show()
 
     # initialise the plugin
-    @init() unless @mobileDevice()
+    @init()
 
     # make the plugin chainable
     this

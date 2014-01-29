@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         'js/*.coffee',
         'spec/coffeescripts/**/*.coffee'
       ],
-      tasks: ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
+      tasks: ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'build']
     },
     growl : {
       coffee : {

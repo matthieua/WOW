@@ -53,9 +53,7 @@
           return this.show();
         }
       };
-      if (!this.mobileDevice()) {
-        this.init();
-      }
+      this.init();
       return this;
     };
     $.jackInTheBox.prototype.defaults = {
