@@ -1,6 +1,6 @@
 /*! Jack In The Box - v0.0.5 - 2014-01-15
 * Copyright (c) 2014 Matthieu Aussaguel; Licensed MIT */
-(function() {
+(function($) {
     $.jackInTheBox = function(element, options) {
       var state,
         _this = this;
@@ -74,4 +74,4 @@
       });
     };
 
-})(jQuery).call(this);
+})(jQuery);
