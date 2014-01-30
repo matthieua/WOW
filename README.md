@@ -11,10 +11,10 @@ Advantages:
 - You can change the settings - See below
 -
 
-## Demo
+## Live examples
 
-See an example on [NastyIcons.com](http://www.nastyicons.com)
-
+[Fliplingo](https://www.fliplingo.com)
+[NastyIcons](http://www.nastyicons.com)
 
 ## Version
 
@@ -59,7 +59,7 @@ By default, we won't trigger the animations on mobile devices (Android, webOS, i
 
 ## Bug tracker
 
-If you find a bug, please raise it the [issue here](https://github.com/matthieua/jackInTheBox/issues) on Github!
+If you find a bug, please rnaise it the [issue here](https://github.com/matthieua/jackInTheBox/issues) on Github!
 
 ## Developer
 
