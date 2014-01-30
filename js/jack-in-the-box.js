@@ -5,15 +5,6 @@
         _this = this;
       this.settings = {};
       this.$element = $(element);
-      this.getSetting = function(key) {
-        return this.settings[key];
-      };
-      this.callSettingFunction = function(name, args) {
-        if (args == null) {
-          args = [];
-        }
-        return this.settings[name].apply(this, args);
-      };
       this.visible = function($box) {
         var bottom, top, viewBottom, viewTop;
         viewTop = _this.$window.scrollTop();
@@ -28,10 +19,9 @@
       };
       this.scrollCallback = function() {
         if (!scrolled) {
-          return;
+          scrolled = false;
+          return _this.show();
         }
-        scrolled = false;
-        return _this.show();
       };
       this.show = function() {
         return _this.$boxes = _this.$boxes.map(function(index, box) {
@@ -65,8 +55,7 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 0,
-      interval: 50
+      offset: 0
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {
