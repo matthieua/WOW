@@ -15,9 +15,6 @@
         }
         return this.settings[name].apply(this, args);
       };
-      this.mobileDevice = function() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      };
       this.visible = function($box) {
         var bottom, top, viewBottom, viewTop;
         viewTop = _this.$window.scrollTop();

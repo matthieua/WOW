@@ -25,10 +25,6 @@ jQuery ->
     @callSettingFunction = ( name, args = [] ) ->
       @settings[name].apply( this, args )
 
-    # Check if mobile device
-    @mobileDevice = =>
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
     # Check if box is visible
     @visible = ($box) =>
       viewTop    = @$window.scrollTop()
