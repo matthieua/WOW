@@ -79,7 +79,7 @@ jQuery ->
     interval:     50
 
   $.fn.jackInTheBox = ( options ) ->
-    this.each ->
+    @each ->
       if $( this ).data( 'jackInTheBox' ) is undefined
         plugin = new $.jackInTheBox( this, options )
         $( this ).data( 'jackInTheBox', plugin )
