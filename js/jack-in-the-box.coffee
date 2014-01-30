@@ -35,9 +35,15 @@ jQuery ->
       top <= viewBottom and bottom >= viewTop
 
     # Show box is visible on scroll
+    scrolled = false
     @scrollHandler = =>
-      $(window).on "scroll", =>
-        @show()
+      scrolled = true
+
+    @scrollCallback = =>
+      return unless scrolled
+      scrolled = false
+      @show()
+
 
     # show visible elements
     @show = =>
@@ -54,7 +60,8 @@ jQuery ->
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
       if @$boxes.length
-        @scrollHandler()
+        $(window).on "scroll", @scrollHandler
+        setInterval @scrollCallback
         @show()
 
     # initialise the plugin
@@ -68,6 +75,7 @@ jQuery ->
     boxClass:     'box'
     animateClass: 'animated'
     offset:       0
+    interval:     50
 
   $.fn.jackInTheBox = ( options ) ->
     this.each ->

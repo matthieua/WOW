@@ -1,7 +1,7 @@
 (function() {
   jQuery(function() {
     $.jackInTheBox = function(element, options) {
-      var state,
+      var scrolled, state,
         _this = this;
       state = '';
       this.settings = {};
@@ -23,10 +23,16 @@
         bottom = top + $box.height();
         return top <= viewBottom && bottom >= viewTop;
       };
+      scrolled = false;
       this.scrollHandler = function() {
-        return $(window).on("scroll", function() {
-          return _this.show();
-        });
+        return scrolled = true;
+      };
+      this.scrollCallback = function() {
+        if (!scrolled) {
+          return;
+        }
+        scrolled = false;
+        return _this.show();
       };
       this.show = function() {
         return _this.$boxes.each(function(index, box) {
@@ -46,7 +52,8 @@
           visibility: 'hidden'
         });
         if (this.$boxes.length) {
-          this.scrollHandler();
+          $(window).on("scroll", this.scrollHandler);
+          setInterval(this.scrollCallback);
           return this.show();
         }
       };
@@ -56,7 +63,8 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 0
+      offset: 0,
+      interval: 50
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {
