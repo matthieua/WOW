@@ -44,7 +44,6 @@ jQuery ->
       scrolled = false
       @show()
 
-
     # show visible elements
     @show = =>
       @$boxes = @$boxes.map (index, box) =>
