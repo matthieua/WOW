@@ -12,7 +12,7 @@ jQuery ->
     @settings = {}
 
     # jQuery version of DOM element attached to the plugin
-    @$element = $ element
+    @$element = $(element)
 
     # Check if box is visible
     @visible = ($box) =>
@@ -50,7 +50,7 @@ jQuery ->
     @init = ->
       @settings = $.extend({}, @defaults, options)
 
-      @$window  = $ window
+      @$window  = $(window)
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
       if @$boxes.length
