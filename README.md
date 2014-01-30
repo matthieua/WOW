@@ -13,8 +13,9 @@ Advantages:
 
 ## Live examples
 
-[Fliplingo](https://www.fliplingo.com)
-[NastyIcons](http://www.nastyicons.com)
+- [Fliplingo](https://www.fliplingo.com)
+- [NastyIcons](http://www.nastyicons.com) 
+
 
 ## Version
 
