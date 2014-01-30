@@ -8,9 +8,6 @@
 
 jQuery ->
   $.jackInTheBox = ( element, options ) ->
-    # current state
-    state = ''
-
     # plugin settings
     @settings = {}
 

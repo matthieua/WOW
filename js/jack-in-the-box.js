@@ -1,9 +1,8 @@
 (function() {
   jQuery(function() {
     $.jackInTheBox = function(element, options) {
-      var scrolled, state,
+      var scrolled,
         _this = this;
-      state = '';
       this.settings = {};
       this.$element = $(element);
       this.getSetting = function(key) {
