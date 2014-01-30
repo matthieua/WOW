@@ -1,9 +1,8 @@
 (function() {
   jQuery(function() {
     $.jackInTheBox = function(element, options) {
-      var state,
+      var scrolled,
         _this = this;
-      state = '';
       this.settings = {};
       this.$element = $(element);
       this.getSetting = function(key) {
@@ -15,9 +14,6 @@
         }
         return this.settings[name].apply(this, args);
       };
-      this.mobileDevice = function() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      };
       this.visible = function($box) {
         var bottom, top, viewBottom, viewTop;
         viewTop = _this.$window.scrollTop();
@@ -26,19 +22,28 @@
         bottom = top + $box.height();
         return top <= viewBottom && bottom >= viewTop;
       };
+      scrolled = false;
       this.scrollHandler = function() {
-        return _this.$window.scroll(function() {
-          return _this.show();
-        });
+        return scrolled = true;
+      };
+      this.scrollCallback = function() {
+        if (!scrolled) {
+          return;
+        }
+        scrolled = false;
+        return _this.show();
       };
       this.show = function() {
-        return _this.$boxes.each(function(index, box) {
+        return _this.$boxes = _this.$boxes.map(function(index, box) {
           var $box;
           $box = $(box);
           if (_this.visible($box)) {
-            return $box.css({
+            $box.css({
               visibility: 'visible'
             }).addClass(_this.settings.animateClass);
+            return null;
+          } else {
+            return $box;
           }
         });
       };
@@ -49,7 +54,8 @@
           visibility: 'hidden'
         });
         if (this.$boxes.length) {
-          this.scrollHandler();
+          $(window).on("scroll", this.scrollHandler);
+          setInterval(this.scrollCallback);
           return this.show();
         }
       };
@@ -59,7 +65,8 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 0
+      offset: 0,
+      interval: 50
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {
