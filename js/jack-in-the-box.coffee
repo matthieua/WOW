@@ -54,12 +54,21 @@ jQuery ->
     @init = ->
       @settings = $.extend( {}, @defaults, options )
 
+      @initCSS()
+
       @$window  = $(window)
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
       if @$boxes.length
         @scrollHandler()
         @show()
+
+    @initCSS = ->
+      $("<style>").text([
+        ":not(.#{@settings.animateClass}).#{@settings.boxClass} {"
+          $("<b>").css("animation-name", "none").attr "style"
+        "}"
+      ].join "").appendTo $ "head"
 
     # initialise the plugin
     @init()

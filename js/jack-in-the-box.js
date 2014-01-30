@@ -44,6 +44,7 @@
       };
       this.init = function() {
         this.settings = $.extend({}, this.defaults, options);
+        this.initCSS();
         this.$window = $(window);
         this.$boxes = $("." + this.settings.boxClass).css({
           visibility: 'hidden'
@@ -52,6 +53,9 @@
           this.scrollHandler();
           return this.show();
         }
+      };
+      this.initCSS = function() {
+        return $("<style>").text([":not(." + this.settings.animateClass + ")." + this.settings.boxClass + " {", $("<b>").css("animation-name", "none").attr("style"), "}"].join("")).appendTo($("head"));
       };
       this.init();
       return this;
