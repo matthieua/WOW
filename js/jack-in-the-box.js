@@ -24,7 +24,7 @@
         return top <= viewBottom && bottom >= viewTop;
       };
       this.scrollHandler = function() {
-        return _this.$window.scroll(function() {
+        return $(window).on("scroll", function() {
           return _this.show();
         });
       };

@@ -36,7 +36,7 @@ jQuery ->
 
     # Show box is visible on scroll
     @scrollHandler = =>
-      @$window.scroll =>
+      $(window).on "scroll", =>
         @show()
 
     # show visible elements
