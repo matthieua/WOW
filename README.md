@@ -73,5 +73,4 @@ Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.
 
 Thanks to everyone who has contributed to the project so far:
 
-+ [@attilaolah](http://twitter.com/attilaolah)
-+ [Github Profile](http://github.com/attilaolah)
+- Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
