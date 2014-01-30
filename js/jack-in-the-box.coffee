@@ -31,11 +31,14 @@ jQuery ->
 
       top <= viewBottom and bottom >= viewTop
 
-    # Show box is visible on scroll
+    # Scroll state
     scrolled = false
+
+    # Fast window.scroll callback
     @scrollHandler = =>
       scrolled = true
 
+    # Show box if visible on scroll
     @scrollCallback = =>
       return unless scrolled
       scrolled = false
