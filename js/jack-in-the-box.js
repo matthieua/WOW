@@ -35,13 +35,16 @@
         return _this.show();
       };
       this.show = function() {
-        return _this.$boxes.each(function(index, box) {
+        return _this.$boxes = _this.$boxes.map(function(index, box) {
           var $box;
           $box = $(box);
           if (_this.visible($box)) {
-            return $box.css({
+            $box.css({
               visibility: 'visible'
             }).addClass(_this.settings.animateClass);
+            return null;
+          } else {
+            return $box;
           }
         });
       };

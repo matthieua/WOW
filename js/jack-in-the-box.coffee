@@ -47,10 +47,12 @@ jQuery ->
 
     # show visible elements
     @show = =>
-      @$boxes.each (index, box) =>
+      @$boxes = @$boxes.map (index, box) =>
         $box = $(box)
         if (@visible($box))
           $box.css(visibility: 'visible').addClass @settings.animateClass
+          null
+        else $box
 
     # Set initial settings
     @init = ->
