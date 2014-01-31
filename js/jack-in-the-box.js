@@ -44,7 +44,7 @@
           visibility: 'hidden'
         });
         if (this.$boxes.length) {
-          $(window).on("scroll", this.scrollHandler);
+          this.$window.on("scroll", this.scrollHandler);
           setInterval(this.scrollCallback);
           return this.show();
         }

@@ -54,7 +54,7 @@ jQuery ->
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
 
       if @$boxes.length
-        $(window).on "scroll", @scrollHandler
+        @$window.on "scroll", @scrollHandler
         setInterval @scrollCallback
         @show()
 
