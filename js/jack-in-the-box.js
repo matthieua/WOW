@@ -4,15 +4,6 @@
       var scrolled;
       this.settings = {};
       this.$element = $(element);
-      this.getSetting = function(key) {
-        return this.settings[key];
-      };
-      this.callSettingFunction = function(name, args) {
-        if (args == null) {
-          args = [];
-        }
-        return this.settings[name].apply(this, args);
-      };
       this.visible = (function(_this) {
         return function($box) {
           var bottom, top, viewBottom, viewTop;
@@ -31,11 +22,10 @@
       })(this);
       this.scrollCallback = (function(_this) {
         return function() {
-          if (!scrolled) {
-            return;
+          if (scrolled) {
+            scrolled = false;
+            return _this.show();
           }
-          scrolled = false;
-          return _this.show();
         };
       })(this);
       this.show = (function(_this) {
@@ -61,7 +51,7 @@
           visibility: 'hidden'
         });
         if (this.$boxes.length) {
-          $(window).on("scroll", this.scrollHandler);
+          this.$window.on("scroll", this.scrollHandler);
           setInterval(this.scrollCallback);
           return this.show();
         }
@@ -72,8 +62,7 @@
     $.jackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
-      offset: 0,
-      interval: 50
+      offset: 0
     };
     return $.fn.jackInTheBox = function(options) {
       return this.each(function() {
