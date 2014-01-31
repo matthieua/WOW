@@ -7,20 +7,12 @@
 #
 
 jQuery ->
-  $.jackInTheBox = ( element, options ) ->
+  $.jackInTheBox = (element, options) ->
     # plugin settings
     @settings = {}
 
     # jQuery version of DOM element attached to the plugin
-    @$element = $ element
-
-    # get particular plugin setting
-    @getSetting = ( key ) ->
-      @settings[ key ]
-
-    # call one of the plugin setting functions
-    @callSettingFunction = ( name, args = [] ) ->
-      @settings[name].apply( this, args )
+    @$element = $(element)
 
     # Check if box is visible
     @visible = ($box) =>
@@ -40,22 +32,23 @@ jQuery ->
 
     # Show box if visible on scroll
     @scrollCallback = =>
-      return unless scrolled
-      scrolled = false
-      @show()
+      unless scrolled
+        scrolled = false
+        @show()
 
     # show visible elements
     @show = =>
       @$boxes = @$boxes.map (index, box) =>
         $box = $(box)
-        if (@visible($box))
+        if @visible($box)
           $box.css(visibility: 'visible').addClass @settings.animateClass
           null
-        else $box
+        else
+          $box
 
     # Set initial settings
     @init = ->
-      @settings = $.extend( {}, @defaults, options )
+      @settings = $.extend({}, @defaults, options)
 
       @$window  = $(window)
       @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
@@ -76,10 +69,9 @@ jQuery ->
     boxClass:     'box'
     animateClass: 'animated'
     offset:       0
-    interval:     50
 
-  $.fn.jackInTheBox = ( options ) ->
+  $.fn.jackInTheBox = (options) ->
     @each ->
-      if $( this ).data( 'jackInTheBox' ) is undefined
-        plugin = new $.jackInTheBox( this, options )
-        $( this ).data( 'jackInTheBox', plugin )
+      if $(this).data('jackInTheBox') is undefined
+        plugin = new $.jackInTheBox(this, options)
+        $(this).data('jackInTheBox', plugin)
