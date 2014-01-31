@@ -18,7 +18,7 @@
         return scrolled = true;
       };
       this.scrollCallback = function() {
-        if (!scrolled) {
+        if (scrolled) {
           scrolled = false;
           return _this.show();
         }

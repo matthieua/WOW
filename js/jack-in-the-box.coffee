@@ -32,7 +32,7 @@ jQuery ->
 
     # Show box if visible on scroll
     @scrollCallback = =>
-      unless scrolled
+      if scrolled
         scrolled = false
         @show()
 
