@@ -1,8 +1,7 @@
 (function() {
   jQuery(function() {
     $.jackInTheBox = function(element, options) {
-      var scrolled,
-        _this = this;
+      var scrolled;
       this.settings = {};
       this.$element = $(element);
       this.getSetting = function(key) {
@@ -14,39 +13,47 @@
         }
         return this.settings[name].apply(this, args);
       };
-      this.visible = function($box) {
-        var bottom, top, viewBottom, viewTop;
-        viewTop = _this.$window.scrollTop();
-        viewBottom = viewTop + _this.$window.height() - _this.settings.offset;
-        top = $box.offset().top;
-        bottom = top + $box.height();
-        return top <= viewBottom && bottom >= viewTop;
-      };
+      this.visible = (function(_this) {
+        return function($box) {
+          var bottom, top, viewBottom, viewTop;
+          viewTop = _this.$window.scrollTop();
+          viewBottom = viewTop + _this.$window.height() - _this.settings.offset;
+          top = $box.offset().top;
+          bottom = top + $box.height();
+          return top <= viewBottom && bottom >= viewTop;
+        };
+      })(this);
       scrolled = false;
-      this.scrollHandler = function() {
-        return scrolled = true;
-      };
-      this.scrollCallback = function() {
-        if (!scrolled) {
-          return;
-        }
-        scrolled = false;
-        return _this.show();
-      };
-      this.show = function() {
-        return _this.$boxes = _this.$boxes.map(function(index, box) {
-          var $box;
-          $box = $(box);
-          if (_this.visible($box)) {
-            $box.css({
-              visibility: 'visible'
-            }).addClass(_this.settings.animateClass);
-            return null;
-          } else {
-            return $box;
+      this.scrollHandler = (function(_this) {
+        return function() {
+          return scrolled = true;
+        };
+      })(this);
+      this.scrollCallback = (function(_this) {
+        return function() {
+          if (!scrolled) {
+            return;
           }
-        });
-      };
+          scrolled = false;
+          return _this.show();
+        };
+      })(this);
+      this.show = (function(_this) {
+        return function() {
+          return _this.$boxes = _this.$boxes.map(function(index, box) {
+            var $box;
+            $box = $(box);
+            if (_this.visible($box)) {
+              $box.css({
+                visibility: 'visible'
+              }).addClass(_this.settings.animateClass);
+              return null;
+            } else {
+              return $box;
+            }
+          });
+        };
+      })(this);
       this.init = function() {
         this.settings = $.extend({}, this.defaults, options);
         this.$window = $(window);
