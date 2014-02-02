@@ -57,6 +57,26 @@ jack.init();
 
 ## Bug tracker
 
+The library is written in CoffeeScript, please update ```jack-in-the-box.coffee``` file.
+
+We use grunt to compile and minify the library:
+
+Install needed libraries
+
+```
+npm install
+```
+
+Get the compilation running in the background
+
+```
+grunt watch
+```
+
+Enjoy!
+
+## Bug tracker
+
 If you find a bug, please rnaise it the [issue here](https://github.com/matthieua/jackInTheBox/issues) on Github!
 
 ## Developer
