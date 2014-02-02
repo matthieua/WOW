@@ -17,17 +17,19 @@
       @visibleCount    = 0
       @documentElement = window.document.documentElement
       @boxes           = Array.prototype.slice.call(@documentElement.getElementsByClassName(@config.boxClass))
+      @scrolled        = false
 
     # set initial config
     start: ->
       if @boxes.length
         @hideAll()
         window.addEventListener('scroll', @scrollHandler, false)
-        @scrollHandler()
+        @interval = setInterval @scrollCallback
 
     # unbind the scroll event
     stop: ->
       window.removeEventListener('scroll', @scrollHandler, false)
+      clearInterval @interval if @interval?
 
     # show box element
     show: (box) ->
@@ -40,7 +42,11 @@
 
     # fast window.scroll callback
     scrollHandler: =>
-      if @boxes.length
+      @scrolled = true
+
+    scrollCallback: =>
+      if @scrolled
+        @scrolled = false
         for i in [0..(@boxes.length - 1)]
          if @boxes[i]? and @isVisible(@boxes[i])
             @show(@boxes[i])

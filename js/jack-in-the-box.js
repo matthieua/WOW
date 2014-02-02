@@ -11,22 +11,27 @@
       };
 
       function JackInTheBox() {
+        this.scrollCallback = __bind(this.scrollCallback, this);
         this.scrollHandler = __bind(this.scrollHandler, this);
         this.visibleCount = 0;
         this.documentElement = window.document.documentElement;
         this.boxes = Array.prototype.slice.call(this.documentElement.getElementsByClassName(this.config.boxClass));
+        this.scrolled = false;
       }
 
       JackInTheBox.prototype.start = function() {
         if (this.boxes.length) {
           this.hideAll();
           window.addEventListener('scroll', this.scrollHandler, false);
-          return this.scrollHandler();
+          return this.interval = setInterval(this.scrollCallback);
         }
       };
 
       JackInTheBox.prototype.stop = function() {
-        return window.removeEventListener('scroll', this.scrollHandler, false);
+        window.removeEventListener('scroll', this.scrollHandler, false);
+        if (this.interval != null) {
+          return clearInterval(this.interval);
+        }
       };
 
       JackInTheBox.prototype.show = function(box) {
@@ -46,8 +51,13 @@
       };
 
       JackInTheBox.prototype.scrollHandler = function() {
+        return this.scrolled = true;
+      };
+
+      JackInTheBox.prototype.scrollCallback = function() {
         var i, _i, _ref, _results;
-        if (this.boxes.length) {
+        if (this.scrolled) {
+          this.scrolled = false;
           _results = [];
           for (i = _i = 0, _ref = this.boxes.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
             if ((this.boxes[i] != null) && this.isVisible(this.boxes[i])) {
