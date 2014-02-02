@@ -43,6 +43,7 @@ class @WOW
   # unbind the scroll event
   stop: ->
     window.removeEventListener('scroll', @scrollHandler, false)
+    window.removeEventListener('resize', @scrollHandler, false)
     clearInterval @interval if @interval?
 
   # show box element
