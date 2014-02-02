@@ -1,12 +1,12 @@
 {
-  "name": "jack-in-the-box",
+  "name": "wow",
   "version": "0.0.6",
-  "homepage": "https://github.com/matthieua/jackInTheBox",
+  "homepage": "https://github.com/matthieua/wow",
   "authors": [
     "Matthieu Aussaguel <matthieu.aussaguel@gmail.com>"
   ],
   "description": "Reveal CSS animation as you scroll down a page.",
-  "main": "jack-in-the-box.js",
+  "main": "wow.js",
   "keywords": [
     "scroll",
     "animation",

@@ -1,7 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
   mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'uglify']
-  libName   = 'jack-in-the-box'
 
   // Project configuration.
   grunt.initConfig({
@@ -9,7 +8,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-        'dist/jack-in-the-box.min.js': 'dist/jack-in-the-box.js'
+        'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
         }
       },
       options: {
@@ -51,7 +50,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['spec/javascripts/libs/*.js', 'dist/jack-in-the-box.js'],
+      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>.js'],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'

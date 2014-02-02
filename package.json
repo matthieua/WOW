@@ -1,6 +1,6 @@
 {
-  "name"            : "jackInTheBox",
-  "title"           : "Jack In The Box",
+  "name"            : "wow",
+  "title"           : "WOW",
   "version"         : "0.0.6",
   "description" : "",
   "keywords": [],
@@ -12,11 +12,11 @@
   },
   "repository" : {
     "type" : "git",
-    "url"  : "git://github.com/matthieua/jackInTheBox.git"
+    "url"  : "git://github.com/matthieua/WOW.git"
   },
   "bugs" : {
-    "url" : "https://github.com/matthieua/jackInTheBox/issues",
-    "url": "https://github.com/matthieua/jackInTheBox/blob/master/LICENSE-MIT"
+    "url" : "https://github.com/matthieua/WOW/issues",
+    "url": "https://github.com/matthieua/WOW/blob/master/LICENSE-MIT"
   },
   "licenses": [{
     "type": "MIT",
