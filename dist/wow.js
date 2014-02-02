@@ -93,13 +93,15 @@
     };
 
     WOW.prototype.scrollCallback = function() {
-      var i, _i, _ref, _results;
+      var box, i, _i, _len, _ref, _results;
       if (this.scrolled) {
         this.scrolled = false;
+        _ref = this.boxes;
         _results = [];
-        for (i = _i = 0, _ref = this.boxes.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-          if ((this.boxes[i] != null) && this.isVisible(this.boxes[i])) {
-            this.show(this.boxes[i]);
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          box = _ref[i];
+          if ((box != null) && this.isVisible(box)) {
+            this.show(box);
             this.boxes[i] = null;
             this.visibleCount++;
             if (this.boxes.length === this.visibleCount) {

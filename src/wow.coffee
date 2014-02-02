@@ -87,9 +87,9 @@ class @WOW
   scrollCallback: =>
     if @scrolled
       @scrolled = false
-      for i in [0..(@boxes.length - 1)]
-        if @boxes[i]? and @isVisible(@boxes[i])
-          @show(@boxes[i])
+      for box, i in @boxes
+        if box? and @isVisible(box)
+          @show(box)
           @boxes[i] = null
           @visibleCount++
           @stop() if @boxes.length is @visibleCount
