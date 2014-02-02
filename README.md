@@ -39,7 +39,7 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 ### Basic usage
 
 ```javascript
-new WOW()init();
+new WOW().init();
 ```
 
 ### Advanced usage
@@ -57,7 +57,7 @@ WOW.init();
 
 ## Contribute
 
-The library is written in CoffeeScript, please update ```wow.coffee``` file.
+The library is written in CoffeeScript, please update `wow.coffee` file.
 
 We use grunt to compile and minify the library:
 
