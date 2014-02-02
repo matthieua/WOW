@@ -37,10 +37,12 @@
       };
 
       JackInTheBox.prototype.hideAll = function() {
-        var i, _i, _ref, _results;
+        var box, _i, _len, _ref, _results;
+        _ref = this.boxes;
         _results = [];
-        for (i = _i = 0, _ref = this.boxes.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-          _results.push(this.boxes[i].style.visibility = 'hidden');
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          box = _ref[_i];
+          _results.push(box.style.visibility = 'hidden');
         }
         return _results;
       };

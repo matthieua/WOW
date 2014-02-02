@@ -34,9 +34,9 @@
       box.style.visibility = 'visible'
       box.className = "#{box.className} #{@config.animateClass}"
 
+    # hide every box element
     hideAll: ->
-      for i in [0..(@boxes.length - 1)]
-        @boxes[i].style.visibility = 'hidden'
+      box.style.visibility = 'hidden' for box in @boxes
 
     # fast window.scroll callback
     scrollHandler: =>
