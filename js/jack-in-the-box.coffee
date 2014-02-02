@@ -17,7 +17,7 @@
       @visibleCount    = 0
       @documentElement = window.document.documentElement
       @boxes           = Array.prototype.slice.call(@documentElement.getElementsByClassName(@config.boxClass))
-      @scrolled        = false
+      @scrolled        = true
 
     # set initial config
     start: ->
@@ -69,7 +69,5 @@
 
       top <= viewBottom and bottom >= viewTop
 
-  jack = new JackInTheBox()
-  jack.start()
-
+    new JackInTheBox().start()
 ) window

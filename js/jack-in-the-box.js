@@ -2,8 +2,8 @@
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   (function(window) {
-    var JackInTheBox, jack;
-    JackInTheBox = (function() {
+    var JackInTheBox;
+    return JackInTheBox = (function() {
       JackInTheBox.prototype.config = {
         boxClass: 'box',
         animateClass: 'animated',
@@ -16,7 +16,7 @@
         this.visibleCount = 0;
         this.documentElement = window.document.documentElement;
         this.boxes = Array.prototype.slice.call(this.documentElement.getElementsByClassName(this.config.boxClass));
-        this.scrolled = false;
+        this.scrolled = true;
       }
 
       JackInTheBox.prototype.start = function() {
@@ -95,11 +95,11 @@
         return top <= viewBottom && bottom >= viewTop;
       };
 
+      new JackInTheBox().start();
+
       return JackInTheBox;
 
     })();
-    jack = new JackInTheBox();
-    return jack.start();
   })(window);
 
 }).call(this);
