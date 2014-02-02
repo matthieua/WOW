@@ -54,6 +54,7 @@
 
     WOW.prototype.stop = function() {
       window.removeEventListener('scroll', this.scrollHandler, false);
+      window.removeEventListener('resize', this.scrollHandler, false);
       if (this.interval != null) {
         return clearInterval(this.interval);
       }
