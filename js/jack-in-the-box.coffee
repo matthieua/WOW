@@ -22,7 +22,7 @@
     start: ->
       if @boxes.length
         @hideAll()
-        window.addEventListener('scroll', @scrollHandler, false) if @boxes.length
+        window.addEventListener('scroll', @scrollHandler, false)
         @scrollHandler()
 
     # unbind the scroll event

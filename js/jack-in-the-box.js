@@ -20,9 +20,7 @@
       JackInTheBox.prototype.start = function() {
         if (this.boxes.length) {
           this.hideAll();
-          if (this.boxes.length) {
-            window.addEventListener('scroll', this.scrollHandler, false);
-          }
+          window.addEventListener('scroll', this.scrollHandler, false);
           return this.scrollHandler();
         }
       };
