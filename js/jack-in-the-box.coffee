@@ -18,7 +18,6 @@
       @documentElement = window.document.documentElement
       @boxes           = Array.prototype.slice.call(@documentElement.querySelectorAll(".#{@config.boxClass}"))
 
-
     # set initial config
     start: ->
       if @boxes.length
@@ -49,11 +48,17 @@
             @visibleCount++
             @stop() if @boxes.length is @visibleCount
 
+    # Calculate element offset top
+    offsetTop: (element) ->
+      top = element.offsetTop
+      top += element.offsetTop while element = element.offsetParent
+      top
+
     # check if box is visible
     isVisible: (box) ->
       viewTop    = window.pageYOffset
       viewBottom = viewTop + @documentElement.clientHeight - @config.offset
-      top        = box.offsetTop
+      top        = @offsetTop(box)
       bottom     = top + box.clientHeight
 
       top <= viewBottom and bottom >= viewTop

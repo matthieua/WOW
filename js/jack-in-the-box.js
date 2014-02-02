@@ -67,11 +67,20 @@
         }
       };
 
+      JackInTheBox.prototype.offsetTop = function(element) {
+        var top;
+        top = element.offsetTop;
+        while (element = element.offsetParent) {
+          top += element.offsetTop;
+        }
+        return top;
+      };
+
       JackInTheBox.prototype.isVisible = function(box) {
         var bottom, top, viewBottom, viewTop;
         viewTop = window.pageYOffset;
         viewBottom = viewTop + this.documentElement.clientHeight - this.config.offset;
-        top = box.offsetTop;
+        top = this.offsetTop(box);
         bottom = top + box.clientHeight;
         return top <= viewBottom && bottom >= viewTop;
       };
