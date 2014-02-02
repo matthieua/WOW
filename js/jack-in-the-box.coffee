@@ -7,7 +7,7 @@
 #
 
 ((window) ->
-  class jackInTheBox
+  class JackInTheBox
     config:
       boxClass:     'box'
       animateClass: 'animated'
@@ -52,13 +52,13 @@
     # check if box is visible
     isVisible: (box) ->
       viewTop    = window.pageYOffset
-      viewBottom = viewTop + @documentElement['clientHeight'] - @config.offset
+      viewBottom = viewTop + @documentElement.clientHeight - @config.offset
       top        = box.offsetTop
-      bottom     = top + box['clientHeight']
+      bottom     = top + box.clientHeight
 
       top <= viewBottom and bottom >= viewTop
 
-  jack = new jackInTheBox()
+  jack = new JackInTheBox()
   jack.start()
 
 ) window
