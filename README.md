@@ -13,7 +13,7 @@ Advantages:
 ## Live examples
 
 - [Fliplingo](https://www.fliplingo.com)
-- [NastyIcons](http://www.nastyicons.com) 
+- [NastyIcons](http://www.nastyicons.com)
 
 
 ## Version
@@ -28,7 +28,6 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
-- [jQuery](https://github.com/jquery/jquery)
 
 ### HTML
 
@@ -40,22 +39,21 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 ### Basic usage
 
 ```javascript
-$('body').jackInTheBox();
+new JackInTheBox()init();
 ```
 
 ### Advanced usage
 
 ```javascript
-$('body').jackInTheBox({
-  boxClass:     'box',      // default
-  animateClass: 'animated', // default
-  offset:       0           // default
-});
+jack = new JackInTheBox(
+  {
+    boxClass:     'jack',
+    animateClass: 'animated',
+    offset:       100
+  }
+)
+jack.init();
 ```
-
-## Mobile devices
-
-By default, we won't trigger the animations on mobile devices (Android, webOS, iPhone, iPad, iPod, BlackBerry, IEMobile, Opera Mini). For more details, please read [this page](https://developer.apple.com/library/safari/documentation/appleapplications/reference/SafariWebContent/HandlingEvents/HandlingEvents.html) before raising an issue / feature request related to events not firing on mobile devices.
 
 ## Bug tracker
 
