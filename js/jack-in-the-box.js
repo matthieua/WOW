@@ -1,21 +1,41 @@
 (function() {
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var extend,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  extend = function(object) {
+    var i, key, replacement, result;
+    result = object || {};
+    i = 1;
+    while (i < arguments.length) {
+      replacement = arguments[i] || {};
+      for (key in replacement) {
+        if (typeof result[key] === "object") {
+          result[key] = extend(result[key], replacement[key]);
+        } else {
+          result[key] = result[key] || replacement[key];
+        }
+      }
+      i++;
+    }
+    return result;
+  };
 
   this.JackInTheBox = (function() {
-    JackInTheBox.prototype.config = {
+    JackInTheBox.prototype.defaults = {
       boxClass: 'box',
       animateClass: 'animated',
       offset: 0
     };
 
-    function JackInTheBox(element) {
-      if (element == null) {
-        element = window.document.documentElement;
+    function JackInTheBox(options) {
+      if (options == null) {
+        options = {};
       }
       this.scrollCallback = __bind(this.scrollCallback, this);
       this.scrollHandler = __bind(this.scrollHandler, this);
+      this.config = extend(options, this.defaults);
       this.visibleCount = 0;
-      this.element = element;
+      this.element = window.document.documentElement;
       this.boxes = Array.prototype.slice.call(this.element.getElementsByClassName(this.config.boxClass));
       this.scrolled = true;
     }

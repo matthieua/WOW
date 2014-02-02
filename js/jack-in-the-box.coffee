@@ -6,15 +6,29 @@
 # Website : -
 #
 
+extend = (object) ->
+  result = object or {}
+  i = 1
+  while i < arguments.length
+    replacement = arguments[i] or {}
+    for key of replacement
+      if typeof result[key] is "object"
+        result[key] = extend(result[key], replacement[key])
+      else
+        result[key] = result[key] or replacement[key]
+    i++
+  result
+
 class @JackInTheBox
-  config:
+  defaults:
     boxClass:     'box'
     animateClass: 'animated'
     offset:       0
 
-  constructor: (element = window.document.documentElement) ->
+  constructor: (options = {}) ->
+    @config       = extend(options, @defaults)
     @visibleCount = 0
-    @element      = element
+    @element      = window.document.documentElement
     @boxes        = Array.prototype.slice.call(@element.getElementsByClassName(@config.boxClass))
     @scrolled     = true
 

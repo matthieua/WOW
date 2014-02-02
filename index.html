@@ -20,11 +20,11 @@
     </header>
 
     <div id="main">
-      <section class="section--red box slideInLeft"></section>
-      <section class="section--purple box slideInRight"></section>
-      <section class="section--blue box bounceInLeft"></section>
-      <section class="section--green box slideInLeft"></section>
-      <section class="section--yellow box fadeInDown"></section>
+      <section class="section--red jack slideInLeft"></section>
+      <section class="section--purple jack slideInRight"></section>
+      <section class="section--blue jack bounceInLeft"></section>
+      <section class="section--green jack slideInLeft"></section>
+      <section class="section--yellow jack fadeInDown"></section>
     </div>
 
     <footer>
@@ -32,7 +32,14 @@
   </div>
   <script src="js/jack-in-the-box.js"></script>
   <script>
-    new JackInTheBox().init()
+    jack = new JackInTheBox(
+      {
+        boxClass:     'jack',
+        animateClass: 'animated',
+        offset:       100
+      }
+    )
+    jack.init()
   </script>
 </body>
 </html>
