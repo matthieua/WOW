@@ -20,7 +20,7 @@
       @scrolled        = true
 
     # set initial config
-    start: ->
+    init: ->
       if @boxes.length
         @hideAll()
         window.addEventListener('scroll', @scrollHandler, false)
@@ -69,5 +69,5 @@
 
       top <= viewBottom and bottom >= viewTop
 
-    new JackInTheBox().start()
+    new JackInTheBox().init()
 ) window

@@ -19,7 +19,7 @@
         this.scrolled = true;
       }
 
-      JackInTheBox.prototype.start = function() {
+      JackInTheBox.prototype.init = function() {
         if (this.boxes.length) {
           this.hideAll();
           window.addEventListener('scroll', this.scrollHandler, false);
@@ -95,7 +95,7 @@
         return top <= viewBottom && bottom >= viewTop;
       };
 
-      new JackInTheBox().start();
+      new JackInTheBox().init();
 
       return JackInTheBox;
 
