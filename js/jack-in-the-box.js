@@ -23,7 +23,7 @@
         if (this.boxes.length) {
           this.hideAll();
           window.addEventListener('scroll', this.scrollHandler, false);
-          return this.interval = setInterval(this.scrollCallback);
+          return this.interval = setInterval(this.scrollCallback, 50);
         }
       };
 

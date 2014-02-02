@@ -24,7 +24,7 @@
       if @boxes.length
         @hideAll()
         window.addEventListener('scroll', @scrollHandler, false)
-        @interval = setInterval @scrollCallback
+        @interval = setInterval @scrollCallback, 50
 
     # unbind the scroll event
     stop: ->
