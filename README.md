@@ -32,8 +32,8 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 ### HTML
 
 ```html
-  <section class="box slideInLeft"></section>
-  <section class="box slideInRight"></section>
+  <section class="wow slideInLeft"></section>
+  <section class="wow slideInRight"></section>
 ```
 
 ### Basic usage
