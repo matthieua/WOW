@@ -24,6 +24,9 @@ class @WOW
     boxClass:     'wow'
     animateClass: 'animated'
     offset:       0
+    duration:     '1s'
+    delay:        '0s'
+    iteration:    '1'
 
   constructor: (options = {}) ->
     @config       = extend(options, @defaults)
@@ -35,7 +38,7 @@ class @WOW
   # set initial config
   init: ->
     if @boxes.length
-      @hideAll()
+      @applyStyle(@boxes)
       window.addEventListener('scroll', @scrollHandler, false)
       window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
@@ -50,9 +53,31 @@ class @WOW
     box.style.visibility = 'visible'
     box.className = "#{box.className} #{@config.animateClass}"
 
-  # hide every box element
-  hideAll: ->
-    box.style.visibility = 'hidden' for box in @boxes
+  applyStyle: ->
+    for box in @boxes
+      duration  = box.getAttribute('data-duration')  || @config.duration
+      delay     = box.getAttribute('data-delay')     || @config.delay
+      iteration = box.getAttribute('data-iteration') || @config.iteration
+
+      box.setAttribute 'style', @customStyle(duration, delay, iteration)
+
+  customStyle: (duration, delay, iteration) ->
+    visibility = "visibility: hidden; "
+
+    duration = "-webkit-animation-duration: #{duration}; " +
+                "-moz-animation-duration: #{duration};" +
+                "animation-duration: #{duration}; "
+
+    delay =     "-moz-animation-delay: #{delay}; " +
+                "-webkit-animation-delay: #{delay}; " +
+                "animation-delay: #{delay}; "
+
+    iteration = "-moz-animation-iteration-count: #{iteration}; " +
+                "-webkit-animation-iteration-count: #{iteration}; " +
+                "animation-iteration-count: #{iteration}; "
+
+
+    visibility + duration + delay + iteration
 
   # fast window.scroll callback
   scrollHandler: =>
@@ -68,6 +93,7 @@ class @WOW
           @visibleCount++
           @stop() if @boxes.length is @visibleCount
 
+
   # Calculate element offset top
   offsetTop: (element) ->
     top = element.offsetTop
@@ -76,8 +102,9 @@ class @WOW
 
   # check if box is visible
   isVisible: (box) ->
+    offset     = box.getAttribute('data-offset') || @config.offset
     viewTop    = window.pageYOffset
-    viewBottom = viewTop + @element.clientHeight - @config.offset
+    viewBottom = viewTop + @element.clientHeight - offset
     top        = @offsetTop(box)
     bottom     = top + box.clientHeight
 

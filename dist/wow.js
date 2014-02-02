@@ -24,7 +24,10 @@
     WOW.prototype.defaults = {
       boxClass: 'wow',
       animateClass: 'animated',
-      offset: 0
+      offset: 0,
+      duration: '1s',
+      delay: '0s',
+      iteration: '1'
     };
 
     function WOW(options) {
@@ -42,7 +45,7 @@
 
     WOW.prototype.init = function() {
       if (this.boxes.length) {
-        this.hideAll();
+        this.applyStyle(this.boxes);
         window.addEventListener('scroll', this.scrollHandler, false);
         window.addEventListener('resize', this.scrollHandler, false);
         return this.interval = setInterval(this.scrollCallback, 50);
@@ -61,15 +64,27 @@
       return box.className = "" + box.className + " " + this.config.animateClass;
     };
 
-    WOW.prototype.hideAll = function() {
-      var box, _i, _len, _ref, _results;
+    WOW.prototype.applyStyle = function() {
+      var box, delay, duration, iteration, _i, _len, _ref, _results;
       _ref = this.boxes;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         box = _ref[_i];
-        _results.push(box.style.visibility = 'hidden');
+        duration = box.getAttribute('data-duration') || this.config.duration;
+        delay = box.getAttribute('data-delay') || this.config.delay;
+        iteration = box.getAttribute('data-iteration') || this.config.iteration;
+        _results.push(box.setAttribute('style', this.customStyle(duration, delay, iteration)));
       }
       return _results;
+    };
+
+    WOW.prototype.customStyle = function(duration, delay, iteration) {
+      var visibility;
+      visibility = "visibility: hidden; ";
+      duration = ("-webkit-animation-duration: " + duration + "; ") + ("-moz-animation-duration: " + duration + ";") + ("animation-duration: " + duration + "; ");
+      delay = ("-moz-animation-delay: " + delay + "; ") + ("-webkit-animation-delay: " + delay + "; ") + ("animation-delay: " + delay + "; ");
+      iteration = ("-moz-animation-iteration-count: " + iteration + "; ") + ("-webkit-animation-iteration-count: " + iteration + "; ") + ("animation-iteration-count: " + iteration + "; ");
+      return visibility + duration + delay + iteration;
     };
 
     WOW.prototype.scrollHandler = function() {
@@ -109,9 +124,10 @@
     };
 
     WOW.prototype.isVisible = function(box) {
-      var bottom, top, viewBottom, viewTop;
+      var bottom, offset, top, viewBottom, viewTop;
+      offset = box.getAttribute('data-offset') || this.config.offset;
       viewTop = window.pageYOffset;
-      viewBottom = viewTop + this.element.clientHeight - this.config.offset;
+      viewBottom = viewTop + this.element.clientHeight - offset;
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;

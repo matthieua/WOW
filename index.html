@@ -20,22 +20,25 @@
     </header>
 
     <div id="main">
-      <section class="section--red wow slideInLeft"></section>
-      <section class="section--purple wow slideInRight"></section>
-      <section class="section--blue wow bounceInLeft"></section>
-      <section class="section--green wow slideInLeft"></section>
       <section class="section--yellow wow fadeInDown"></section>
+      <section class="section--red wow bounceIn" data-iteration="2"></section>
+      <section class="section--purple wow slideInRight" data-delay="2s"></section>
+      <section class="section--blue wow bounceInLeft" data-offset="300"></section>
+      <section class="section--green wow slideInLeft" data-duration="5s"></section>
     </div>
 
     <footer>
     </footer>
   </div>
-  <script src="dist/wow.min.js"></script>
+  <script src="dist/wow.js"></script>
   <script>
     wow = new WOW(
       {
         animateClass: 'animated',
-        offset:       100
+        offset:       100,
+        duration:     '1s',
+        delay:        '0s',
+        iteration:    '1'
       }
     )
     wow.init()
