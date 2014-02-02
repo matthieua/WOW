@@ -29,14 +29,16 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
 
-### HTML
+### Basic usage
+
+- HTML
 
 ```html
   <section class="wow slideInLeft"></section>
   <section class="wow slideInRight"></section>
 ```
 
-### Basic usage
+- JavaScript
 
 ```javascript
 new WOW().init();
@@ -44,12 +46,24 @@ new WOW().init();
 
 ### Advanced usage
 
+- HTML
+
+```html
+  <section class="wow slideInLeft" data-duration="2s" data-delay="5s"></section>
+  <section class="wow slideInRight" data-offset="10"  data-iteration="10"></section>
+```
+
+- JavaScript
+
 ```javascript
 wow = new WOW(
   {
-    boxClass:     'box',
-    animateClass: 'animated',
-    offset:       100
+    boxClass:     'wow',      // default
+    animateClass: 'animated', // default
+    offset:       0,          // default
+    duration:     '1s',       // default
+    delay:        '0s',       // default
+    iteration:    '1'         // default
   }
 )
 WOW.init();
