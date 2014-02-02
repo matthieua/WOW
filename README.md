@@ -55,7 +55,7 @@ jack = new JackInTheBox(
 jack.init();
 ```
 
-## Bug tracker
+## Contribute
 
 The library is written in CoffeeScript, please update ```jack-in-the-box.coffee``` file.
 
