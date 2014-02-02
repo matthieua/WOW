@@ -44,6 +44,7 @@
       if (this.boxes.length) {
         this.hideAll();
         window.addEventListener('scroll', this.scrollHandler, false);
+        window.addEventListener('resize', this.scrollHandler, false);
         return this.interval = setInterval(this.scrollCallback, 50);
       }
     };

@@ -37,6 +37,7 @@ class @WOW
     if @boxes.length
       @hideAll()
       window.addEventListener('scroll', @scrollHandler, false)
+      window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
 
   # unbind the scroll event
