@@ -88,7 +88,7 @@ class @WOW
     if @scrolled
       @scrolled = false
       for i in [0..(@boxes.length - 1)]
-       if @boxes[i]? and @isVisible(@boxes[i])
+        if @boxes[i]? and @isVisible(@boxes[i])
           @show(@boxes[i])
           @boxes[i] = null
           @visibleCount++
