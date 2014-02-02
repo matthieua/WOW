@@ -20,14 +20,14 @@
     return result;
   };
 
-  this.JackInTheBox = (function() {
-    JackInTheBox.prototype.defaults = {
-      boxClass: 'box',
+  this.WOW = (function() {
+    WOW.prototype.defaults = {
+      boxClass: 'wow',
       animateClass: 'animated',
       offset: 0
     };
 
-    function JackInTheBox(options) {
+    function WOW(options) {
       if (options == null) {
         options = {};
       }
@@ -40,7 +40,7 @@
       this.scrolled = true;
     }
 
-    JackInTheBox.prototype.init = function() {
+    WOW.prototype.init = function() {
       if (this.boxes.length) {
         this.hideAll();
         window.addEventListener('scroll', this.scrollHandler, false);
@@ -48,19 +48,19 @@
       }
     };
 
-    JackInTheBox.prototype.stop = function() {
+    WOW.prototype.stop = function() {
       window.removeEventListener('scroll', this.scrollHandler, false);
       if (this.interval != null) {
         return clearInterval(this.interval);
       }
     };
 
-    JackInTheBox.prototype.show = function(box) {
+    WOW.prototype.show = function(box) {
       box.style.visibility = 'visible';
       return box.className = "" + box.className + " " + this.config.animateClass;
     };
 
-    JackInTheBox.prototype.hideAll = function() {
+    WOW.prototype.hideAll = function() {
       var box, _i, _len, _ref, _results;
       _ref = this.boxes;
       _results = [];
@@ -71,11 +71,11 @@
       return _results;
     };
 
-    JackInTheBox.prototype.scrollHandler = function() {
+    WOW.prototype.scrollHandler = function() {
       return this.scrolled = true;
     };
 
-    JackInTheBox.prototype.scrollCallback = function() {
+    WOW.prototype.scrollCallback = function() {
       var i, _i, _ref, _results;
       if (this.scrolled) {
         this.scrolled = false;
@@ -98,7 +98,7 @@
       }
     };
 
-    JackInTheBox.prototype.offsetTop = function(element) {
+    WOW.prototype.offsetTop = function(element) {
       var top;
       top = element.offsetTop;
       while (element = element.offsetParent) {
@@ -107,7 +107,7 @@
       return top;
     };
 
-    JackInTheBox.prototype.isVisible = function(box) {
+    WOW.prototype.isVisible = function(box) {
       var bottom, top, viewBottom, viewTop;
       viewTop = window.pageYOffset;
       viewBottom = viewTop + this.element.clientHeight - this.config.offset;
@@ -116,7 +116,7 @@
       return top <= viewBottom && bottom >= viewTop;
     };
 
-    return JackInTheBox;
+    return WOW;
 
   })();
 

@@ -1,9 +1,9 @@
 #
-# Name    : jackInTheBox
+# Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
 # Version : 0.0.6
-# Repo    : https://github.com/matthieua/jackInTheBox
-# Website : -
+# Repo    : https://github.com/matthieua/wow
+# Website : http://mynameismatthieu.com/wow
 #
 
 extend = (object) ->
@@ -19,9 +19,9 @@ extend = (object) ->
     i++
   result
 
-class @JackInTheBox
+class @WOW
   defaults:
-    boxClass:     'box'
+    boxClass:     'wow'
     animateClass: 'animated'
     offset:       0
 

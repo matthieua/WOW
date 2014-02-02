@@ -1,4 +1,4 @@
-# Jack In The Box [![Build Status](https://secure.travis-ci.org/matthieua/jackInTheBox.png?branch=master)](http://travis-ci.org/matthieua/jackInTheBox)
+# WOW [![Build Status](https://secure.travis-ci.org/matthieua/WOW.png?branch=master)](http://travis-ci.org/matthieua/WOW)
 
 Reveal CSS animation as you scroll down a page.
 By default, you should use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
@@ -39,25 +39,25 @@ So far we deactivated it by default on mobile devices (see below why...). You kn
 ### Basic usage
 
 ```javascript
-new JackInTheBox()init();
+new WOW()init();
 ```
 
 ### Advanced usage
 
 ```javascript
-jack = new JackInTheBox(
+wow = new WOW(
   {
-    boxClass:     'jack',
+    boxClass:     'box',
     animateClass: 'animated',
     offset:       100
   }
 )
-jack.init();
+WOW.init();
 ```
 
 ## Contribute
 
-The library is written in CoffeeScript, please update ```jack-in-the-box.coffee``` file.
+The library is written in CoffeeScript, please update ```wow.coffee``` file.
 
 We use grunt to compile and minify the library:
 
@@ -77,7 +77,7 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please rnaise it the [issue here](https://github.com/matthieua/jackInTheBox/issues) on Github!
+If you find a bug, please rnaise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
 
 ## Developer
 
