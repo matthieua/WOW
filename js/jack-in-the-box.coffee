@@ -6,72 +6,78 @@
 # Website : -
 #
 
-jQuery ->
-  $.jackInTheBox = (element, options) ->
-    # plugin settings
-    @settings = {}
+extend = (object) ->
+  result = object or {}
+  i = 1
+  while i < arguments.length
+    replacement = arguments[i] or {}
+    for key of replacement
+      if typeof result[key] is "object"
+        result[key] = extend(result[key], replacement[key])
+      else
+        result[key] = result[key] or replacement[key]
+    i++
+  result
 
-    # jQuery version of DOM element attached to the plugin
-    @$element = $(element)
-
-    # Check if box is visible
-    @visible = ($box) =>
-      viewTop    = @$window.scrollTop()
-      viewBottom = viewTop + @$window.height() - @settings.offset
-      top        = $box.offset().top
-      bottom     = top + $box.height()
-
-      top <= viewBottom and bottom >= viewTop
-
-    # Scroll state
-    scrolled = false
-
-    # Fast window.scroll callback
-    @scrollHandler = =>
-      scrolled = true
-
-    # Show box if visible on scroll
-    @scrollCallback = =>
-      if scrolled
-        scrolled = false
-        @show()
-
-    # show visible elements
-    @show = =>
-      @$boxes = @$boxes.map (index, box) =>
-        $box = $(box)
-        if @visible($box)
-          $box.css(visibility: 'visible').addClass @settings.animateClass
-          null
-        else
-          $box
-
-    # Set initial settings
-    @init = ->
-      @settings = $.extend({}, @defaults, options)
-
-      @$window  = $(window)
-      @$boxes   = $(".#{@settings.boxClass}").css(visibility: 'hidden')
-
-      if @$boxes.length
-        @$window.on "scroll", @scrollHandler
-        setInterval @scrollCallback
-        @show()
-
-    # initialise the plugin
-    @init()
-
-    # make the plugin chainable
-    this
-
-  # default plugin settings
-  $.jackInTheBox::defaults =
+class @JackInTheBox
+  defaults:
     boxClass:     'box'
     animateClass: 'animated'
     offset:       0
 
-  $.fn.jackInTheBox = (options) ->
-    @each ->
-      if $(this).data('jackInTheBox') is undefined
-        plugin = new $.jackInTheBox(this, options)
-        $(this).data('jackInTheBox', plugin)
+  constructor: (options = {}) ->
+    @config       = extend(options, @defaults)
+    @visibleCount = 0
+    @element      = window.document.documentElement
+    @boxes        = Array.prototype.slice.call(@element.getElementsByClassName(@config.boxClass))
+    @scrolled     = true
+
+  # set initial config
+  init: ->
+    if @boxes.length
+      @hideAll()
+      window.addEventListener('scroll', @scrollHandler, false)
+      @interval = setInterval @scrollCallback, 50
+
+  # unbind the scroll event
+  stop: ->
+    window.removeEventListener('scroll', @scrollHandler, false)
+    clearInterval @interval if @interval?
+
+  # show box element
+  show: (box) ->
+    box.style.visibility = 'visible'
+    box.className = "#{box.className} #{@config.animateClass}"
+
+  # hide every box element
+  hideAll: ->
+    box.style.visibility = 'hidden' for box in @boxes
+
+  # fast window.scroll callback
+  scrollHandler: =>
+    @scrolled = true
+
+  scrollCallback: =>
+    if @scrolled
+      @scrolled = false
+      for i in [0..(@boxes.length - 1)]
+       if @boxes[i]? and @isVisible(@boxes[i])
+          @show(@boxes[i])
+          @boxes[i] = null
+          @visibleCount++
+          @stop() if @boxes.length is @visibleCount
+
+  # Calculate element offset top
+  offsetTop: (element) ->
+    top = element.offsetTop
+    top += element.offsetTop while element = element.offsetParent
+    top
+
+  # check if box is visible
+  isVisible: (box) ->
+    viewTop    = window.pageYOffset
+    viewBottom = viewTop + @element.clientHeight - @config.offset
+    top        = @offsetTop(box)
+    bottom     = top + box.clientHeight
+
+    top <= viewBottom and bottom >= viewTop
