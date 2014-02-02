@@ -6,68 +6,64 @@
 # Website : -
 #
 
-((window) ->
-  class JackInTheBox
-    config:
-      boxClass:     'box'
-      animateClass: 'animated'
-      offset:       0
+class @JackInTheBox
+  config:
+    boxClass:     'box'
+    animateClass: 'animated'
+    offset:       0
 
-    constructor: ->
-      @visibleCount    = 0
-      @documentElement = window.document.documentElement
-      @boxes           = Array.prototype.slice.call(@documentElement.getElementsByClassName(@config.boxClass))
-      @scrolled        = true
+  constructor: (element = window.document.documentElement) ->
+    @visibleCount = 0
+    @element      = element
+    @boxes        = Array.prototype.slice.call(@element.getElementsByClassName(@config.boxClass))
+    @scrolled     = true
 
-    # set initial config
-    init: ->
-      if @boxes.length
-        @hideAll()
-        window.addEventListener('scroll', @scrollHandler, false)
-        @interval = setInterval @scrollCallback, 50
+  # set initial config
+  init: ->
+    if @boxes.length
+      @hideAll()
+      window.addEventListener('scroll', @scrollHandler, false)
+      @interval = setInterval @scrollCallback, 50
 
-    # unbind the scroll event
-    stop: ->
-      window.removeEventListener('scroll', @scrollHandler, false)
-      clearInterval @interval if @interval?
+  # unbind the scroll event
+  stop: ->
+    window.removeEventListener('scroll', @scrollHandler, false)
+    clearInterval @interval if @interval?
 
-    # show box element
-    show: (box) ->
-      box.style.visibility = 'visible'
-      box.className = "#{box.className} #{@config.animateClass}"
+  # show box element
+  show: (box) ->
+    box.style.visibility = 'visible'
+    box.className = "#{box.className} #{@config.animateClass}"
 
-    # hide every box element
-    hideAll: ->
-      box.style.visibility = 'hidden' for box in @boxes
+  # hide every box element
+  hideAll: ->
+    box.style.visibility = 'hidden' for box in @boxes
 
-    # fast window.scroll callback
-    scrollHandler: =>
-      @scrolled = true
+  # fast window.scroll callback
+  scrollHandler: =>
+    @scrolled = true
 
-    scrollCallback: =>
-      if @scrolled
-        @scrolled = false
-        for i in [0..(@boxes.length - 1)]
-         if @boxes[i]? and @isVisible(@boxes[i])
-            @show(@boxes[i])
-            @boxes[i] = null
-            @visibleCount++
-            @stop() if @boxes.length is @visibleCount
+  scrollCallback: =>
+    if @scrolled
+      @scrolled = false
+      for i in [0..(@boxes.length - 1)]
+       if @boxes[i]? and @isVisible(@boxes[i])
+          @show(@boxes[i])
+          @boxes[i] = null
+          @visibleCount++
+          @stop() if @boxes.length is @visibleCount
 
-    # Calculate element offset top
-    offsetTop: (element) ->
-      top = element.offsetTop
-      top += element.offsetTop while element = element.offsetParent
-      top
+  # Calculate element offset top
+  offsetTop: (element) ->
+    top = element.offsetTop
+    top += element.offsetTop while element = element.offsetParent
+    top
 
-    # check if box is visible
-    isVisible: (box) ->
-      viewTop    = window.pageYOffset
-      viewBottom = viewTop + @documentElement.clientHeight - @config.offset
-      top        = @offsetTop(box)
-      bottom     = top + box.clientHeight
+  # check if box is visible
+  isVisible: (box) ->
+    viewTop    = window.pageYOffset
+    viewBottom = viewTop + @element.clientHeight - @config.offset
+    top        = @offsetTop(box)
+    bottom     = top + box.clientHeight
 
-      top <= viewBottom and bottom >= viewTop
-
-    new JackInTheBox().init()
-) window
+    top <= viewBottom and bottom >= viewTop
