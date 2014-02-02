@@ -4,5 +4,5 @@ describe 'jackInTheBox', ->
     @$element = $('#fixtures')
 
   describe 'library behavior', ->
-    it 'is true', ->
-      expect( true ).toBeTruthy()
+    it 'existes', ->
+      expect( JackInTheBox ).toBeDefined()

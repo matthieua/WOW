@@ -5,8 +5,8 @@
       return this.$element = $('#fixtures');
     });
     return describe('library behavior', function() {
-      return it('is true', function() {
-        return expect(true).toBeTruthy();
+      return it('existes', function() {
+        return expect(JackInTheBox).toBeDefined();
       });
     });
   });
