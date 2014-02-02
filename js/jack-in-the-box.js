@@ -14,7 +14,7 @@
         this.scrollHandler = __bind(this.scrollHandler, this);
         this.visibleCount = 0;
         this.documentElement = window.document.documentElement;
-        this.boxes = Array.prototype.slice.call(this.documentElement.querySelectorAll("." + this.config.boxClass));
+        this.boxes = Array.prototype.slice.call(this.documentElement.getElementsByClassName(this.config.boxClass));
       }
 
       JackInTheBox.prototype.start = function() {

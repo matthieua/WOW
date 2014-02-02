@@ -16,7 +16,7 @@
     constructor: ->
       @visibleCount    = 0
       @documentElement = window.document.documentElement
-      @boxes           = Array.prototype.slice.call(@documentElement.querySelectorAll(".#{@config.boxClass}"))
+      @boxes           = Array.prototype.slice.call(@documentElement.getElementsByClassName(@config.boxClass))
 
     # set initial config
     start: ->
