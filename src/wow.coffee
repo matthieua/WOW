@@ -31,18 +31,10 @@ class @WOW
   # set initial config
   init: ->
     if @boxes.length
-      @initCSS()
       @applyStyle()
       window.addEventListener('scroll', @scrollHandler, false)
       window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
-
-  initCSS: ->
-    $("<style>").text([
-      ":not(.#{@config.animateClass}).#{@config.boxClass} {"
-        $("<b>").css("animation-name", "none").attr "style"
-      "}"
-    ].join "").appendTo $ "head"
 
   # unbind the scroll event
   stop: ->
