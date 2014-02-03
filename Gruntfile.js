@@ -6,30 +6,27 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
-      plugin: {
-        files: [{
-          expand: true,
-          cwd: 'js/',
-          src: '*.js',
-          dest: '',
-          ext: '.min.js'
-        }],
-        options: {
-          banner : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-            ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+      dist: {
+        files: {
+        'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
         }
+      },
+      options: {
+        banner : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+          '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+          '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+          '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+          ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */',
+        report: 'gzip'
       }
     },
     coffee : {
       plugin : {
         files: [{
           expand: true,
-          cwd: 'js/',
+          cwd: 'src/',
           src: '*.coffee',
-          dest: 'js/',
+          dest: 'dist/',
           ext: '.js'
         }]
       },
@@ -53,7 +50,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['js/libs/*.js', 'spec/javascripts/libs/*.js', 'js/*.js', '!js/*.min.js'],
+      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>.js'],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'
@@ -61,7 +58,7 @@ module.exports = function(grunt) {
     },
     watch : {
       files: [
-        'js/*.coffee',
+        'src/*',
         'spec/coffeescripts/**/*.coffee'
       ],
       tasks: mainTasks
