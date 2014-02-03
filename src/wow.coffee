@@ -81,7 +81,7 @@ class @WOW
   scrollCallback: =>
     if @scrolled
       @scrolled = false
-      @boxes = for box in @boxes when box?
+      @boxes = for box in @boxes when box
         if @isVisible(box)
           @show(box)
           null

@@ -98,7 +98,7 @@
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             box = _ref[_i];
-            if (box != null) {
+            if (box) {
               if (this.isVisible(box)) {
                 this.show(box);
                 _results.push(null);
