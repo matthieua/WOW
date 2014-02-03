@@ -41,7 +41,7 @@
       this.config = extend(options, this.defaults);
       this.visibleCount = 0;
       this.element = window.document.documentElement;
-      this.boxes = [].slice.call(this.element.getElementsByClassName(this.config.boxClass));
+      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       this.scrolled = true;
     }
 
