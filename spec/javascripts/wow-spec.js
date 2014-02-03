@@ -96,13 +96,23 @@
           return done();
         }, timeout);
       });
-      it("does not touch elements that don't have the marker class", function() {
-        window.scrollTo(0, $("#custom-1").offset().top - 10);
-        return expect($("#custom-1")).not.toHaveClass("fancy");
+      it("does not touch elements that don't have the marker class", function(done) {
+        window.scrollTo(0, $("#custom-1").offset().top - winHeight + 15);
+        return setTimeout(function() {
+          expect($("#custom-1")).not.toHaveClass("fancy");
+          return done();
+        }, timeout);
       });
-      it("animates elements that are partially visible on the page", function() {
-        window.scrollTo(0, $("#custom-2").offset().top - winHeight + 10);
-        return expect($("#custom-2")).toHaveClass("fancy");
+      it("animates elements that are partially visible on the page based on the 'offset' config", function(done) {
+        return setTimeout(function() {
+          window.scrollTo(0, $("#custom-2").offset().top - winHeight + 5);
+          expect($("#custom-2")).not.toHaveClass("fancy");
+          window.scrollTo(0, $("#custom-2").offset().top - winHeight + 15);
+          return setTimeout(function() {
+            expect($("#custom-2")).toHaveClass("fancy");
+            return done();
+          }, timeout);
+        }, timeout);
       });
       it("does not animate elements not yet visible on the page", function() {
         expect($("#custom-3")).not.toHaveClass("fancy");

@@ -73,13 +73,15 @@ describe "WOW", ->
         .not.toHaveClass "animated"
 
     it "animates elements after scrolling down and they become visible", (done) ->
-      window.scrollTo 0, $("#simple-3").offset().top-winHeight+150
+      # Scroll down so that 150px of #simple-3 becomes visible.
+      window.scrollTo 0, $("#simple-3").offset().top - winHeight + 150
       setTimeout ->
         expect $ "#simple-3"
           .toHaveClass "animated"
         expect $ "#simple-4"
           .not.toHaveClass "animated"
-        window.scrollTo 0, $("#simple-4").offset().top-winHeight+150
+        # Scroll down so that 150px of #simple-4 becomes visible.
+        window.scrollTo 0, $("#simple-4").offset().top - winHeight + 150
         setTimeout ->
           expect $ "#simple-4"
             .toHaveClass "animated"
@@ -132,15 +134,29 @@ describe "WOW", ->
         done()
       , timeout
 
-    it "does not touch elements that don't have the marker class", ->
-      window.scrollTo 0, $("#custom-1").offset().top - 10
-      expect $ "#custom-1"
-        .not.toHaveClass "fancy"
+    it "does not touch elements that don't have the marker class", (done) ->
+      # Scroll down so that 15px of #custom-1 becomes visible.
+      window.scrollTo 0, $("#custom-1").offset().top - winHeight + 15
+      setTimeout ->
+        expect $ "#custom-1"
+          .not.toHaveClass "fancy"
+        done()
+      , timeout
 
-    it "animates elements that are partially visible on the page", ->
-      window.scrollTo 0, $("#custom-2").offset().top - winHeight + 10
-      expect $ "#custom-2"
-        .toHaveClass "fancy"
+    it "animates elements that are partially visible on the page based on the 'offset' config", (done) ->
+      setTimeout ->
+        # Scroll down so that 5px of #custom-2 becomes visible.
+        window.scrollTo 0, $("#custom-2").offset().top - winHeight + 5
+        expect $ "#custom-2"
+          .not.toHaveClass "fancy"
+        window.scrollTo 0, $("#custom-2").offset().top - winHeight + 15
+        setTimeout ->
+          # Scroll down so that 15px of #custom-2 becomes visible.
+          expect $ "#custom-2"
+            .toHaveClass "fancy"
+          done()
+        , timeout
+      , timeout
 
     it "does not animate elements not yet visible on the page", ->
       expect $ "#custom-3"
@@ -149,6 +165,7 @@ describe "WOW", ->
         .not.toHaveClass "fancy"
 
     it "animates elements after scrolling down and they become visible", (done) ->
+      # Scroll down so that 150px of #custom-3 becomes visible.
       window.scrollTo 0, $("#custom-3").offset().top - winHeight + 150
       setTimeout ->
         expect $ "#custom-3"
@@ -157,6 +174,7 @@ describe "WOW", ->
           .toBe "2"
         expect $ "#custom-4"
           .not.toHaveClass "fancy"
+        # Scroll down so that 150px of #custom-4 becomes visible.
         window.scrollTo 0, $("#custom-4").offset().top - winHeight + 150
         setTimeout ->
           expect $ "#custom-4"
