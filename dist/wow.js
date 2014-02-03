@@ -1,21 +1,21 @@
 (function() {
   var extend,
+    __slice = [].slice,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  extend = function(object) {
-    var i, key, replacement, result, value, _i, _len, _ref;
+  extend = function() {
+    var args, key, object, replacement, result, value, _i, _len, _ref;
+    object = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
     result = object || {};
-    for (i = _i = 0, _len = arguments.length; _i < _len; i = ++_i) {
-      replacement = arguments[i];
-      if (i) {
-        _ref = replacement || {};
-        for (key in _ref) {
-          value = _ref[key];
-          if (typeof result[key] === "object") {
-            result[key] = extend(result[key], value);
-          } else {
-            result[key] || (result[key] = value);
-          }
+    for (_i = 0, _len = args.length; _i < _len; _i++) {
+      replacement = args[_i];
+      _ref = replacement || {};
+      for (key in _ref) {
+        value = _ref[key];
+        if (typeof result[key] === "object") {
+          result[key] = extend(result[key], value);
+        } else {
+          result[key] || (result[key] = value);
         }
       }
     }

@@ -6,15 +6,14 @@
 # Website : http://mynameismatthieu.com/wow
 #
 
-extend = (object) ->
+extend = (object, args...) ->
   result = object or {}
-  for replacement, i in arguments
-    if i
-      for key, value of replacement or {}
-        if typeof result[key] is "object"
-          result[key] = extend(result[key], value)
-        else
-          result[key] ||= value
+  for replacement in args
+    for key, value of replacement or {}
+      if typeof result[key] is "object"
+        result[key] = extend(result[key], value)
+      else
+        result[key] ||= value
   result
 
 class @WOW
