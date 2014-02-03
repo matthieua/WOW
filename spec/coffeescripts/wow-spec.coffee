@@ -4,5 +4,5 @@ describe 'WOW', ->
     @$element = $('#fixtures')
 
   describe 'library behavior', ->
-    it 'existes', ->
+    it 'exists', ->
       expect( WOW ).toBeDefined()
