@@ -30,7 +30,7 @@ class @WOW
     @config       = extend(options, @defaults)
     @visibleCount = 0
     @element      = window.document.documentElement
-    @boxes        = Array.prototype.slice.call(@element.getElementsByClassName(@config.boxClass))
+    @boxes        = [].slice.call(@element.getElementsByClassName(@config.boxClass))
     @scrolled     = true
 
   # set initial config
