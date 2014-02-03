@@ -63,27 +63,20 @@ class @WOW
       box.setAttribute 'style', @customStyle(duration, delay, iteration)
 
   customStyle: (duration, delay, iteration) ->
-    visibility = "visibility: hidden; "
+    "visibility: hidden;
 
-    duration = "
-      -webkit-animation-duration: #{duration};
-         -moz-animation-duration: #{duration};
-              animation-duration: #{duration};
+    -webkit-animation-duration: #{duration};
+       -moz-animation-duration: #{duration};
+            animation-duration: #{duration};
+
+    -webkit-animation-delay: #{delay};
+       -moz-animation-delay: #{delay};
+            animation-delay: #{delay};
+
+    -webkit-animation-iteration-count: #{iteration};
+       -moz-animation-iteration-count: #{iteration};
+            animation-iteration-count: #{iteration};
     "
-
-    delay = "
-      -webkit-animation-delay: #{delay};
-         -moz-animation-delay: #{delay};
-              animation-delay: #{delay};
-    "
-
-    iteration = "
-      -webkit-animation-iteration-count: #{iteration};
-         -moz-animation-iteration-count: #{iteration};
-              animation-iteration-count: #{iteration};
-    "
-
-    visibility + duration + delay + iteration
 
   # fast window.scroll callback
   scrollHandler: =>
