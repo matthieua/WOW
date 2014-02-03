@@ -44,7 +44,7 @@
     WOW.prototype.init = function() {
       if (this.boxes.length) {
         this.initCSS();
-        this.applyStyle(this.boxes);
+        this.applyStyle();
         window.addEventListener('scroll', this.scrollHandler, false);
         window.addEventListener('resize', this.scrollHandler, false);
         return this.interval = setInterval(this.scrollCallback, 50);
