@@ -39,9 +39,8 @@
       this.scrollCallback = __bind(this.scrollCallback, this);
       this.scrollHandler = __bind(this.scrollHandler, this);
       this.config = extend(options, this.defaults);
-      this.visibleCount = 0;
       this.element = window.document.documentElement;
-      this.boxes = [].slice.call(this.element.getElementsByClassName(this.config.boxClass));
+      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       this.scrolled = true;
     }
 
@@ -64,7 +63,8 @@
 
     WOW.prototype.show = function(box) {
       box.style.visibility = 'visible';
-      return box.className = "" + box.className + " " + this.config.animateClass;
+      box.className = "" + box.className + " " + this.config.animateClass;
+      return null;
     };
 
     WOW.prototype.applyStyle = function() {
@@ -95,27 +95,28 @@
     };
 
     WOW.prototype.scrollCallback = function() {
-      var box, i, _i, _len, _ref, _results;
+      var box;
       if (this.scrolled) {
         this.scrolled = false;
-        _ref = this.boxes;
-        _results = [];
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          box = _ref[i];
-          if ((box != null) && this.isVisible(box)) {
-            this.show(box);
-            this.boxes[i] = null;
-            this.visibleCount++;
-            if (this.boxes.length === this.visibleCount) {
-              _results.push(this.stop());
-            } else {
-              _results.push(void 0);
+        this.boxes = (function() {
+          var _i, _len, _ref, _results;
+          _ref = this.boxes;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            box = _ref[_i];
+            if (box != null) {
+              if (this.isVisible(box)) {
+                _results.push(this.show(box));
+              } else {
+                _results.push(box);
+              }
             }
-          } else {
-            _results.push(void 0);
           }
+          return _results;
+        }).call(this);
+        if (!this.boxes.length) {
+          return this.stop();
         }
-        return _results;
       }
     };
 

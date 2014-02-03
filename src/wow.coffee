@@ -27,9 +27,8 @@ class @WOW
 
   constructor: (options = {}) ->
     @config       = extend(options, @defaults)
-    @visibleCount = 0
     @element      = window.document.documentElement
-    @boxes        = [].slice.call(@element.getElementsByClassName(@config.boxClass))
+    @boxes        = @element.getElementsByClassName(@config.boxClass)
     @scrolled     = true
 
   # set initial config
@@ -50,6 +49,7 @@ class @WOW
   show: (box) ->
     box.style.visibility = 'visible'
     box.className = "#{box.className} #{@config.animateClass}"
+    null
 
   applyStyle: ->
     for box in @boxes
@@ -84,12 +84,12 @@ class @WOW
   scrollCallback: =>
     if @scrolled
       @scrolled = false
-      for box, i in @boxes
-        if box? and @isVisible(box)
+      @boxes = for box in @boxes when box?
+        if @isVisible(box)
           @show(box)
-          @boxes[i] = null
-          @visibleCount++
-          @stop() if @boxes.length is @visibleCount
+        else
+          box
+      @stop() unless @boxes.length
 
 
   # Calculate element offset top
