@@ -9,6 +9,10 @@ describe "WOW", ->
       expect document.documentElement.clientHeight
         .toBe 300
 
+    it "has a scoped stylesheet", ->
+      expect $("#test-1").height()
+        .toBe 200
+
   describe "library smoke test", ->
 
     it "exists", ->
@@ -27,12 +31,19 @@ describe "WOW", ->
         done()
       , 100
 
-    it "does not touch elements that don't have a 'box' class", (done) ->
-      expect $("#test-1")[0]
-        .not.toHaveClass "animated"
+    it "does not touch elements that don't have the marker class", (done) ->
+      expect $ "#test-1"
+        .not.toHaveClass WOW.prototype.defaults.animateClass
       done()
 
-    it "animates elements already visible on the page", (done) ->
-      expect $("#test-2")[0]
-        .toHaveClass "animated"
+    it "animates elements partially visible on the page", (done) ->
+      expect $ "#test-2"
+        .toHaveClass WOW.prototype.defaults.animateClass
+      done()
+
+    it "does not animate elements not yet visible on the page", (done) ->
+      #expect $ "#test-3"
+      #  .not.toHaveClass WOW.prototype.defaults.animateClass
+      expect $ "#test-4"
+        .not.toHaveClass WOW.prototype.defaults.animateClass
       done()

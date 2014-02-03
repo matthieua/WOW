@@ -5,8 +5,11 @@
       return this.$element = $("#fixtures");
     });
     describe("test environment", function() {
-      return it("emulates window height", function() {
+      it("emulates window height", function() {
         return expect(document.documentElement.clientHeight).toBe(300);
+      });
+      return it("has a scoped stylesheet", function() {
+        return expect($("#test-1").height()).toBe(200);
       });
     });
     describe("library smoke test", function() {
@@ -24,12 +27,16 @@
           return done();
         }, 100);
       });
-      it("does not touch elements that don't have a 'box' class", function(done) {
-        expect($("#test-1")[0]).not.toHaveClass("animated");
+      it("does not touch elements that don't have the marker class", function(done) {
+        expect($("#test-1")).not.toHaveClass(WOW.prototype.defaults.animateClass);
         return done();
       });
-      return it("animates elements already visible on the page", function(done) {
-        expect($("#test-2")[0]).toHaveClass("animated");
+      it("animates elements partially visible on the page", function(done) {
+        expect($("#test-2")).toHaveClass(WOW.prototype.defaults.animateClass);
+        return done();
+      });
+      return it("does not animate elements not yet visible on the page", function(done) {
+        expect($("#test-4")).not.toHaveClass(WOW.prototype.defaults.animateClass);
         return done();
       });
     });
