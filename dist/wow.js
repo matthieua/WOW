@@ -43,11 +43,19 @@
 
     WOW.prototype.init = function() {
       if (this.boxes.length) {
+        this.initCSS();
         this.applyStyle();
         window.addEventListener('scroll', this.scrollHandler, false);
         window.addEventListener('resize', this.scrollHandler, false);
         return this.interval = setInterval(this.scrollCallback, 50);
       }
+    };
+
+    WOW.prototype.initCSS = function() {
+      var style;
+      style = document.createElement("style");
+      style.textContent = ":not(." + this.config.animateClass + ")." + this.config.boxClass + " { -webkit-animation-name: none; -moz-animation-name: none; animation-name: none; }";
+      return document.head.appendChild(style);
     };
 
     WOW.prototype.stop = function() {
