@@ -1,6 +1,7 @@
 (function() {
   describe("WOW", function() {
-    var winHeight;
+    var timeout, winHeight;
+    timeout = 100;
     winHeight = 300;
     describe("simple test environment", function() {
       beforeEach(function() {
@@ -37,7 +38,7 @@
         new WOW().init();
         return setTimeout(function() {
           return done();
-        }, 100);
+        }, timeout);
       });
       it("animates elements that are fully visible on the page", function() {
         return expect($("#simple-1")).toHaveClass("animated");
@@ -58,8 +59,8 @@
           return setTimeout(function() {
             expect($("#simple-4")).toHaveClass("animated");
             return done();
-          }, 100);
-        }, 100);
+          }, timeout);
+        }, timeout);
       });
     });
     describe("custom test environment", function() {
@@ -93,7 +94,7 @@
         }).init();
         return setTimeout(function() {
           return done();
-        }, 100);
+        }, timeout);
       });
       it("does not touch elements that don't have the marker class", function() {
         window.scrollTo(0, $("#custom-1").offset().top - 10);
@@ -120,8 +121,8 @@
             expect($("#custom-4")[0].style.webkitAnimationDuration).toBe("2s");
             expect($("#custom-4")[0].style.webkitAnimationDelay).toBe("1s");
             return done();
-          }, 100);
-        }, 100);
+          }, timeout);
+        }, timeout);
       });
     });
   });

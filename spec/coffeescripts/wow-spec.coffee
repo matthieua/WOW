@@ -1,5 +1,10 @@
 describe "WOW", ->
 
+  # Time to wait after each scroll event:
+  # (This should be >= the interval used by the plugin.)
+  timeout = 100
+
+  # Height of the PhantomJS window:
   winHeight = 300
 
   describe "simple test environment", ->
@@ -51,7 +56,7 @@ describe "WOW", ->
       new WOW().init()
       setTimeout ->
         done()
-      , 100
+      , timeout
 
     it "animates elements that are fully visible on the page", ->
       expect $ "#simple-1"
@@ -79,8 +84,8 @@ describe "WOW", ->
           expect $ "#simple-4"
             .toHaveClass "animated"
           done()
-        , 100
-      , 100
+        , timeout
+      , timeout
 
   describe "custom test environment", ->
 
@@ -125,7 +130,7 @@ describe "WOW", ->
       .init()
       setTimeout ->
         done()
-      , 100
+      , timeout
 
     it "does not touch elements that don't have the marker class", ->
       window.scrollTo 0, $("#custom-1").offset().top - 10
@@ -163,5 +168,5 @@ describe "WOW", ->
           expect $("#custom-4")[0].style.webkitAnimationDelay
             .toBe "1s"
           done()
-        , 100
-      , 100
+        , timeout
+      , timeout
