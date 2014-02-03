@@ -65,18 +65,23 @@ class @WOW
   customStyle: (duration, delay, iteration) ->
     visibility = "visibility: hidden; "
 
-    duration = "-webkit-animation-duration: #{duration}; " +
-                "-moz-animation-duration: #{duration};" +
-                "animation-duration: #{duration}; "
+    duration = "
+      -webkit-animation-duration: #{duration};
+         -moz-animation-duration: #{duration};
+              animation-duration: #{duration};
+    "
 
-    delay =     "-moz-animation-delay: #{delay}; " +
-                "-webkit-animation-delay: #{delay}; " +
-                "animation-delay: #{delay}; "
+    delay = "
+      -webkit-animation-delay: #{delay};
+         -moz-animation-delay: #{delay};
+              animation-delay: #{delay};
+    "
 
-    iteration = "-moz-animation-iteration-count: #{iteration}; " +
-                "-webkit-animation-iteration-count: #{iteration}; " +
-                "animation-iteration-count: #{iteration}; "
-
+    iteration = "
+      -webkit-animation-iteration-count: #{iteration};
+         -moz-animation-iteration-count: #{iteration};
+              animation-iteration-count: #{iteration};
+    "
 
     visibility + duration + delay + iteration
 
