@@ -84,9 +84,8 @@ class @WOW
       @boxes = for box in @boxes when box
         if @isVisible(box)
           @show(box)
-          null
-        else
-          box
+          continue
+        box
       @stop() unless @boxes.length
 
 

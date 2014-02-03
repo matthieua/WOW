@@ -98,14 +98,14 @@
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             box = _ref[_i];
-            if (box) {
-              if (this.isVisible(box)) {
-                this.show(box);
-                _results.push(null);
-              } else {
-                _results.push(box);
-              }
+            if (!(box)) {
+              continue;
             }
+            if (this.isVisible(box)) {
+              this.show(box);
+              continue;
+            }
+            _results.push(box);
           }
           return _results;
         }).call(this);
