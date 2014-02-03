@@ -56,9 +56,9 @@ class @WOW
 
   applyStyle: ->
     for box in @boxes
-      duration  = box.getAttribute('data-wow-duration')  || @config.duration
-      delay     = box.getAttribute('data-wow-delay')     || @config.delay
-      iteration = box.getAttribute('data-wow-iteration') || @config.iteration
+      duration  = box.getAttribute('data-wow-duration')  or @config.duration
+      delay     = box.getAttribute('data-wow-delay')     or @config.delay
+      iteration = box.getAttribute('data-wow-iteration') or @config.iteration
 
       box.setAttribute 'style', @customStyle(duration, delay, iteration)
 
@@ -103,7 +103,7 @@ class @WOW
 
   # check if box is visible
   isVisible: (box) ->
-    offset     = box.getAttribute('data-wow-offset') || @config.offset
+    offset     = box.getAttribute('data-wow-offset') or @config.offset
     viewTop    = window.pageYOffset
     viewBottom = viewTop + @element.clientHeight - offset
     top        = @offsetTop(box)
