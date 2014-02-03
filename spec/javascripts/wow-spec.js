@@ -1,13 +1,7 @@
 (function() {
   describe("WOW", function() {
-    var offsetFixtures, offsetTop, offsetTop1, offsetTop2, offsetTop3, offsetTop4, winHeight;
-    offsetTop = 70;
+    var winHeight;
     winHeight = 300;
-    offsetFixtures = 100;
-    offsetTop1 = offsetTop + offsetFixtures + 200 * 0;
-    offsetTop2 = offsetTop + offsetFixtures + 200 * 1;
-    offsetTop3 = offsetTop + offsetFixtures + 200 * 2;
-    offsetTop4 = offsetTop + offsetFixtures + 200 * 3;
     describe("simple test environment", function() {
       beforeEach(function() {
         return loadFixtures("simple.html");
@@ -16,15 +10,17 @@
         return expect(document.documentElement.clientHeight).toBe(winHeight);
       });
       return it("has boxes set up for testing", function() {
+        var offset;
         expect($("#simple").height()).toBe(800);
         expect($("#simple-1").height()).toBe(200);
         expect($("#simple-2").height()).toBe(200);
         expect($("#simple-3").height()).toBe(200);
         expect($("#simple-4").height()).toBe(200);
-        expect($("#simple-1").offset().top).toBe(offsetTop1);
-        expect($("#simple-2").offset().top).toBe(offsetTop2);
-        expect($("#simple-3").offset().top).toBe(offsetTop3);
-        return expect($("#simple-4").offset().top).toBe(offsetTop4);
+        offset = $("#simple").offset().top;
+        expect($("#simple-1").offset().top).toBe(offset + 200 * 0);
+        expect($("#simple-2").offset().top).toBe(offset + 200 * 1);
+        expect($("#simple-3").offset().top).toBe(offset + 200 * 2);
+        return expect($("#simple-4").offset().top).toBe(offset + 200 * 3);
       });
     });
     describe("library smoke test", function() {
@@ -54,16 +50,37 @@
         return expect($("#simple-4")).not.toHaveClass("animated");
       });
       return it("animates elements after scrolling down and they become visible", function(done) {
-        window.scrollTo(0, offsetTop3 - winHeight + 150);
+        window.scrollTo(0, $("#simple-3").offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($("#simple-3")).toHaveClass("animated");
           expect($("#simple-4")).not.toHaveClass("animated");
-          window.scrollTo(0, offsetTop4 - winHeight + 150);
+          window.scrollTo(0, $("#simple-4").offset().top - winHeight + 150);
           return setTimeout(function() {
             expect($("#simple-4")).toHaveClass("animated");
             return done();
           }, 100);
         }, 100);
+      });
+    });
+    describe("custom test environment", function() {
+      beforeEach(function() {
+        return loadFixtures("custom.html");
+      });
+      it("emulates window height", function() {
+        return expect(document.documentElement.clientHeight).toBe(winHeight);
+      });
+      return it("has boxes set up for testing", function() {
+        var offset;
+        expect($("#custom").height()).toBe(800);
+        expect($("#custom-1").height()).toBe(200);
+        expect($("#custom-2").height()).toBe(200);
+        expect($("#custom-3").height()).toBe(200);
+        expect($("#custom-4").height()).toBe(200);
+        offset = $("#custom").offset().top;
+        expect($("#custom-1").offset().top).toBe(offset + 200 * 0);
+        expect($("#custom-2").offset().top).toBe(offset + 200 * 1);
+        expect($("#custom-3").offset().top).toBe(offset + 200 * 2);
+        return expect($("#custom-4").offset().top).toBe(offset + 200 * 3);
       });
     });
     return describe("library behaviour with custom settings", function() {
@@ -79,21 +96,27 @@
         }, 100);
       });
       it("does not touch elements that don't have the marker class", function() {
-        return expect($("#custom-1")).not.toHaveClass("fancy");
+        var custom1;
+        custom1 = $("#custom-1");
+        window.scrollTo(0, custom1.offset().top - 10);
+        return expect(custom1).not.toHaveClass("fancy");
       });
-      xit("animates elements that are partially visible on the page", function() {
-        return expect($("#custom-2")).toHaveClass("fancy");
+      it("animates elements that are partially visible on the page", function() {
+        var custom1;
+        custom1 = $("#custom-2");
+        window.scrollTo(0, custom1.offset().top - winHeight + 10);
+        return expect(custom1).toHaveClass("fancy");
       });
-      xit("does not animate elements not yet visible on the page", function() {
+      it("does not animate elements not yet visible on the page", function() {
         expect($("#custom-3")).not.toHaveClass("fancy");
         return expect($("#custom-4")).not.toHaveClass("fancy");
       });
-      return xit("animates elements after scrolling down and they become visible", function(done) {
-        window.scrollTo(0, offsetTop3 - winHeight + 150);
+      return it("animates elements after scrolling down and they become visible", function(done) {
+        window.scrollTo(0, $("#custom-3").offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($("#custom-3")).toHaveClass("fancy");
           expect($("#custom-4")).not.toHaveClass("fancy");
-          window.scrollTo(0, offsetTop4 - winHeight + 150);
+          window.scrollTo(0, $("#custom-4").offset().top - winHeight + 150);
           return setTimeout(function() {
             expect($("#custom-4")).toHaveClass("fancy");
             return done();

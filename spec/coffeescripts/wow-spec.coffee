@@ -1,13 +1,6 @@
 describe "WOW", ->
 
-  offsetTop      = 70
-  winHeight      = 300
-  offsetFixtures = 100
-
-  offsetTop1 = offsetTop + offsetFixtures + 200*0
-  offsetTop2 = offsetTop + offsetFixtures + 200*1
-  offsetTop3 = offsetTop + offsetFixtures + 200*2
-  offsetTop4 = offsetTop + offsetFixtures + 200*3
+  winHeight = 300
 
   describe "simple test environment", ->
 
@@ -31,14 +24,15 @@ describe "WOW", ->
       expect $("#simple-4").height()
         .toBe 200
       # Check each box offset
+      offset = $("#simple").offset().top
       expect $("#simple-1").offset().top
-        .toBe offsetTop1
+        .toBe offset + 200*0
       expect $("#simple-2").offset().top
-        .toBe offsetTop2
+        .toBe offset + 200*1
       expect $("#simple-3").offset().top
-        .toBe offsetTop3
+        .toBe offset + 200*2
       expect $("#simple-4").offset().top
-        .toBe offsetTop4
+        .toBe offset + 200*3
 
   describe "library smoke test", ->
 
@@ -74,19 +68,51 @@ describe "WOW", ->
         .not.toHaveClass "animated"
 
     it "animates elements after scrolling down and they become visible", (done) ->
-      window.scrollTo 0, offsetTop3-winHeight+150
+      window.scrollTo 0, $("#simple-3").offset().top-winHeight+150
       setTimeout ->
         expect $ "#simple-3"
           .toHaveClass "animated"
         expect $ "#simple-4"
           .not.toHaveClass "animated"
-        window.scrollTo 0, offsetTop4-winHeight+150
+        window.scrollTo 0, $("#simple-4").offset().top-winHeight+150
         setTimeout ->
           expect $ "#simple-4"
             .toHaveClass "animated"
           done()
         , 100
       , 100
+
+  describe "custom test environment", ->
+
+    beforeEach ->
+      loadFixtures "custom.html"
+
+    it "emulates window height", ->
+      expect document.documentElement.clientHeight
+        .toBe winHeight
+
+    it "has boxes set up for testing", ->
+      # Check each box height
+      expect $("#custom").height()
+        .toBe 800
+      expect $("#custom-1").height()
+        .toBe 200
+      expect $("#custom-2").height()
+        .toBe 200
+      expect $("#custom-3").height()
+        .toBe 200
+      expect $("#custom-4").height()
+        .toBe 200
+      # Check each box offset
+      offset = $("#custom").offset().top
+      expect $("#custom-1").offset().top
+        .toBe offset + 200*0
+      expect $("#custom-2").offset().top
+        .toBe offset + 200*1
+      expect $("#custom-3").offset().top
+        .toBe offset + 200*2
+      expect $("#custom-4").offset().top
+        .toBe offset + 200*3
 
   describe "library behaviour with custom settings", ->
 
@@ -102,27 +128,31 @@ describe "WOW", ->
       , 100
 
     it "does not touch elements that don't have the marker class", ->
-      expect $ "#custom-1"
+      custom1 = $ "#custom-1"
+      window.scrollTo 0, custom1.offset().top - 10
+      expect custom1
         .not.toHaveClass "fancy"
 
-    xit "animates elements that are partially visible on the page", ->
-      expect $ "#custom-2"
+    it "animates elements that are partially visible on the page", ->
+      custom1 = $ "#custom-2"
+      window.scrollTo 0, custom1.offset().top - winHeight + 10
+      expect custom1
         .toHaveClass "fancy"
 
-    xit "does not animate elements not yet visible on the page", ->
+    it "does not animate elements not yet visible on the page", ->
       expect $ "#custom-3"
         .not.toHaveClass "fancy"
       expect $ "#custom-4"
         .not.toHaveClass "fancy"
 
-    xit "animates elements after scrolling down and they become visible", (done) ->
-      window.scrollTo 0, offsetTop3-winHeight+150
+    it "animates elements after scrolling down and they become visible", (done) ->
+      window.scrollTo 0, $("#custom-3").offset().top - winHeight + 150
       setTimeout ->
         expect $ "#custom-3"
           .toHaveClass "fancy"
         expect $ "#custom-4"
           .not.toHaveClass "fancy"
-        window.scrollTo 0, offsetTop4-winHeight+150
+        window.scrollTo 0, $("#custom-4").offset().top - winHeight + 150
         setTimeout ->
           expect $ "#custom-4"
             .toHaveClass "fancy"
