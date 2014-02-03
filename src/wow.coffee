@@ -16,7 +16,7 @@ extend = (object, args...) ->
         result[key] ||= value
   result
 
-class @WOW
+class @["WOW"]
   defaults:
     boxClass:     'wow'
     animateClass: 'animated'
@@ -29,7 +29,7 @@ class @WOW
     @scrolled     = true
 
   # set initial config
-  init: ->
+  "init": ->
     if @boxes.length
       @applyStyle()
       window.addEventListener('scroll', @scrollHandler, false)

@@ -2,3 +2,4 @@
 .grunt/
 node_modules/
 _SpecRunner.html
+lib

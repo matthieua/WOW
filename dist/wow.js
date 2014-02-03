@@ -22,14 +22,14 @@
     return result;
   };
 
-  this.WOW = (function() {
-    WOW.prototype.defaults = {
+  this["WOW"] = (function() {
+    _Class.prototype.defaults = {
       boxClass: 'wow',
       animateClass: 'animated',
       offset: 0
     };
 
-    function WOW(options) {
+    function _Class(options) {
       if (options == null) {
         options = {};
       }
@@ -41,7 +41,7 @@
       this.scrolled = true;
     }
 
-    WOW.prototype.init = function() {
+    _Class.prototype["init"] = function() {
       if (this.boxes.length) {
         this.applyStyle();
         window.addEventListener('scroll', this.scrollHandler, false);
@@ -50,7 +50,7 @@
       }
     };
 
-    WOW.prototype.stop = function() {
+    _Class.prototype.stop = function() {
       window.removeEventListener('scroll', this.scrollHandler, false);
       window.removeEventListener('resize', this.scrollHandler, false);
       if (this.interval != null) {
@@ -58,12 +58,12 @@
       }
     };
 
-    WOW.prototype.show = function(box) {
+    _Class.prototype.show = function(box) {
       box.style.visibility = 'visible';
       return box.className = "" + box.className + " " + this.config.animateClass;
     };
 
-    WOW.prototype.applyStyle = function() {
+    _Class.prototype.applyStyle = function() {
       var box, delay, duration, iteration, _i, _len, _ref, _results;
       _ref = this.boxes;
       _results = [];
@@ -77,7 +77,7 @@
       return _results;
     };
 
-    WOW.prototype.customStyle = function(duration, delay, iteration) {
+    _Class.prototype.customStyle = function(duration, delay, iteration) {
       var style;
       style = "visibility: hidden; ";
       if (duration) {
@@ -92,11 +92,11 @@
       return style;
     };
 
-    WOW.prototype.scrollHandler = function() {
+    _Class.prototype.scrollHandler = function() {
       return this.scrolled = true;
     };
 
-    WOW.prototype.scrollCallback = function() {
+    _Class.prototype.scrollCallback = function() {
       var box;
       if (this.scrolled) {
         this.scrolled = false;
@@ -123,7 +123,7 @@
       }
     };
 
-    WOW.prototype.offsetTop = function(element) {
+    _Class.prototype.offsetTop = function(element) {
       var top;
       top = element.offsetTop;
       while (element = element.offsetParent) {
@@ -132,7 +132,7 @@
       return top;
     };
 
-    WOW.prototype.isVisible = function(box) {
+    _Class.prototype.isVisible = function(box) {
       var bottom, offset, top, viewBottom, viewTop;
       offset = box.getAttribute('data-wow-offset') || this.config.offset;
       viewTop = window.pageYOffset;
@@ -142,7 +142,7 @@
       return top <= viewBottom && bottom >= viewTop;
     };
 
-    return WOW;
+    return _Class;
 
   })();
 
