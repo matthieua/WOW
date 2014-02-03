@@ -18,7 +18,7 @@ Advantages:
 
 ## Version
 
-0.0.8
+0.0.9
 
 ## Are you smarter than us?
 
