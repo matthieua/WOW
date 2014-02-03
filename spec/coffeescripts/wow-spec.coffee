@@ -148,12 +148,20 @@ describe "WOW", ->
       setTimeout ->
         expect $ "#custom-3"
           .toHaveClass "fancy"
+        expect $("#custom-3")[0].style.webkitAnimationIterationCount
+          .toBe "2"
         expect $ "#custom-4"
           .not.toHaveClass "fancy"
         window.scrollTo 0, $("#custom-4").offset().top - winHeight + 150
         setTimeout ->
           expect $ "#custom-4"
             .toHaveClass "fancy"
+          expect $("#custom-4")[0].style.webkitAnimationIterationCount
+            .toBe "infinite"
+          expect $("#custom-4")[0].style.webkitAnimationDuration
+            .toBe "2s"
+          expect $("#custom-4")[0].style.webkitAnimationDelay
+            .toBe "1s"
           done()
         , 100
       , 100
