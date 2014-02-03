@@ -43,7 +43,7 @@ class @["WOW"]
     clearInterval @interval if @interval?
 
   # show box element
-  show: (box) ->
+  showBox: (box) ->
     box.style.visibility = 'visible'
     box.className = "#{box.className} #{@config.animateClass}"
 
@@ -87,14 +87,14 @@ class @["WOW"]
       @scrolled = false
       @boxes = for box in @boxes when box
         if @isVisible(box)
-          @show(box)
+          @showBox(box)
           continue
         box
       @stop() unless @boxes.length
 
 
   # Calculate element offset top
-  offsetTop: (element) ->
+  getOffsetTop: (element) ->
     top = element.offsetTop
     top += element.offsetTop while element = element.offsetParent
     top
@@ -104,7 +104,7 @@ class @["WOW"]
     offset     = box.getAttribute('data-wow-offset') or @config.offset
     viewTop    = window.pageYOffset
     viewBottom = viewTop + @element.clientHeight - offset
-    top        = @offsetTop(box)
+    top        = @getOffsetTop(box)
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop

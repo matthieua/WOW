@@ -58,7 +58,7 @@
       }
     };
 
-    _Class.prototype.show = function(box) {
+    _Class.prototype.showBox = function(box) {
       box.style.visibility = 'visible';
       return box.className = "" + box.className + " " + this.config.animateClass;
     };
@@ -110,7 +110,7 @@
               continue;
             }
             if (this.isVisible(box)) {
-              this.show(box);
+              this.showBox(box);
               continue;
             }
             _results.push(box);
@@ -123,7 +123,7 @@
       }
     };
 
-    _Class.prototype.offsetTop = function(element) {
+    _Class.prototype.getOffsetTop = function(element) {
       var top;
       top = element.offsetTop;
       while (element = element.offsetParent) {
@@ -137,7 +137,7 @@
       offset = box.getAttribute('data-wow-offset') || this.config.offset;
       viewTop = window.pageYOffset;
       viewBottom = viewTop + this.element.clientHeight - offset;
-      top = this.offsetTop(box);
+      top = this.getOffsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;
     };
