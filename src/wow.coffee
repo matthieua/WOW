@@ -62,8 +62,8 @@ class @WOW
 
       box.setAttribute 'style', @customStyle(duration, delay, iteration)
 
-  customStyle: (duration, delay, iteration) ->
-    "visibility: hidden;
+  customStyle: (duration, delay, iteration) -> "
+    visibility: hidden;
 
     -webkit-animation-duration: #{duration};
        -moz-animation-duration: #{duration};
