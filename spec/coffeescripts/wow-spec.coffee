@@ -1,6 +1,13 @@
 describe "WOW", ->
 
-  offset = 70 # top offset
+  offsetTop      = 70
+  winHeight      = 300
+  offsetFixtures = 100
+
+  offsetTop1 = offsetTop + offsetFixtures + 200*0
+  offsetTop2 = offsetTop + offsetFixtures + 200*1
+  offsetTop3 = offsetTop + offsetFixtures + 200*2
+  offsetTop4 = offsetTop + offsetFixtures + 200*3
 
   describe "test environment", ->
 
@@ -9,7 +16,7 @@ describe "WOW", ->
 
     it "emulates window height", ->
       expect document.documentElement.clientHeight
-        .toBe 300
+        .toBe winHeight
 
     it "has boxes set up for testing", ->
       # Check each box height
@@ -25,13 +32,13 @@ describe "WOW", ->
         .toBe 200
       # Check each box offset
       expect $("#fixtures-1").offset().top
-        .toBe offset + 100 + 200*0
+        .toBe offsetTop1
       expect $("#fixtures-2").offset().top
-        .toBe offset + 100 + 200*1
+        .toBe offsetTop2
       expect $("#fixtures-3").offset().top
-        .toBe offset + 100 + 200*2
+        .toBe offsetTop3
       expect $("#fixtures-4").offset().top
-        .toBe offset + 100 + 200*3
+        .toBe offsetTop4
 
   describe "library smoke test", ->
 
@@ -52,19 +59,31 @@ describe "WOW", ->
         done()
       , 100
 
-    it "animates elements that are fully visible on the page", (done) ->
+    it "animates elements that are fully visible on the page", ->
       expect $ "#fixtures-1"
         .toHaveClass "animated"
-      done()
 
-    it "does not touch elements that don't have the marker class", (done) ->
+    it "does not touch elements that don't have the marker class", ->
       expect $ "#fixtures-2"
         .not.toHaveClass "animated"
-      done()
 
-    it "does not animate elements not yet visible on the page", (done) ->
+    it "does not animate elements not yet visible on the page", ->
       expect $ "#fixtures-3"
         .not.toHaveClass "animated"
       expect $ "#fixtures-4"
         .not.toHaveClass "animated"
-      done()
+
+    it "animates elements after scrolling down and they become visible", (done) ->
+      window.scrollTo 0, offsetTop3-winHeight+150
+      setTimeout ->
+        expect $ "#fixtures-3"
+          .toHaveClass "animated"
+        expect $ "#fixtures-4"
+          .not.toHaveClass "animated"
+        window.scrollTo 0, offsetTop4-winHeight+150
+        setTimeout ->
+          expect $ "#fixtures-4"
+            .toHaveClass "animated"
+          done()
+        , 100
+      , 100
