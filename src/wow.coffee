@@ -21,9 +21,6 @@ class @WOW
     boxClass:     'wow'
     animateClass: 'animated'
     offset:       0
-    duration:     '1s'
-    delay:        '0s'
-    iteration:    '1'
 
   constructor: (options = {}) ->
     @config       = extend(options, @defaults)
@@ -52,27 +49,36 @@ class @WOW
 
   applyStyle: ->
     for box in @boxes
-      duration  = box.getAttribute('data-wow-duration')  or @config.duration
-      delay     = box.getAttribute('data-wow-delay')     or @config.delay
-      iteration = box.getAttribute('data-wow-iteration') or @config.iteration
+      duration  = box.getAttribute('data-wow-duration')
+      delay     = box.getAttribute('data-wow-delay')
+      iteration = box.getAttribute('data-wow-iteration')
 
       box.setAttribute 'style', @customStyle(duration, delay, iteration)
 
-  customStyle: (duration, delay, iteration) -> "
-    visibility: hidden;
+  customStyle: (duration, delay, iteration) ->
+    style =  "visibility: hidden; "
 
-    -webkit-animation-duration: #{duration};
-       -moz-animation-duration: #{duration};
-            animation-duration: #{duration};
+    style += "
+      -webkit-animation-duration: #{duration};
+         -moz-animation-duration: #{duration};
+              animation-duration: #{duration};
+    " if duration?
 
-    -webkit-animation-delay: #{delay};
-       -moz-animation-delay: #{delay};
-            animation-delay: #{delay};
 
-    -webkit-animation-iteration-count: #{iteration};
-       -moz-animation-iteration-count: #{iteration};
-            animation-iteration-count: #{iteration};
-    "
+    style += "
+      -webkit-animation-delay: #{delay};
+         -moz-animation-delay: #{delay};
+              animation-delay: #{delay};
+    " if delay?
+
+
+    style += "
+      -webkit-animation-iteration-count: #{iteration};
+         -moz-animation-iteration-count: #{iteration};
+              animation-iteration-count: #{iteration};
+      " if iteration?
+
+    style
 
   # fast window.scroll callback
   scrollHandler: =>

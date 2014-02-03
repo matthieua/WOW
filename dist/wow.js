@@ -26,10 +26,7 @@
     WOW.prototype.defaults = {
       boxClass: 'wow',
       animateClass: 'animated',
-      offset: 0,
-      duration: '1s',
-      delay: '0s',
-      iteration: '1'
+      offset: 0
     };
 
     function WOW(options) {
@@ -72,16 +69,27 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         box = _ref[_i];
-        duration = box.getAttribute('data-wow-duration') || this.config.duration;
-        delay = box.getAttribute('data-wow-delay') || this.config.delay;
-        iteration = box.getAttribute('data-wow-iteration') || this.config.iteration;
+        duration = box.getAttribute('data-wow-duration');
+        delay = box.getAttribute('data-wow-delay');
+        iteration = box.getAttribute('data-wow-iteration');
         _results.push(box.setAttribute('style', this.customStyle(duration, delay, iteration)));
       }
       return _results;
     };
 
     WOW.prototype.customStyle = function(duration, delay, iteration) {
-      return "visibility: hidden; -webkit-animation-duration: " + duration + "; -moz-animation-duration: " + duration + "; animation-duration: " + duration + "; -webkit-animation-delay: " + delay + "; -moz-animation-delay: " + delay + "; animation-delay: " + delay + "; -webkit-animation-iteration-count: " + iteration + "; -moz-animation-iteration-count: " + iteration + "; animation-iteration-count: " + iteration + ";";
+      var style;
+      style = "visibility: hidden; ";
+      if (duration != null) {
+        style += "-webkit-animation-duration: " + duration + "; -moz-animation-duration: " + duration + "; animation-duration: " + duration + ";";
+      }
+      if (delay != null) {
+        style += "-webkit-animation-delay: " + delay + "; -moz-animation-delay: " + delay + "; animation-delay: " + delay + ";";
+      }
+      if (iteration != null) {
+        style += "-webkit-animation-iteration-count: " + iteration + "; -moz-animation-iteration-count: " + iteration + "; animation-iteration-count: " + iteration + ";";
+      }
+      return style;
     };
 
     WOW.prototype.scrollHandler = function() {

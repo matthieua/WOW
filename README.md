@@ -60,10 +60,7 @@ wow = new WOW(
   {
     boxClass:     'wow',      // default
     animateClass: 'animated', // default
-    offset:       0,          // default
-    duration:     '1s',       // default
-    delay:        '0s',       // default
-    iteration:    '1'         // default
+    offset:       0          // default
   }
 )
 WOW.init();
