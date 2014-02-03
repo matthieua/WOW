@@ -49,7 +49,6 @@ class @WOW
   show: (box) ->
     box.style.visibility = 'visible'
     box.className = "#{box.className} #{@config.animateClass}"
-    null
 
   applyStyle: ->
     for box in @boxes
@@ -87,6 +86,7 @@ class @WOW
       @boxes = for box in @boxes when box?
         if @isVisible(box)
           @show(box)
+          null
         else
           box
       @stop() unless @boxes.length

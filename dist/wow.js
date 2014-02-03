@@ -63,8 +63,7 @@
 
     WOW.prototype.show = function(box) {
       box.style.visibility = 'visible';
-      box.className = "" + box.className + " " + this.config.animateClass;
-      return null;
+      return box.className = "" + box.className + " " + this.config.animateClass;
     };
 
     WOW.prototype.applyStyle = function() {
@@ -106,7 +105,8 @@
             box = _ref[_i];
             if (box != null) {
               if (this.isVisible(box)) {
-                _results.push(this.show(box));
+                this.show(box);
+                _results.push(null);
               } else {
                 _results.push(box);
               }
