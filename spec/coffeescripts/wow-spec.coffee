@@ -9,10 +9,10 @@ describe "WOW", ->
   offsetTop3 = offsetTop + offsetFixtures + 200*2
   offsetTop4 = offsetTop + offsetFixtures + 200*3
 
-  describe "test environment", ->
+  describe "simple test environment", ->
 
     beforeEach ->
-      loadFixtures "fragment.html"
+      loadFixtures "simple.html"
 
     it "emulates window height", ->
       expect document.documentElement.clientHeight
@@ -20,24 +20,24 @@ describe "WOW", ->
 
     it "has boxes set up for testing", ->
       # Check each box height
-      expect $("#fixtures").height()
+      expect $("#simple").height()
         .toBe 800
-      expect $("#fixtures-1").height()
+      expect $("#simple-1").height()
         .toBe 200
-      expect $("#fixtures-2").height()
+      expect $("#simple-2").height()
         .toBe 200
-      expect $("#fixtures-3").height()
+      expect $("#simple-3").height()
         .toBe 200
-      expect $("#fixtures-4").height()
+      expect $("#simple-4").height()
         .toBe 200
       # Check each box offset
-      expect $("#fixtures-1").offset().top
+      expect $("#simple-1").offset().top
         .toBe offsetTop1
-      expect $("#fixtures-2").offset().top
+      expect $("#simple-2").offset().top
         .toBe offsetTop2
-      expect $("#fixtures-3").offset().top
+      expect $("#simple-3").offset().top
         .toBe offsetTop3
-      expect $("#fixtures-4").offset().top
+      expect $("#simple-4").offset().top
         .toBe offsetTop4
 
   describe "library smoke test", ->
@@ -53,37 +53,79 @@ describe "WOW", ->
   describe "library behaviour", ->
 
     beforeEach (done) ->
-      loadFixtures "fragment.html"
+      loadFixtures "simple.html"
       new WOW().init()
       setTimeout ->
         done()
       , 100
 
     it "animates elements that are fully visible on the page", ->
-      expect $ "#fixtures-1"
+      expect $ "#simple-1"
         .toHaveClass "animated"
 
     it "does not touch elements that don't have the marker class", ->
-      expect $ "#fixtures-2"
+      expect $ "#simple-2"
         .not.toHaveClass "animated"
 
     it "does not animate elements not yet visible on the page", ->
-      expect $ "#fixtures-3"
+      expect $ "#simple-3"
         .not.toHaveClass "animated"
-      expect $ "#fixtures-4"
+      expect $ "#simple-4"
         .not.toHaveClass "animated"
 
     it "animates elements after scrolling down and they become visible", (done) ->
       window.scrollTo 0, offsetTop3-winHeight+150
       setTimeout ->
-        expect $ "#fixtures-3"
+        expect $ "#simple-3"
           .toHaveClass "animated"
-        expect $ "#fixtures-4"
+        expect $ "#simple-4"
           .not.toHaveClass "animated"
         window.scrollTo 0, offsetTop4-winHeight+150
         setTimeout ->
-          expect $ "#fixtures-4"
+          expect $ "#simple-4"
             .toHaveClass "animated"
+          done()
+        , 100
+      , 100
+
+  describe "library behaviour with custom settings", ->
+
+    beforeEach (done) ->
+      loadFixtures "custom.html"
+      new WOW
+        boxClass:     "block"
+        animateClass: "fancy"
+        offset:       10
+      .init()
+      setTimeout ->
+        done()
+      , 100
+
+    it "does not touch elements that don't have the marker class", ->
+      expect $ "#custom-1"
+        .not.toHaveClass "fancy"
+
+    xit "animates elements that are partially visible on the page", ->
+      expect $ "#custom-2"
+        .toHaveClass "fancy"
+
+    xit "does not animate elements not yet visible on the page", ->
+      expect $ "#custom-3"
+        .not.toHaveClass "fancy"
+      expect $ "#custom-4"
+        .not.toHaveClass "fancy"
+
+    xit "animates elements after scrolling down and they become visible", (done) ->
+      window.scrollTo 0, offsetTop3-winHeight+150
+      setTimeout ->
+        expect $ "#custom-3"
+          .toHaveClass "fancy"
+        expect $ "#custom-4"
+          .not.toHaveClass "fancy"
+        window.scrollTo 0, offsetTop4-winHeight+150
+        setTimeout ->
+          expect $ "#custom-4"
+            .toHaveClass "fancy"
           done()
         , 100
       , 100
