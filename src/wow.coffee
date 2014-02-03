@@ -31,7 +31,7 @@ class @WOW
   # set initial config
   init: ->
     if @boxes.length
-      @applyStyle(@boxes)
+      @applyStyle()
       window.addEventListener('scroll', @scrollHandler, false)
       window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
