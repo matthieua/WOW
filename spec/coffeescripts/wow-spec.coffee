@@ -1,5 +1,7 @@
 describe "WOW", ->
 
+  offset = 70 # top offset
+
   describe "test environment", ->
 
     beforeEach ->
@@ -9,11 +11,27 @@ describe "WOW", ->
       expect document.documentElement.clientHeight
         .toBe 300
 
-    it "has a scoped stylesheet", ->
+    it "has boxes set up for testing", ->
+      # Check each box height
       expect $("#fixtures").height()
-        .toBe 700
+        .toBe 800
       expect $("#fixtures-1").height()
-        .toBe 50
+        .toBe 200
+      expect $("#fixtures-2").height()
+        .toBe 200
+      expect $("#fixtures-3").height()
+        .toBe 200
+      expect $("#fixtures-4").height()
+        .toBe 200
+      # Check each box offset
+      expect $("#fixtures-1").offset().top
+        .toBe offset + 100 + 200*0
+      expect $("#fixtures-2").offset().top
+        .toBe offset + 100 + 200*1
+      expect $("#fixtures-3").offset().top
+        .toBe offset + 100 + 200*2
+      expect $("#fixtures-4").offset().top
+        .toBe offset + 100 + 200*3
 
   describe "library smoke test", ->
 
@@ -29,35 +47,24 @@ describe "WOW", ->
 
     beforeEach (done) ->
       loadFixtures "fragment.html"
-      $("#fixtures").css
-        padding: 0
-        margin: 0
       new WOW().init()
       setTimeout ->
         done()
       , 100
 
-    it "does not touch elements that don't have the marker class", (done) ->
+    it "animates elements that are fully visible on the page", (done) ->
       expect $ "#fixtures-1"
-        .not.toHaveClass WOW.prototype.defaults.animateClass
+        .toHaveClass "animated"
       done()
 
-    it "animates elements partially visible on the page", (done) ->
+    it "does not touch elements that don't have the marker class", (done) ->
       expect $ "#fixtures-2"
-        .toHaveClass WOW.prototype.defaults.animateClass
+        .not.toHaveClass "animated"
       done()
 
     it "does not animate elements not yet visible on the page", (done) ->
-      # FIXME: why the hell is this failing?
-      #expect $ "#fixtures-3"
-      #  .not.toHaveClass WOW.prototype.defaults.animateClass
-      # Here's some context:
-      #expect $("#fixtures-1").offset().top
-      #  .toBe 1  # 120
-      #expect $("#fixtures-2").offset().top
-      #  .toBe 2  # 220
-      #expect $("#fixtures-3").offset().top
-      #  .toBe 3  # 238 WTF?!
-      #expect $ "#fixtures-4"
-      #  .not.toHaveClass WOW.prototype.defaults.animateClass
+      expect $ "#fixtures-3"
+        .not.toHaveClass "animated"
+      expect $ "#fixtures-4"
+        .not.toHaveClass "animated"
       done()
