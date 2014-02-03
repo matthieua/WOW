@@ -5,11 +5,11 @@ describe "WOW", ->
 
   describe "test environment", ->
 
-    it "should emulate a window of height 300", ->
+    it "emulates window height", ->
       expect document.documentElement.clientHeight
         .toBe 300
 
-  describe "library behavior", ->
+  describe "library smoke test", ->
 
     it "exists", ->
       expect WOW
@@ -19,9 +19,20 @@ describe "WOW", ->
       expect new WOW().init
         .toBeDefined()
 
-    xit "animates elements already visible on the page", ->
+  describe "library behaviour", ->
+
+    beforeEach (done) ->
       new WOW().init()
-      #expect $("#test-1")[0]
-      #  .toHaveClass "animated"
+      setTimeout ->
+        done()
+      , 100
+
+    it "does not touch elements that don't have a 'box' class", (done) ->
+      expect $("#test-1")[0]
+        .not.toHaveClass "animated"
+      done()
+
+    it "animates elements already visible on the page", (done) ->
       expect $("#test-2")[0]
         .toHaveClass "animated"
+      done()
