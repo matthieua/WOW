@@ -62,21 +62,19 @@ class @WOW
       -webkit-animation-duration: #{duration};
          -moz-animation-duration: #{duration};
               animation-duration: #{duration};
-    " if duration?
-
+    " if duration
 
     style += "
       -webkit-animation-delay: #{delay};
          -moz-animation-delay: #{delay};
               animation-delay: #{delay};
-    " if delay?
-
+    " if delay
 
     style += "
       -webkit-animation-iteration-count: #{iteration};
          -moz-animation-iteration-count: #{iteration};
               animation-iteration-count: #{iteration};
-      " if iteration?
+      " if iteration
 
     style
 

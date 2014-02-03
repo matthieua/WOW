@@ -80,13 +80,13 @@
     WOW.prototype.customStyle = function(duration, delay, iteration) {
       var style;
       style = "visibility: hidden; ";
-      if (duration != null) {
+      if (duration) {
         style += "-webkit-animation-duration: " + duration + "; -moz-animation-duration: " + duration + "; animation-duration: " + duration + ";";
       }
-      if (delay != null) {
+      if (delay) {
         style += "-webkit-animation-delay: " + delay + "; -moz-animation-delay: " + delay + "; animation-delay: " + delay + ";";
       }
-      if (iteration != null) {
+      if (iteration) {
         style += "-webkit-animation-iteration-count: " + iteration + "; -moz-animation-iteration-count: " + iteration + "; animation-iteration-count: " + iteration + ";";
       }
       return style;
