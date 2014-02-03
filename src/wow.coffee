@@ -6,17 +6,14 @@
 # Website : http://mynameismatthieu.com/wow
 #
 
-extend = (object) ->
+extend = (object, args...) ->
   result = object or {}
-  i = 1
-  while i < arguments.length
-    replacement = arguments[i] or {}
-    for key of replacement
+  for replacement in args
+    for key, value of replacement or {}
       if typeof result[key] is "object"
-        result[key] = extend(result[key], replacement[key])
+        result[key] = extend(result[key], value)
       else
-        result[key] = result[key] or replacement[key]
-    i++
+        result[key] ||= value
   result
 
 class @WOW
@@ -30,9 +27,8 @@ class @WOW
 
   constructor: (options = {}) ->
     @config       = extend(options, @defaults)
-    @visibleCount = 0
     @element      = window.document.documentElement
-    @boxes        = Array.prototype.slice.call(@element.getElementsByClassName(@config.boxClass))
+    @boxes        = @element.getElementsByClassName(@config.boxClass)
     @scrolled     = true
 
   # set initial config
@@ -85,12 +81,12 @@ class @WOW
   scrollCallback: =>
     if @scrolled
       @scrolled = false
-      for box, i in @boxes
-        if box? and @isVisible(box)
+      @boxes = for box in @boxes when box
+        if @isVisible(box)
           @show(box)
-          @boxes[i] = null
-          @visibleCount++
-          @stop() if @boxes.length is @visibleCount
+          continue
+        box
+      @stop() unless @boxes.length
 
 
   # Calculate element offset top
