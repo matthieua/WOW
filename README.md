@@ -49,8 +49,8 @@ new WOW().init();
 - HTML
 
 ```html
-  <section class="wow slideInLeft" data-duration="2s" data-delay="5s"></section>
-  <section class="wow slideInRight" data-offset="10"  data-iteration="10"></section>
+  <section class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s"></section>
+  <section class="wow slideInRight" data-wow-offset="10"  data-wow-iteration="10"></section>
 ```
 
 - JavaScript

@@ -71,9 +71,9 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         box = _ref[_i];
-        duration = box.getAttribute('data-duration') || this.config.duration;
-        delay = box.getAttribute('data-delay') || this.config.delay;
-        iteration = box.getAttribute('data-iteration') || this.config.iteration;
+        duration = box.getAttribute('data-wow-duration') || this.config.duration;
+        delay = box.getAttribute('data-wow-delay') || this.config.delay;
+        iteration = box.getAttribute('data-wow-iteration') || this.config.iteration;
         _results.push(box.setAttribute('style', this.customStyle(duration, delay, iteration)));
       }
       return _results;
@@ -128,7 +128,7 @@
 
     WOW.prototype.isVisible = function(box) {
       var bottom, offset, top, viewBottom, viewTop;
-      offset = box.getAttribute('data-offset') || this.config.offset;
+      offset = box.getAttribute('data-wow-offset') || this.config.offset;
       viewTop = window.pageYOffset;
       viewBottom = viewTop + this.element.clientHeight - offset;
       top = this.offsetTop(box);
