@@ -8,15 +8,13 @@
 
 extend = (object) ->
   result = object or {}
-  i = 1
-  while i < arguments.length
-    replacement = arguments[i] or {}
-    for key of replacement
-      if typeof result[key] is "object"
-        result[key] = extend(result[key], replacement[key])
-      else
-        result[key] = result[key] or replacement[key]
-    i++
+  for replacement, i in arguments
+    if i
+      for key, value of replacement or {}
+        if typeof result[key] is "object"
+          result[key] = extend(result[key], value)
+        else
+          result[key] ||= value
   result
 
 class @WOW

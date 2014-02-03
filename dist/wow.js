@@ -3,19 +3,21 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   extend = function(object) {
-    var i, key, replacement, result;
+    var i, key, replacement, result, value, _i, _len, _ref;
     result = object || {};
-    i = 1;
-    while (i < arguments.length) {
-      replacement = arguments[i] || {};
-      for (key in replacement) {
-        if (typeof result[key] === "object") {
-          result[key] = extend(result[key], replacement[key]);
-        } else {
-          result[key] = result[key] || replacement[key];
+    for (i = _i = 0, _len = arguments.length; _i < _len; i = ++_i) {
+      replacement = arguments[i];
+      if (i) {
+        _ref = replacement || {};
+        for (key in _ref) {
+          value = _ref[key];
+          if (typeof result[key] === "object") {
+            result[key] = extend(result[key], value);
+          } else {
+            result[key] || (result[key] = value);
+          }
         }
       }
-      i++;
     }
     return result;
   };
