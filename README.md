@@ -20,10 +20,6 @@ Advantages:
 
 0.1.0
 
-## Are you smarter than us?
-
-So far we deactivated it by default on mobile devices (see below why...). You know a solution to fix this problem? contribute or contact us!
-
 ## Documentation
 
 ### Dependencies
