@@ -105,4 +105,4 @@ Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
 
-Initiated and designed by [Vincent Le Moign](http://www.webalys.com/)
+Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys) 
