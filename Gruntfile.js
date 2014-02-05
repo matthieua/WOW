@@ -1,23 +1,24 @@
 /*global module:false*/
 module.exports = function(grunt) {
-  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine', 'uglify']
+  mainTasks = ['coffee', 'growl:coffee', 'jasmine', 'growl:jasmine']
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
+    curl: {
+      'lib/compiler-latest.zip': 'http://dl.google.com/closure-compiler/compiler-latest.zip'
+    },
+    unzip: {
+      'lib/build': 'lib/compiler-latest.zip'
+    },
+    'closure-compiler': {
       dist: {
-        files: {
-        'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
+        js: 'dist/<%= pkg.name %>.js',
+        jsOutputFile: 'dist/<%= pkg.name %>.min.js',
+        closurePath: 'lib',
+        options: {
+          compilation_level: 'ADVANCED_OPTIMIZATIONS'
         }
-      },
-      options: {
-        banner : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-          '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-          '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-          '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-          ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */',
-        report: 'gzip'
       }
     },
     coffee : {
@@ -80,9 +81,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-closure-compiler');
+  grunt.loadNpmTasks('grunt-curl');
+  grunt.loadNpmTasks('grunt-zip');
 
   grunt.registerTask('default', mainTasks);
+
+  // Generate compiled & minified output.
+  grunt.registerTask('dist', mainTasks.concat(['curl', 'unzip', 'closure-compiler']));
 
   // Travis CI task.
   grunt.registerTask('travis', ['coffee', 'jasmine']);
