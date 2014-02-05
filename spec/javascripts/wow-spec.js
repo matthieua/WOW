@@ -41,23 +41,30 @@
         }, timeout);
       });
       it("animates elements that are fully visible on the page", function() {
-        return expect($("#simple-1")).toHaveClass("animated");
+        expect($("#simple-1")).toHaveClass("animated");
+        return expect($("#simple-1").css("visibility")).toBe("visible");
       });
       it("does not touch elements that don't have the marker class", function() {
-        return expect($("#simple-2")).not.toHaveClass("animated");
+        expect($("#simple-2")).not.toHaveClass("animated");
+        return expect($("#simple-2").css("visibility")).toBe("visible");
       });
       it("does not animate elements not yet visible on the page", function() {
         expect($("#simple-3")).not.toHaveClass("animated");
-        return expect($("#simple-4")).not.toHaveClass("animated");
+        expect($("#simple-3").css("visibility")).not.toBe("visible");
+        expect($("#simple-4")).not.toHaveClass("animated");
+        return expect($("#simple-4").css("visibility")).not.toBe("visible");
       });
       return it("animates elements after scrolling down and they become visible", function(done) {
         window.scrollTo(0, $("#simple-3").offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($("#simple-3")).toHaveClass("animated");
+          expect($("#simple-3").css("visibility")).toBe("visible");
           expect($("#simple-4")).not.toHaveClass("animated");
+          expect($("#simple-4").css("visibility")).not.toBe("visible");
           window.scrollTo(0, $("#simple-4").offset().top - winHeight + 150);
           return setTimeout(function() {
             expect($("#simple-4")).toHaveClass("animated");
+            expect($("#simple-4").css("visibility")).toBe("visible");
             return done();
           }, timeout);
         }, timeout);
@@ -110,6 +117,7 @@
           window.scrollTo(0, $("#custom-2").offset().top - winHeight + 15);
           return setTimeout(function() {
             expect($("#custom-2")).toHaveClass("fancy");
+            expect($("#custom-2").css("visibility")).toBe("visible");
             return done();
           }, timeout);
         }, timeout);
@@ -122,11 +130,13 @@
         window.scrollTo(0, $("#custom-3").offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($("#custom-3")).toHaveClass("fancy");
+          expect($("#custom-3").css("visibility")).toBe("visible");
           expect($("#custom-3")[0].style.webkitAnimationIterationCount).toBe("2");
           expect($("#custom-4")).not.toHaveClass("fancy");
           window.scrollTo(0, $("#custom-4").offset().top - winHeight + 150);
           return setTimeout(function() {
             expect($("#custom-4")).toHaveClass("fancy");
+            expect($("#custom-4").css("visibility")).toBe("visible");
             expect($("#custom-4")[0].style.webkitAnimationIterationCount).toBe("infinite");
             expect($("#custom-4")[0].style.webkitAnimationDuration).toBe("2s");
             expect($("#custom-4")[0].style.webkitAnimationDelay).toBe("1s");
