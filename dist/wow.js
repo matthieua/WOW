@@ -89,7 +89,7 @@
       var style;
       style = "";
       if (hidden) {
-        style += "visibility: hidden; -webkit-animation-name: none; -moz-animation-name: none; animation-name: none; }";
+        style += "visibility: hidden; -webkit-animation-name: none; -moz-animation-name: none; animation-name: none;";
       }
       if (duration) {
         style += "-webkit-animation-duration: " + duration + "; -moz-animation-duration: " + duration + "; animation-duration: " + duration + ";";

@@ -70,7 +70,6 @@ class @WOW
       -webkit-animation-name: none;
          -moz-animation-name: none;
               animation-name: none;
-      }
     " if hidden
 
     style += "
