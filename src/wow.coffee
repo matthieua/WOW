@@ -31,10 +31,22 @@ class @WOW
   # set initial config
   init: ->
     if @boxes.length
+      @initCSS()
       @applyStyle()
       window.addEventListener('scroll', @scrollHandler, false)
       window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
+
+  initCSS: ->
+    style = document.createElement "style"
+    style.textContent = "
+      :not(.#{@config.animateClass}).#{@config.boxClass} {
+        -webkit-animation-name: none;
+           -moz-animation-name: none;
+                animation-name: none;
+      }
+    "
+    document.head.appendChild(style)
 
   # unbind the scroll event
   stop: ->
