@@ -35,13 +35,22 @@
       }
       this.scrollCallback = __bind(this.scrollCallback, this);
       this.scrollHandler = __bind(this.scrollHandler, this);
+      this.start = __bind(this.start, this);
       this.config = extend(options, this.defaults);
-      this.element = window.document.documentElement;
-      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       this.scrolled = true;
     }
 
     WOW.prototype.init = function() {
+      if (document.readyState === "complete") {
+        return this.start();
+      } else {
+        return document.addEventListener('DOMContentLoaded', this.start);
+      }
+    };
+
+    WOW.prototype.start = function() {
+      this.element = window.document.documentElement;
+      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       if (this.boxes.length) {
         this.initCSS();
         this.applyStyle();
