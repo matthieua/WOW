@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.0
+# Version : 0.1.2
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -23,15 +23,22 @@ class @WOW
     offset:       0
 
   constructor: (options = {}) ->
-    @config       = extend(options, @defaults)
-    @element      = window.document.documentElement
-    @boxes        = @element.getElementsByClassName(@config.boxClass)
-    @scrolled     = true
+    @config   = extend(options, @defaults)
+    @scrolled = true
 
   # set initial config
   init: ->
+    if document.readyState is "complete"
+      @start()
+    else
+      document.addEventListener 'DOMContentLoaded', @start
+
+  start: =>
+    @element = window.document.documentElement
+    @boxes   = @element.getElementsByClassName(@config.boxClass)
+
     if @boxes.length
-      @applyStyle()
+      @applyStyle(box, true) for box in @boxes
       window.addEventListener('scroll', @scrollHandler, false)
       window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
@@ -44,19 +51,26 @@ class @WOW
 
   # show box element
   show: (box) ->
-    box.style.visibility = 'visible'
+    @applyStyle(box)
     box.className = "#{box.className} #{@config.animateClass}"
 
-  applyStyle: ->
-    for box in @boxes
-      duration  = box.getAttribute('data-wow-duration')
-      delay     = box.getAttribute('data-wow-delay')
-      iteration = box.getAttribute('data-wow-iteration')
+  applyStyle: (box, hidden) ->
+    duration  = box.getAttribute('data-wow-duration')
+    delay     = box.getAttribute('data-wow-delay')
+    iteration = box.getAttribute('data-wow-iteration')
 
-      box.setAttribute 'style', @customStyle(duration, delay, iteration)
+    box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
 
-  customStyle: (duration, delay, iteration) ->
-    style =  "visibility: hidden; "
+  customStyle: (hidden, duration, delay, iteration) ->
+    style =  ""
+
+    style += "
+      visibility: hidden;
+
+      -webkit-animation-name: none;
+         -moz-animation-name: none;
+              animation-name: none;
+    " if hidden
 
     style += "
       -webkit-animation-duration: #{duration};
