@@ -82,10 +82,10 @@
       duration = box.getAttribute('data-wow-duration');
       delay = box.getAttribute('data-wow-delay');
       iteration = box.getAttribute('data-wow-iteration');
-      return box.setAttribute('style', this.customStyle(duration, delay, iteration, hidden));
+      return box.setAttribute('style', this.customStyle(hidden, duration, delay, iteration));
     };
 
-    WOW.prototype.customStyle = function(duration, delay, iteration, hidden) {
+    WOW.prototype.customStyle = function(hidden, duration, delay, iteration) {
       var style;
       style = "";
       if (hidden) {

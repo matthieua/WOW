@@ -59,9 +59,9 @@ class @WOW
     delay     = box.getAttribute('data-wow-delay')
     iteration = box.getAttribute('data-wow-iteration')
 
-    box.setAttribute 'style', @customStyle(duration, delay, iteration, hidden)
+    box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
 
-  customStyle: (duration, delay, iteration, hidden) ->
+  customStyle: (hidden, duration, delay, iteration) ->
     style =  ""
 
     style += "
