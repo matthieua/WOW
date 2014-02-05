@@ -38,22 +38,10 @@ class @WOW
     @boxes   = @element.getElementsByClassName(@config.boxClass)
 
     if @boxes.length
-      @initCSS()
-      @applyStyle()
+      @applyStyle(box, true) for box in @boxes
       window.addEventListener('scroll', @scrollHandler, false)
       window.addEventListener('resize', @scrollHandler, false)
       @interval = setInterval @scrollCallback, 50
-
-  initCSS: ->
-    style = document.createElement "style"
-    style.textContent = "
-      :not(.#{@config.animateClass}).#{@config.boxClass} {
-        -webkit-animation-name: none;
-           -moz-animation-name: none;
-                animation-name: none;
-      }
-    "
-    document.head.appendChild(style)
 
   # unbind the scroll event
   stop: ->
@@ -63,19 +51,27 @@ class @WOW
 
   # show box element
   show: (box) ->
-    box.style.visibility = 'visible'
+    @applyStyle(box)
     box.className = "#{box.className} #{@config.animateClass}"
 
-  applyStyle: ->
-    for box in @boxes
-      duration  = box.getAttribute('data-wow-duration')
-      delay     = box.getAttribute('data-wow-delay')
-      iteration = box.getAttribute('data-wow-iteration')
+  applyStyle: (box, hidden) ->
+    duration  = box.getAttribute('data-wow-duration')
+    delay     = box.getAttribute('data-wow-delay')
+    iteration = box.getAttribute('data-wow-iteration')
 
-      box.setAttribute 'style', @customStyle(duration, delay, iteration)
+    box.setAttribute 'style', @customStyle(duration, delay, iteration, hidden)
 
-  customStyle: (duration, delay, iteration) ->
-    style =  "visibility: hidden; "
+  customStyle: (duration, delay, iteration, hidden) ->
+    style =  ""
+
+    style += "
+      visibility: hidden;
+
+      -webkit-animation-name: none;
+         -moz-animation-name: none;
+              animation-name: none;
+      }
+    " if hidden
 
     style += "
       -webkit-animation-duration: #{duration};
