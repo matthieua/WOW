@@ -49,10 +49,15 @@
     };
 
     WOW.prototype.start = function() {
+      var box, _i, _len, _ref;
       this.element = window.document.documentElement;
       this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       if (this.boxes.length) {
-        this.applyStyle();
+        _ref = this.boxes;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          box = _ref[_i];
+          this.applyStyle(box, true);
+        }
         window.addEventListener('scroll', this.scrollHandler, false);
         window.addEventListener('resize', this.scrollHandler, false);
         return this.interval = setInterval(this.scrollCallback, 50);
@@ -68,27 +73,24 @@
     };
 
     WOW.prototype.show = function(box) {
-      box.style.visibility = 'visible';
+      this.applyStyle(box);
       return box.className = "" + box.className + " " + this.config.animateClass;
     };
 
-    WOW.prototype.applyStyle = function() {
-      var box, delay, duration, iteration, _i, _len, _ref, _results;
-      _ref = this.boxes;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        box = _ref[_i];
-        duration = box.getAttribute('data-wow-duration');
-        delay = box.getAttribute('data-wow-delay');
-        iteration = box.getAttribute('data-wow-iteration');
-        _results.push(box.setAttribute('style', this.customStyle(duration, delay, iteration)));
-      }
-      return _results;
+    WOW.prototype.applyStyle = function(box, hidden) {
+      var delay, duration, iteration;
+      duration = box.getAttribute('data-wow-duration');
+      delay = box.getAttribute('data-wow-delay');
+      iteration = box.getAttribute('data-wow-iteration');
+      return box.setAttribute('style', this.customStyle(hidden, duration, delay, iteration));
     };
 
-    WOW.prototype.customStyle = function(duration, delay, iteration) {
+    WOW.prototype.customStyle = function(hidden, duration, delay, iteration) {
       var style;
-      style = "visibility: hidden; ";
+      style = "";
+      if (hidden) {
+        style += "visibility: hidden; -webkit-animation-name: none; -moz-animation-name: none; animation-name: none;";
+      }
       if (duration) {
         style += "-webkit-animation-duration: " + duration + "; -moz-animation-duration: " + duration + "; animation-duration: " + duration + ";";
       }
