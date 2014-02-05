@@ -23,13 +23,20 @@ class @WOW
     offset:       0
 
   constructor: (options = {}) ->
-    @config       = extend(options, @defaults)
-    @element      = window.document.documentElement
-    @boxes        = @element.getElementsByClassName(@config.boxClass)
-    @scrolled     = true
+    @config   = extend(options, @defaults)
+    @scrolled = true
 
   # set initial config
   init: ->
+    if document.readyState is "complete"
+      @start()
+    else
+      document.addEventListener 'DOMContentLoaded', @start
+
+  start: =>
+    @element = window.document.documentElement
+    @boxes   = @element.getElementsByClassName(@config.boxClass)
+
     if @boxes.length
       @applyStyle()
       window.addEventListener('scroll', @scrollHandler, false)
