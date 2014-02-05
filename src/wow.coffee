@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.2
+# Version : 0.1.3
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -62,15 +62,15 @@ class @WOW
     box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
 
   customStyle: (hidden, duration, delay, iteration) ->
-    style =  ""
-
-    style += "
+    style =  if hidden then "
       visibility: hidden;
 
       -webkit-animation-name: none;
          -moz-animation-name: none;
               animation-name: none;
-    " if hidden
+    " else "
+      visibility: visible;
+    "
 
     style += "
       -webkit-animation-duration: #{duration};

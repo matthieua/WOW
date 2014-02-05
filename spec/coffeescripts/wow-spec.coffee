@@ -61,16 +61,24 @@ describe "WOW", ->
     it "animates elements that are fully visible on the page", ->
       expect $ "#simple-1"
         .toHaveClass "animated"
+      expect $("#simple-1").css "visibility"
+        .toBe "visible"
 
     it "does not touch elements that don't have the marker class", ->
       expect $ "#simple-2"
         .not.toHaveClass "animated"
+      expect $("#simple-2").css "visibility"
+        .toBe "visible"
 
     it "does not animate elements not yet visible on the page", ->
       expect $ "#simple-3"
         .not.toHaveClass "animated"
+      expect $("#simple-3").css "visibility"
+        .not.toBe "visible"
       expect $ "#simple-4"
         .not.toHaveClass "animated"
+      expect $("#simple-4").css "visibility"
+        .not.toBe "visible"
 
     it "animates elements after scrolling down and they become visible", (done) ->
       # Scroll down so that 150px of #simple-3 becomes visible.
@@ -78,13 +86,19 @@ describe "WOW", ->
       setTimeout ->
         expect $ "#simple-3"
           .toHaveClass "animated"
+        expect $("#simple-3").css "visibility"
+          .toBe "visible"
         expect $ "#simple-4"
           .not.toHaveClass "animated"
+        expect $("#simple-4").css "visibility"
+          .not.toBe "visible"
         # Scroll down so that 150px of #simple-4 becomes visible.
         window.scrollTo 0, $("#simple-4").offset().top - winHeight + 150
         setTimeout ->
           expect $ "#simple-4"
             .toHaveClass "animated"
+          expect $("#simple-4").css "visibility"
+            .toBe "visible"
           done()
         , timeout
       , timeout
@@ -154,6 +168,8 @@ describe "WOW", ->
           # Scroll down so that 15px of #custom-2 becomes visible.
           expect $ "#custom-2"
             .toHaveClass "fancy"
+          expect $("#custom-2").css "visibility"
+            .toBe "visible"
           done()
         , timeout
       , timeout
@@ -170,6 +186,8 @@ describe "WOW", ->
       setTimeout ->
         expect $ "#custom-3"
           .toHaveClass "fancy"
+        expect $("#custom-3").css "visibility"
+          .toBe "visible"
         expect $("#custom-3")[0].style.webkitAnimationIterationCount
           .toBe "2"
         expect $ "#custom-4"
@@ -179,6 +197,8 @@ describe "WOW", ->
         setTimeout ->
           expect $ "#custom-4"
             .toHaveClass "fancy"
+          expect $("#custom-4").css "visibility"
+            .toBe "visible"
           expect $("#custom-4")[0].style.webkitAnimationIterationCount
             .toBe "infinite"
           expect $("#custom-4")[0].style.webkitAnimationDuration
