@@ -154,7 +154,7 @@
     WOW.prototype.fireEvent = function(element, eventName) {
       var event;
       if (typeof CustomEvent !== "undefined" && CustomEvent !== null) {
-        event = CustomEvent('CustomEvent', {
+        event = new CustomEvent('CustomEvent', {
           bubbles: true,
           cancelable: true
         });

@@ -127,7 +127,7 @@ class @WOW
   # Fire a custom event. See http://stackoverflow.com/a/2490876
   fireEvent: (element, eventName) ->
     if CustomEvent?
-      event = CustomEvent 'CustomEvent',
+      event = new CustomEvent 'CustomEvent',
         bubbles: true
         cancelable: true
     else if document.createEvent
