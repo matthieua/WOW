@@ -55,16 +55,29 @@
         return expect($("#simple-4").css("visibility")).not.toBe("visible");
       });
       return it("animates elements after scrolling down and they become visible", function(done) {
+        var animated;
+        animated = false;
+        $("#simple-3").on("animationstart", function() {
+          return animated = true;
+        });
+        expect(animated).toBe(false);
         window.scrollTo(0, $("#simple-3").offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($("#simple-3")).toHaveClass("animated");
           expect($("#simple-3").css("visibility")).toBe("visible");
+          expect(animated).toBe(true);
           expect($("#simple-4")).not.toHaveClass("animated");
           expect($("#simple-4").css("visibility")).not.toBe("visible");
+          animated = false;
+          $("#simple-4").on("animationstart", function() {
+            return animated = true;
+          });
+          expect(animated).toBe(false);
           window.scrollTo(0, $("#simple-4").offset().top - winHeight + 150);
           return setTimeout(function() {
             expect($("#simple-4")).toHaveClass("animated");
             expect($("#simple-4").css("visibility")).toBe("visible");
+            expect(animated).toBe(true);
             return done();
           }, timeout);
         }, timeout);
