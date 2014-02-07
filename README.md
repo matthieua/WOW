@@ -1,4 +1,4 @@
-# WOW [![Build Status](https://secure.travis-ci.org/matthieua/WOW.png?branch=master)](http://travis-ci.org/matthieua/WOW)
+# WOW.js [![Build Status](https://secure.travis-ci.org/matthieua/WOW.png?branch=master)](http://travis-ci.org/matthieua/WOW)
 
 Reveal CSS animation as you scroll down a page.
 By default, you should use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
@@ -10,9 +10,12 @@ Advantages:
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
+### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
+
 ## Live examples
 
 - [Fliplingo](https://www.fliplingo.com)
+- [Streamline Icons](http://www.streamlineicons.com)
 - [NastyIcons](http://www.nastyicons.com)
 
 
@@ -21,6 +24,9 @@ Advantages:
 0.1.3
 
 ## Documentation
+
+It just take seconds to install and use WOW.js!
+[Read the documentation ➫](http://mynameismatthieu.com/WOW/docs.html)
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
@@ -56,7 +62,7 @@ wow = new WOW(
   {
     boxClass:     'wow',      // default
     animateClass: 'animated', // default
-    offset:       0          // default
+    offset:       0           // default
   }
 )
 WOW.init();
@@ -84,7 +90,7 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please rnaise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
+If you find a bug, please raise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
 
 ## Developer
 
@@ -98,3 +104,5 @@ Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.
 Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
+
+Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys) 
