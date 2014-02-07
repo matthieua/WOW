@@ -126,14 +126,18 @@ class @WOW
 
   # Fire a custom event. See http://stackoverflow.com/a/2490876
   fireEvent: (element, eventName) ->
-    if document.createEvent
-      event = document.createEvent('HTMLEvents')
+    if CustomEvent?
+      event = CustomEvent 'CustomEvent',
+        bubbles: true
+        cancelable: true
+    else if document.createEvent
+      event = document.createEvent('CustomEvent')
       event.initEvent(eventName, true, true)
     else
       event = document.createEventObject()
       event.eventType = eventName
     event.eventName = eventName
-    if document.createEvent
+    if element.dispatchEvent?
       element.dispatchEvent(event)
     else
       element.fireEvent("on#{eventName}", event)

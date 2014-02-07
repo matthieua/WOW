@@ -153,15 +153,20 @@
 
     WOW.prototype.fireEvent = function(element, eventName) {
       var event;
-      if (document.createEvent) {
-        event = document.createEvent('HTMLEvents');
+      if (typeof CustomEvent !== "undefined" && CustomEvent !== null) {
+        event = CustomEvent('CustomEvent', {
+          bubbles: true,
+          cancelable: true
+        });
+      } else if (document.createEvent) {
+        event = document.createEvent('CustomEvent');
         event.initEvent(eventName, true, true);
       } else {
         event = document.createEventObject();
         event.eventType = eventName;
       }
       event.eventName = eventName;
-      if (document.createEvent) {
+      if (element.dispatchEvent != null) {
         return element.dispatchEvent(event);
       } else {
         return element.fireEvent("on" + eventName, event);
