@@ -74,7 +74,8 @@
 
     WOW.prototype.show = function(box) {
       this.applyStyle(box);
-      return box.className = "" + box.className + " " + this.config.animateClass;
+      box.className = "" + box.className + " " + this.config.animateClass;
+      return this.fireEvent(box, 'animationstart');
     };
 
     WOW.prototype.applyStyle = function(box, hidden) {
@@ -148,6 +149,23 @@
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;
+    };
+
+    WOW.prototype.fireEvent = function(element, eventName) {
+      var event;
+      if (document.createEvent) {
+        event = document.createEvent('HTMLEvents');
+        event.initEvent(eventName, true, true);
+      } else {
+        event = document.createEventObject();
+        event.eventType = eventName;
+      }
+      event.eventName = eventName;
+      if (document.createEvent) {
+        return element.dispatchEvent(event);
+      } else {
+        return element.fireEvent("on" + eventName, event);
+      }
     };
 
     return WOW;

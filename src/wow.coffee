@@ -53,6 +53,7 @@ class @WOW
   show: (box) ->
     @applyStyle(box)
     box.className = "#{box.className} #{@config.animateClass}"
+    @fireEvent(box, 'animationstart')
 
   applyStyle: (box, hidden) ->
     duration  = box.getAttribute('data-wow-duration')
@@ -122,3 +123,17 @@ class @WOW
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop
+
+  # Fire a custom event. See http://stackoverflow.com/a/2490876
+  fireEvent: (element, eventName) ->
+    if document.createEvent
+      event = document.createEvent('HTMLEvents')
+      event.initEvent(eventName, true, true)
+    else
+      event = document.createEventObject()
+      event.eventType = eventName
+    event.eventName = eventName
+    if document.createEvent
+      element.dispatchEvent(event)
+    else
+      element.fireEvent("on#{eventName}", event)
