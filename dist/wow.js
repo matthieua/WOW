@@ -1,26 +1,28 @@
 (function() {
-  var extend,
-    __slice = [].slice,
+  var Util,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  extend = function() {
-    var args, key, object, replacement, result, value, _i, _len, _ref;
-    object = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-    result = object || {};
-    for (_i = 0, _len = args.length; _i < _len; _i++) {
-      replacement = args[_i];
-      _ref = replacement || {};
-      for (key in _ref) {
-        value = _ref[key];
-        if (typeof result[key] === "object") {
-          result[key] = extend(result[key], value);
-        } else {
-          result[key] || (result[key] = value);
+  Util = (function() {
+    function Util() {}
+
+    Util.prototype.extend = function(custom, defaults) {
+      var key, value;
+      for (key in custom) {
+        value = custom[key];
+        if (value != null) {
+          defaults[key] = value;
         }
       }
-    }
-    return result;
-  };
+      return defaults;
+    };
+
+    Util.prototype.isMobile = function(agent) {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
+    };
+
+    return Util;
+
+  })();
 
   this.WOW = (function() {
     WOW.prototype.defaults = {
@@ -36,15 +38,18 @@
       this.scrollCallback = __bind(this.scrollCallback, this);
       this.scrollHandler = __bind(this.scrollHandler, this);
       this.start = __bind(this.start, this);
-      this.config = extend(options, this.defaults);
+      this.util = new Util();
       this.scrolled = true;
+      this.config = this.util.extend(options, this.defaults);
     }
 
     WOW.prototype.init = function() {
-      if (document.readyState === "complete") {
-        return this.start();
-      } else {
-        return document.addEventListener('DOMContentLoaded', this.start);
+      if (this.enabled) {
+        if (document.readyState === "complete") {
+          return this.start();
+        } else {
+          return document.addEventListener('DOMContentLoaded', this.start);
+        }
       }
     };
 
@@ -148,6 +153,14 @@
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;
+    };
+
+    WOW.prototype.util = function() {
+      return this.util || (this.util = new Util());
+    };
+
+    WOW.prototype.enabled = function() {
+      return this.config.mobile === true || this.util.isMobile(navigator.userAgent);
     };
 
     return WOW;

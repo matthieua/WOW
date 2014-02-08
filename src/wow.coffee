@@ -6,15 +6,15 @@
 # Website : http://mynameismatthieu.com/wow
 #
 
-extend = (object, args...) ->
-  result = object or {}
-  for replacement in args
-    for key, value of replacement or {}
-      if typeof result[key] is "object"
-        result[key] = extend(result[key], value)
-      else
-        result[key] ||= value
-  result
+
+class Util
+  extend: (custom, defaults) ->
+    for key, value of custom
+      defaults[key] = value if value?
+    defaults
+
+  isMobile: (agent) ->
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
 
 class @WOW
   defaults:
@@ -23,15 +23,17 @@ class @WOW
     offset:       0
 
   constructor: (options = {}) ->
-    @config   = extend(options, @defaults)
+    @util     = new Util()
     @scrolled = true
+    @config   = @util.extend(options, @defaults)
 
   # set initial config
   init: ->
-    if document.readyState is "complete"
-      @start()
-    else
-      document.addEventListener 'DOMContentLoaded', @start
+    if @enabled
+      if document.readyState is "complete"
+        @start()
+      else
+        document.addEventListener 'DOMContentLoaded', @start
 
   start: =>
     @element = window.document.documentElement
@@ -122,3 +124,9 @@ class @WOW
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop
+
+  util: ->
+    @util ||= new Util()
+
+  enabled: ->
+    @config.mobile is true or @util.isMobile(navigator.userAgent)
