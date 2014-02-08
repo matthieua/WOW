@@ -28,7 +28,8 @@
     WOW.prototype.defaults = {
       boxClass: 'wow',
       animateClass: 'animated',
-      offset: 0
+      offset: 0,
+      mobile: true
     };
 
     function WOW(options) {
@@ -38,14 +39,13 @@
       this.scrollCallback = __bind(this.scrollCallback, this);
       this.scrollHandler = __bind(this.scrollHandler, this);
       this.start = __bind(this.start, this);
-      this.util = new Util();
       this.scrolled = true;
-      this.config = this.util.extend(options, this.defaults);
+      this.config = this.util().extend(options, this.defaults);
     }
 
     WOW.prototype.init = function() {
-      if (this.enabled) {
-        if (document.readyState === "complete") {
+      if (this.enabled()) {
+        if (document.readyState === 'complete') {
           return this.start();
         } else {
           return document.addEventListener('DOMContentLoaded', this.start);
@@ -156,11 +156,11 @@
     };
 
     WOW.prototype.util = function() {
-      return this.util || (this.util = new Util());
+      return this._util || (this._util = new Util());
     };
 
     WOW.prototype.enabled = function() {
-      return this.config.mobile === true || this.util.isMobile(navigator.userAgent);
+      return this.config.mobile === true || this.util().isMobile(navigator.userAgent);
     };
 
     return WOW;

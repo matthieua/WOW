@@ -21,16 +21,16 @@ class @WOW
     boxClass:     'wow'
     animateClass: 'animated'
     offset:       0
+    mobile:       true
 
   constructor: (options = {}) ->
-    @util     = new Util()
     @scrolled = true
-    @config   = @util.extend(options, @defaults)
+    @config   = @util().extend(options, @defaults)
 
   # set initial config
   init: ->
-    if @enabled
-      if document.readyState is "complete"
+    if @enabled()
+      if document.readyState is 'complete'
         @start()
       else
         document.addEventListener 'DOMContentLoaded', @start
@@ -126,7 +126,7 @@ class @WOW
     top <= viewBottom and bottom >= viewTop
 
   util: ->
-    @util ||= new Util()
+    @_util ||= new Util()
 
   enabled: ->
-    @config.mobile is true or @util.isMobile(navigator.userAgent)
+    @config.mobile is true or @util().isMobile(navigator.userAgent)
