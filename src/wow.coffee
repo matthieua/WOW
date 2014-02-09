@@ -60,6 +60,7 @@ class @WOW
     iteration = box.getAttribute('data-wow-iteration')
 
     box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
+    @resetStyle(box, duration, delay, iteration)
 
   customStyle: (hidden, duration, delay, iteration) ->
     style =  if hidden then "
@@ -91,6 +92,21 @@ class @WOW
       " if iteration
 
     style
+
+  # resets applied inline style for the box element
+  resetStyle: (box, duration, delay, iteration) ->
+    defaultTime = 2;
+    if iteration isnt 'infinite'
+      durationTime = if duration then parseInt(duration.split('s')[0], 10) else defaultTime
+      delayTime = if delay then parseInt(delay.split('s')[0], 10) else 0
+      if durationTime and delayTime
+        totalTime = (delayTime + parseInt(iteration, 10)) * 1000
+        callback = @resetStyleCallback(box)
+        setTimeout callback, totalTime
+
+  # reset style callback
+  resetStyleCallback: (box) ->
+    box.setAttribute('style','')   
 
   # fast window.scroll callback
   scrollHandler: =>
