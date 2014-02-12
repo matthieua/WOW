@@ -28,7 +28,7 @@ class @WOW
 
   # set initial config
   init: ->
-    if document.readyState is "complete"
+    if document.readyState in ["interactive", "complete"]
       @start()
     else
       document.addEventListener 'DOMContentLoaded', @start
