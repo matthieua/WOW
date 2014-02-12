@@ -13,12 +13,13 @@ Advantages:
 ## Live examples
 
 - [Fliplingo](https://www.fliplingo.com)
+- [Streamline Icons](http://www.streamlineicons.com)
 - [NastyIcons](http://www.nastyicons.com)
 
 
 ## Version
 
-0.1.3
+0.1.4
 
 ## Documentation
 
@@ -56,7 +57,7 @@ wow = new WOW(
   {
     boxClass:     'wow',      // default
     animateClass: 'animated', // default
-    offset:       0          // default
+    offset:       0           // default
   }
 )
 WOW.init();
@@ -84,7 +85,7 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please rnaise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
+If you find a bug, please raise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
 
 ## Developer
 
@@ -98,3 +99,5 @@ Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.
 Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
+
+Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys) 

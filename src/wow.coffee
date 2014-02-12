@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.3
+# Version : 0.1.4
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -28,7 +28,7 @@ class @WOW
 
   # set initial config
   init: ->
-    if document.readyState is "complete"
+    if document.readyState in ["interactive", "complete"]
       @start()
     else
       document.addEventListener 'DOMContentLoaded', @start

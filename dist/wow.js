@@ -41,7 +41,8 @@
     }
 
     WOW.prototype.init = function() {
-      if (document.readyState === "complete") {
+      var _ref;
+      if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
         return this.start();
       } else {
         return document.addEventListener('DOMContentLoaded', this.start);
