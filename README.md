@@ -59,7 +59,7 @@ wow = new WOW(
     animateClass: 'animated', // default
     offset:       0           // default
   }
-)
+);
 WOW.init();
 ```
 
@@ -85,7 +85,7 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please raise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
+If you find a bug, please report it [here on Github](https://github.com/matthieua/WOW/issues)!
 
 ## Developer
 
