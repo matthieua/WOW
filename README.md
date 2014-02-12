@@ -64,7 +64,7 @@ wow = new WOW(
     animateClass: 'animated', // default
     offset:       0           // default
   }
-)
+);
 WOW.init();
 ```
 
