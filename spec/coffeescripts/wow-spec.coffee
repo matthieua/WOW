@@ -81,6 +81,13 @@ describe "WOW", ->
         .not.toBe "visible"
 
     it "animates elements after scrolling down and they become visible", (done) ->
+      # Set up a callback for the 'animationstart' event
+      animated = false
+      $ "#simple-3"
+        .on "animationstart", ->
+          animated = true
+      expect animated
+        .toBe false
       # Scroll down so that 150px of #simple-3 becomes visible.
       window.scrollTo 0, $("#simple-3").offset().top - winHeight + 150
       setTimeout ->
@@ -88,10 +95,19 @@ describe "WOW", ->
           .toHaveClass "animated"
         expect $("#simple-3").css "visibility"
           .toBe "visible"
+        expect animated
+          .toBe true
         expect $ "#simple-4"
           .not.toHaveClass "animated"
         expect $("#simple-4").css "visibility"
           .not.toBe "visible"
+        # Set up a callback for the 'animationstart' event
+        animated = false
+        $ "#simple-4"
+          .on "animationstart", ->
+            animated = true
+        expect animated
+          .toBe false
         # Scroll down so that 150px of #simple-4 becomes visible.
         window.scrollTo 0, $("#simple-4").offset().top - winHeight + 150
         setTimeout ->
@@ -99,6 +115,8 @@ describe "WOW", ->
             .toHaveClass "animated"
           expect $("#simple-4").css "visibility"
             .toBe "visible"
+          expect animated
+            .toBe true
           done()
         , timeout
       , timeout

@@ -41,7 +41,8 @@
     }
 
     WOW.prototype.init = function() {
-      if (document.readyState === "complete") {
+      var _ref;
+      if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
         return this.start();
       } else {
         return document.addEventListener('DOMContentLoaded', this.start);
@@ -74,7 +75,8 @@
 
     WOW.prototype.show = function(box) {
       this.applyStyle(box);
-      return box.className = "" + box.className + " " + this.config.animateClass;
+      box.className = "" + box.className + " " + this.config.animateClass;
+      return this.fireEvent(box, 'animationstart');
     };
 
     WOW.prototype.applyStyle = function(box, hidden) {
@@ -148,6 +150,28 @@
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;
+    };
+
+    WOW.prototype.fireEvent = function(element, eventName) {
+      var event;
+      if (typeof CustomEvent !== "undefined" && CustomEvent !== null) {
+        event = new CustomEvent('CustomEvent', {
+          bubbles: true,
+          cancelable: true
+        });
+      } else if (document.createEvent) {
+        event = document.createEvent('CustomEvent');
+        event.initEvent(eventName, true, true);
+      } else {
+        event = document.createEventObject();
+        event.eventType = eventName;
+      }
+      event.eventName = eventName;
+      if (element.dispatchEvent != null) {
+        return element.dispatchEvent(event);
+      } else {
+        return element.fireEvent("on" + eventName, event);
+      }
     };
 
     return WOW;

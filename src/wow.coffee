@@ -28,7 +28,7 @@ class @WOW
 
   # set initial config
   init: ->
-    if document.readyState is "complete"
+    if document.readyState in ["interactive", "complete"]
       @start()
     else
       document.addEventListener 'DOMContentLoaded', @start
@@ -53,6 +53,7 @@ class @WOW
   show: (box) ->
     @applyStyle(box)
     box.className = "#{box.className} #{@config.animateClass}"
+    @fireEvent(box, 'animationstart')
 
   applyStyle: (box, hidden) ->
     duration  = box.getAttribute('data-wow-duration')
@@ -122,3 +123,21 @@ class @WOW
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop
+
+  # Fire a custom event. See http://stackoverflow.com/a/2490876
+  fireEvent: (element, eventName) ->
+    if CustomEvent?
+      event = new CustomEvent 'CustomEvent',
+        bubbles: true
+        cancelable: true
+    else if document.createEvent
+      event = document.createEvent('CustomEvent')
+      event.initEvent(eventName, true, true)
+    else
+      event = document.createEventObject()
+      event.eventType = eventName
+    event.eventName = eventName
+    if element.dispatchEvent?
+      element.dispatchEvent(event)
+    else
+      element.fireEvent("on#{eventName}", event)
