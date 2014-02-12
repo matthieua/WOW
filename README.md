@@ -90,7 +90,7 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please report the [issue here](https://github.com/matthieua/WOW/issues) on Github!
+If you find a bug, please report it [here on Github](https://github.com/matthieua/WOW/issues)!
 
 ## Developer
 
