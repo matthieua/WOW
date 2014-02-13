@@ -6,7 +6,7 @@
     "Matthieu Aussaguel <matthieu.aussaguel@gmail.com>"
   ],
   "description": "Reveal CSS animation as you scroll down a page.",
-  "main": "wow.js",
+  "main": "dist/wow.js",
   "keywords": [
     "scroll",
     "animation",
