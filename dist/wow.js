@@ -155,4 +155,10 @@
 
   })();
 
+  this.WOW.create = function(options) {
+    var wow;
+    wow = new WOW(options);
+    return wow.init();
+  };
+
 }).call(this);

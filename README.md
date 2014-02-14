@@ -43,7 +43,7 @@ It just take seconds to install and use WOW.js!
 - JavaScript
 
 ```javascript
-new WOW().init();
+WOW.create();
 ```
 
 ### Advanced usage
@@ -58,14 +58,11 @@ new WOW().init();
 - JavaScript
 
 ```javascript
-wow = new WOW(
-  {
-    boxClass:     'wow',      // default
-    animateClass: 'animated', // default
-    offset:       0           // default
-  }
-);
-WOW.init();
+WOW.create({
+  boxClass:     'wow',      // default
+  animateClass: 'animated', // default
+  offset:       0           // default
+});
 ```
 
 ## Contribute

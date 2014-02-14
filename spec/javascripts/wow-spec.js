@@ -28,14 +28,17 @@
       it("exists", function() {
         return expect(WOW).toBeDefined();
       });
-      return it("has an 'init' method", function() {
+      it("has an 'init' method", function() {
         return expect(new WOW().init).toBeDefined();
+      });
+      return it("has a create static method", function() {
+        return expect(WOW.create).toBeDefined();
       });
     });
     describe("library behaviour", function() {
       beforeEach(function(done) {
         loadFixtures("simple.html");
-        new WOW().init();
+        WOW.create();
         return setTimeout(function() {
           return done();
         }, timeout);
@@ -94,11 +97,11 @@
     return describe("library behaviour with custom settings", function() {
       beforeEach(function(done) {
         loadFixtures("custom.html");
-        new WOW({
+        WOW.create({
           boxClass: "block",
           animateClass: "fancy",
           offset: 10
-        }).init();
+        });
         return setTimeout(function() {
           return done();
         }, timeout);

@@ -49,11 +49,15 @@ describe "WOW", ->
       expect new WOW().init
         .toBeDefined()
 
+    it "has a create static method", ->
+      expect WOW.create
+        .toBeDefined()
+
   describe "library behaviour", ->
 
     beforeEach (done) ->
       loadFixtures "simple.html"
-      new WOW().init()
+      do WOW.create
       setTimeout ->
         done()
       , timeout
@@ -139,11 +143,10 @@ describe "WOW", ->
 
     beforeEach (done) ->
       loadFixtures "custom.html"
-      new WOW
+      WOW.create
         boxClass:     "block"
         animateClass: "fancy"
         offset:       10
-      .init()
       setTimeout ->
         done()
       , timeout

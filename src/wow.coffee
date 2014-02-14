@@ -122,3 +122,7 @@ class @WOW
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop
+
+@WOW.create = (options) ->
+    wow = new WOW options
+    do wow.init
