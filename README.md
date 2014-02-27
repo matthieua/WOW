@@ -17,6 +17,7 @@ Advantages:
 - [Fliplingo](https://www.fliplingo.com)
 - [Streamline Icons](http://www.streamlineicons.com)
 - [NastyIcons](http://www.nastyicons.com)
+- [Microsoft Stories](http://www.microsoft.com/en-us/news/stories/garage/)
 
 
 ## Version
