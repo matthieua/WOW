@@ -6,42 +6,45 @@
 # Website : http://mynameismatthieu.com/wow
 #
 
-extend = (object, args...) ->
-  result = object or {}
-  for replacement in args
-    for key, value of replacement or {}
-      if typeof result[key] is "object"
-        result[key] = extend(result[key], value)
-      else
-        result[key] ||= value
-  result
+
+class Util
+  extend: (custom, defaults) ->
+    for key, value of custom
+      defaults[key] = value if value?
+    defaults
+
+  isMobile: (agent) ->
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
 
 class @WOW
   defaults:
     boxClass:     'wow'
     animateClass: 'animated'
     offset:       0
+    mobile:       true
 
   constructor: (options = {}) ->
-    @config   = extend(options, @defaults)
     @scrolled = true
+    @config   = @util().extend(options, @defaults)
 
-  # set initial config
   init: ->
-    if document.readyState in ["interactive", "complete"]
-      @start()
-    else
-      document.addEventListener 'DOMContentLoaded', @start
-
-  start: =>
     @element = window.document.documentElement
     @boxes   = @element.getElementsByClassName(@config.boxClass)
 
     if @boxes.length
-      @applyStyle(box, true) for box in @boxes
-      window.addEventListener('scroll', @scrollHandler, false)
-      window.addEventListener('resize', @scrollHandler, false)
-      @interval = setInterval @scrollCallback, 50
+      if @disabled()
+        @resetStyle()
+      else
+        if document.readyState in ["interactive", "complete"]
+          @start()
+        else
+          document.addEventListener 'DOMContentLoaded', @start
+
+  start: =>
+    @applyStyle(box, true) for box in @boxes
+    window.addEventListener('scroll', @scrollHandler, false)
+    window.addEventListener('resize', @scrollHandler, false)
+    @interval = setInterval @scrollCallback, 50
 
   # unbind the scroll event
   stop: ->
@@ -60,6 +63,9 @@ class @WOW
     iteration = box.getAttribute('data-wow-iteration')
 
     box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
+
+  resetStyle: ->
+    box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (hidden, duration, delay, iteration) ->
     style =  if hidden then "
@@ -122,3 +128,9 @@ class @WOW
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop
+
+  util: ->
+    @_util ||= new Util()
+
+  disabled: ->
+    @config.mobile is false and @util().isMobile(navigator.userAgent)
