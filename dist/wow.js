@@ -44,13 +44,14 @@
     }
 
     WOW.prototype.init = function() {
+      var _ref;
       this.element = window.document.documentElement;
       this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       if (this.boxes.length) {
         if (this.disabled()) {
           return this.resetStyle();
         } else {
-          if (document.readyState === 'complete') {
+          if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
             return this.start();
           } else {
             return document.addEventListener('DOMContentLoaded', this.start);

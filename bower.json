@@ -1,12 +1,12 @@
 {
   "name": "wow",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/matthieua/WOW",
   "authors": [
     "Matthieu Aussaguel <matthieu.aussaguel@gmail.com>"
   ],
   "description": "Reveal CSS animation as you scroll down a page.",
-  "main": "wow.js",
+  "main": "dist/wow.js",
   "keywords": [
     "scroll",
     "animation",

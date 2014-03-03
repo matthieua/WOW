@@ -17,11 +17,12 @@ Advantages:
 - [Fliplingo](https://www.fliplingo.com)
 - [Streamline Icons](http://www.streamlineicons.com)
 - [NastyIcons](http://www.nastyicons.com)
+- [Microsoft Stories](http://www.microsoft.com/en-us/news/stories/garage/)
 
 
 ## Version
 
-0.1.3
+0.1.4
 
 ## Documentation
 
@@ -65,7 +66,7 @@ wow = new WOW(
     offset:       0,          // distance to the element when triggering the animation (default is 0)
     mobile:       true        // trigger animations on mobile devices (true is default)
   }
-)
+);
 WOW.init();
 ```
 
@@ -91,7 +92,7 @@ Enjoy!
 
 ## Bug tracker
 
-If you find a bug, please raise it the [issue here](https://github.com/matthieua/WOW/issues) on Github!
+If you find a bug, please report it [here on Github](https://github.com/matthieua/WOW/issues)!
 
 ## Developer
 
