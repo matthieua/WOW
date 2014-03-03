@@ -27,23 +27,24 @@ class @WOW
     @scrolled = true
     @config   = @util().extend(options, @defaults)
 
-  # set initial config
   init: ->
-    if @enabled()
-      if document.readyState is 'complete'
-        @start()
-      else
-        document.addEventListener 'DOMContentLoaded', @start
-
-  start: =>
     @element = window.document.documentElement
     @boxes   = @element.getElementsByClassName(@config.boxClass)
 
     if @boxes.length
-      @applyStyle(box, true) for box in @boxes
-      window.addEventListener('scroll', @scrollHandler, false)
-      window.addEventListener('resize', @scrollHandler, false)
-      @interval = setInterval @scrollCallback, 50
+      if @disabled()
+        @resetStyle()
+      else
+        if document.readyState is 'complete'
+          @start()
+        else
+          document.addEventListener 'DOMContentLoaded', @start
+
+  start: =>
+    @applyStyle(box, true) for box in @boxes
+    window.addEventListener('scroll', @scrollHandler, false)
+    window.addEventListener('resize', @scrollHandler, false)
+    @interval = setInterval @scrollCallback, 50
 
   # unbind the scroll event
   stop: ->
@@ -62,6 +63,9 @@ class @WOW
     iteration = box.getAttribute('data-wow-iteration')
 
     box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
+
+  resetStyle: ->
+    box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (hidden, duration, delay, iteration) ->
     style =  if hidden then "
@@ -128,5 +132,5 @@ class @WOW
   util: ->
     @_util ||= new Util()
 
-  enabled: ->
-    @config.mobile is true or @util().isMobile(navigator.userAgent)
+  disabled: ->
+    @config.mobile is false and @util().isMobile(navigator.userAgent)

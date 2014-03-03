@@ -60,9 +60,10 @@ new WOW().init();
 ```javascript
 wow = new WOW(
   {
-    boxClass:     'wow',      // default
-    animateClass: 'animated', // default
-    offset:       0           // default
+    boxClass:     'wow',      // animated element css class (default is wow)
+    animateClass: 'animated', // animation css class (default is animated)
+    offset:       0,          // distance to the element when triggering the animation (default is 0)
+    mobile:       true        // trigger animations on mobile devices (true is default)
   }
 )
 WOW.init();
@@ -105,4 +106,4 @@ Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
 
-Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys) 
+Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys)
