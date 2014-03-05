@@ -132,4 +132,4 @@ class @WOW
     @_util ||= new Util()
 
   disabled: ->
-    @config.mobile is false and @util().isMobile(navigator.userAgent)
+    not @config.mobile and @util().isMobile(navigator.userAgent)
