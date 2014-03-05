@@ -29,22 +29,21 @@ class @WOW
 
   init: ->
     @element = window.document.documentElement
-    @boxes   = @element.getElementsByClassName(@config.boxClass)
+    if document.readyState in ["interactive", "complete"]
+      @start()
+    else
+      document.addEventListener 'DOMContentLoaded', @start
 
+  start: =>
+    @boxes = @element.getElementsByClassName(@config.boxClass)
     if @boxes.length
       if @disabled()
         @resetStyle()
       else
-        if document.readyState in ["interactive", "complete"]
-          @start()
-        else
-          document.addEventListener 'DOMContentLoaded', @start
-
-  start: =>
-    @applyStyle(box, true) for box in @boxes
-    window.addEventListener('scroll', @scrollHandler, false)
-    window.addEventListener('resize', @scrollHandler, false)
-    @interval = setInterval @scrollCallback, 50
+        @applyStyle(box, true) for box in @boxes
+        window.addEventListener('scroll', @scrollHandler, false)
+        window.addEventListener('resize', @scrollHandler, false)
+        @interval = setInterval @scrollCallback, 50
 
   # unbind the scroll event
   stop: ->
