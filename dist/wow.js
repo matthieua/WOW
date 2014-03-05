@@ -46,30 +46,30 @@
     WOW.prototype.init = function() {
       var _ref;
       this.element = window.document.documentElement;
-      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
-      if (this.boxes.length) {
-        if (this.disabled()) {
-          return this.resetStyle();
-        } else {
-          if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
-            return this.start();
-          } else {
-            return document.addEventListener('DOMContentLoaded', this.start);
-          }
-        }
+      if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
+        return this.start();
+      } else {
+        return document.addEventListener('DOMContentLoaded', this.start);
       }
     };
 
     WOW.prototype.start = function() {
       var box, _i, _len, _ref;
-      _ref = this.boxes;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        box = _ref[_i];
-        this.applyStyle(box, true);
+      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
+      if (this.boxes.length) {
+        if (this.disabled()) {
+          return this.resetStyle();
+        } else {
+          _ref = this.boxes;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            box = _ref[_i];
+            this.applyStyle(box, true);
+          }
+          window.addEventListener('scroll', this.scrollHandler, false);
+          window.addEventListener('resize', this.scrollHandler, false);
+          return this.interval = setInterval(this.scrollCallback, 50);
+        }
       }
-      window.addEventListener('scroll', this.scrollHandler, false);
-      window.addEventListener('resize', this.scrollHandler, false);
-      return this.interval = setInterval(this.scrollCallback, 50);
     };
 
     WOW.prototype.stop = function() {
