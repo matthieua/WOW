@@ -93,7 +93,7 @@ class @WOW
       -webkit-animation-iteration-count: #{iteration};
          -moz-animation-iteration-count: #{iteration};
               animation-iteration-count: #{iteration};
-      " if iteration
+    " if iteration
 
     style
 
