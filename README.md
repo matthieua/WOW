@@ -59,7 +59,7 @@ new WOW().init();
 - JavaScript
 
 ```javascript
-wow = new WOW(
+var wow = new WOW(
   {
     boxClass:     'wow',      // animated element css class (default is wow)
     animateClass: 'animated', // animation css class (default is animated)
@@ -67,7 +67,7 @@ wow = new WOW(
     mobile:       true        // trigger animations on mobile devices (true is default)
   }
 );
-WOW.init();
+wow.init();
 ```
 
 ## Contribute
