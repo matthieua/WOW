@@ -1,11 +1,11 @@
 # WOW [![Build Status](https://secure.travis-ci.org/matthieua/WOW.png?branch=master)](http://travis-ci.org/matthieua/WOW)
 
 Reveal CSS animation as you scroll down a page.
-By default, you should use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
+By default, you can use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
 But you can easily change the settings to your favorite animation library.
 
 Advantages:
-- Smaller than other javascript parallax plugins, like Scrollorama (they do fantastic things, but can be too much heavier for simple needs)
+- Smaller than other JavaScript parallax plugins, like Scrollorama (they do fantastic things, but can be too heavy for simple needs)
 - Super simple to install, and works with animate.css, so if you already use it, that will be very fast to setup
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
@@ -15,11 +15,12 @@ Advantages:
 - [Fliplingo](https://www.fliplingo.com)
 - [Streamline Icons](http://www.streamlineicons.com)
 - [NastyIcons](http://www.nastyicons.com)
+- [Microsoft Stories](http://www.microsoft.com/en-us/news/stories/garage/)
 
 
 ## Version
 
-0.1.4
+0.1.6
 
 ## Documentation
 
@@ -53,14 +54,15 @@ new WOW().init();
 - JavaScript
 
 ```javascript
-wow = new WOW(
+var wow = new WOW(
   {
-    boxClass:     'wow',      // default
-    animateClass: 'animated', // default
-    offset:       0           // default
+    boxClass:     'wow',      // animated element css class (default is wow)
+    animateClass: 'animated', // animation css class (default is animated)
+    offset:       0,          // distance to the element when triggering the animation (default is 0)
+    mobile:       true        // trigger animations on mobile devices (true is default)
   }
 );
-WOW.init();
+wow.init();
 ```
 
 ## Contribute
@@ -100,4 +102,4 @@ Thanks to everyone who has contributed to the project so far:
 
 - Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
 
-Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys) 
+Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys)
