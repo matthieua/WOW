@@ -18,13 +18,14 @@ class Util
 
 class @WOW
   defaults:
-    boxClass:     'wow'
-    animateClass: 'animated'
-    offset:       0
-    mobile:       true
+    boxClass:           'wow'
+    animateClass:       'animated'
+    offset:             0
+    mobile:             true
+    initAlreadyVisible: true
 
   constructor: (options = {}) ->
-    @scrolled = true
+    @scrolled = false
     @config   = @util().extend(options, @defaults)
 
   init: ->
@@ -40,7 +41,9 @@ class @WOW
       if @disabled()
         @resetStyle()
       else
-        @applyStyle(box, true) for box in @boxes
+        for box in @boxes
+          if !@initAlreadyVisible and @isVisible(box) then @show(box, false)
+          else @applyStyle(box, true)
         window.addEventListener('scroll', @scrollHandler, false)
         window.addEventListener('resize', @scrollHandler, false)
         @interval = setInterval @scrollCallback, 50
@@ -52,14 +55,15 @@ class @WOW
     clearInterval @interval if @interval?
 
   # show box element
-  show: (box) ->
-    @applyStyle(box)
+  show: (box, useAttributes) ->
+    @applyStyle(box, false, useAttributes)
     box.className = "#{box.className} #{@config.animateClass}"
 
-  applyStyle: (box, hidden) ->
-    duration  = box.getAttribute('data-wow-duration')
-    delay     = box.getAttribute('data-wow-delay')
-    iteration = box.getAttribute('data-wow-iteration')
+  applyStyle: (box, hidden, useAttributes) ->
+    if useAttributes!=false
+      duration  = box.getAttribute('data-wow-duration')
+      delay     = box.getAttribute('data-wow-delay')
+      iteration = box.getAttribute('data-wow-iteration')
 
     box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
 

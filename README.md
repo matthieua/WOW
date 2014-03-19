@@ -61,14 +61,26 @@ new WOW().init();
 ```javascript
 wow = new WOW(
   {
-    boxClass:     'wow',      // animated element css class (default is wow)
-    animateClass: 'animated', // animation css class (default is animated)
-    offset:       0,          // distance to the element when triggering the animation (default is 0)
-    mobile:       true        // trigger animations on mobile devices (true is default)
+    boxClass:           'wow',      // animated element css class (default is wow)
+    animateClass:       'animated', // animation css class (default is animated)
+    offset:             0,          // distance to the element when triggering the animation (default is 0)
+    mobile:             true        // trigger animations on mobile devices (true is default)
+    initAlreadyVisible: true        // use data-wow-* for elements already visible (true is default)
   }
 );
 WOW.init();
 ```
+
+#### `initAlreadyVisible`
+
+This option allow you to take full control of what happen during the initial browser rendering.
+By default (with option set to `true`), `data-wow-*` settings are always used for transitions.
+But for specific needs, you may want to actually use 2 different behaviors depending on the browser viewport during initial render:
+- one behavior for elements that are already visible (using CSS or style attributes)
+- one other behavior if wow is used (animations are triggered only when elements appear, using `data-wow-*`).
+That allow you, for example, to use different `animation-delay` if some elements are already visible to don't make all the things appear in the same time.
+
+If we choose an example with 3 animated elements delayed (without WOW trigger) with .2s, .4s & 1s, we may want the third item to be not have the same delay if it is made visible by WOW when it appears in the viewport (for smaller viewport). In this case, setting `initAlreadyVisible` to `false` will only use `data-wow-*` for elements that appear during scroll.
 
 ## Contribute
 

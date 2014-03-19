@@ -29,7 +29,8 @@
       boxClass: 'wow',
       animateClass: 'animated',
       offset: 0,
-      mobile: true
+      mobile: true,
+      initAlreadyVisible: true
     };
 
     function WOW(options) {
@@ -39,7 +40,7 @@
       this.scrollCallback = __bind(this.scrollCallback, this);
       this.scrollHandler = __bind(this.scrollHandler, this);
       this.start = __bind(this.start, this);
-      this.scrolled = true;
+      this.scrolled = false;
       this.config = this.util().extend(options, this.defaults);
     }
 
@@ -63,7 +64,11 @@
           _ref = this.boxes;
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             box = _ref[_i];
-            this.applyStyle(box, true);
+            if (!this.initAlreadyVisible && this.isVisible(box)) {
+              this.show(box, false);
+            } else {
+              this.applyStyle(box, true);
+            }
           }
           window.addEventListener('scroll', this.scrollHandler, false);
           window.addEventListener('resize', this.scrollHandler, false);
@@ -80,16 +85,18 @@
       }
     };
 
-    WOW.prototype.show = function(box) {
-      this.applyStyle(box);
+    WOW.prototype.show = function(box, useAttributes) {
+      this.applyStyle(box, false, useAttributes);
       return box.className = "" + box.className + " " + this.config.animateClass;
     };
 
-    WOW.prototype.applyStyle = function(box, hidden) {
+    WOW.prototype.applyStyle = function(box, hidden, useAttributes) {
       var delay, duration, iteration;
-      duration = box.getAttribute('data-wow-duration');
-      delay = box.getAttribute('data-wow-delay');
-      iteration = box.getAttribute('data-wow-iteration');
+      if (useAttributes !== false) {
+        duration = box.getAttribute('data-wow-duration');
+        delay = box.getAttribute('data-wow-delay');
+        iteration = box.getAttribute('data-wow-iteration');
+      }
       return box.setAttribute('style', this.customStyle(hidden, duration, delay, iteration));
     };
 
