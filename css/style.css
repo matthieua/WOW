@@ -25,6 +25,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.content {
+  overflow: hidden;
+}
 article,
 aside,
 details,
@@ -452,4 +455,3 @@ p {
   visibility: hidden;
 }
 }
-
