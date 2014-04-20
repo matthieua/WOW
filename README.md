@@ -37,8 +37,8 @@ It just take seconds to install and use WOW.js!
 - HTML
 
 ```html
-  <section class="wow slideInLeft"></section>
-  <section class="wow slideInRight"></section>
+  <section class="wow slideInLeft" data-wow-animation="slideInLeft"></section>
+  <section class="wow slideInRight" data-wow-animation="slideInRight"></section>
 ```
 
 - JavaScript
@@ -52,8 +52,8 @@ new WOW().init();
 - HTML
 
 ```html
-  <section class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s"></section>
-  <section class="wow slideInRight" data-wow-offset="10"  data-wow-iteration="10"></section>
+  <section class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s" data-wow-animation="slideInLeft"></section>
+  <section class="wow slideInRight" data-wow-offset="10"  data-wow-iteration="10" data-wow-animation="slideInRight"></section>
 ```
 
 - JavaScript
