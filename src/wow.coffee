@@ -60,42 +60,41 @@ class @WOW
     duration  = box.getAttribute('data-wow-duration')
     delay     = box.getAttribute('data-wow-delay')
     iteration = box.getAttribute('data-wow-iteration')
+    animation = box.getAttribute('data-wow-animation')
 
-    box.setAttribute 'style', @customStyle(hidden, duration, delay, iteration)
+    @customStyle(box, hidden, duration, delay, iteration, animation)
 
   resetStyle: ->
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
-  customStyle: (hidden, duration, delay, iteration) ->
-    style =  if hidden then "
-      visibility: hidden;
+  customStyle: (box, hidden, duration, delay, iteration, animation) ->
+    if hidden 
+      box.style.visibility = 'hidden'; 
+      box.style['-webkit-animation-name'] = 'none'; 
+      box.style['-moz-animation-name'] = 'none'; 
+      box.style['animation-name'] = 'none';
+    else 
+      box.style.visibility = 'visible';
+      box.style['-webkit-animation-name'] = animation; 
+      box.style['-moz-animation-name'] = animation; 
+      box.style['animation-name'] = animation;
 
-      -webkit-animation-name: none;
-         -moz-animation-name: none;
-              animation-name: none;
-    " else "
-      visibility: visible;
-    "
+    if duration
+      box.style['-webkit-animation-duration'] = duration; 
+      box.style['-moz-animation-duration'] = duration; 
+      box.style['animation-duration'] = duration;
 
-    style += "
-      -webkit-animation-duration: #{duration};
-         -moz-animation-duration: #{duration};
-              animation-duration: #{duration};
-    " if duration
+    if delay
+      box.style['-webkit-animation-delay'] = delay; 
+      box.style['-moz-animation-delay'] = delay; 
+      box.style['animation-delay'] = delay;
 
-    style += "
-      -webkit-animation-delay: #{delay};
-         -moz-animation-delay: #{delay};
-              animation-delay: #{delay};
-    " if delay
+    if iteration
+      box.style['-webkit-animation-iteration-count'] = iteration; 
+      box.style['-moz-animation-iteration-count'] = iteration; 
+      box.style['animation-iteration-count'] = iteration;
 
-    style += "
-      -webkit-animation-iteration-count: #{iteration};
-         -moz-animation-iteration-count: #{iteration};
-              animation-iteration-count: #{iteration};
-    " if iteration
-
-    style
+    box
 
   # fast window.scroll callback
   scrollHandler: =>

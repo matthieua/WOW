@@ -86,11 +86,12 @@
     };
 
     WOW.prototype.applyStyle = function(box, hidden) {
-      var delay, duration, iteration;
+      var animation, delay, duration, iteration;
       duration = box.getAttribute('data-wow-duration');
       delay = box.getAttribute('data-wow-delay');
       iteration = box.getAttribute('data-wow-iteration');
-      return box.setAttribute('style', this.customStyle(hidden, duration, delay, iteration));
+      animation = box.getAttribute('data-wow-animation');
+      return this.customStyle(box, hidden, duration, delay, iteration, animation);
     };
 
     WOW.prototype.resetStyle = function() {
@@ -104,19 +105,34 @@
       return _results;
     };
 
-    WOW.prototype.customStyle = function(hidden, duration, delay, iteration) {
-      var style;
-      style = hidden ? "visibility: hidden; -webkit-animation-name: none; -moz-animation-name: none; animation-name: none;" : "visibility: visible;";
+    WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration, animation) {
+      if (hidden) {
+        box.style.visibility = 'hidden';
+        box.style['-webkit-animation-name'] = 'none';
+        box.style['-moz-animation-name'] = 'none';
+        box.style['animation-name'] = 'none';
+      } else {
+        box.style.visibility = 'visible';
+        box.style['-webkit-animation-name'] = animation;
+        box.style['-moz-animation-name'] = animation;
+        box.style['animation-name'] = animation;
+      }
       if (duration) {
-        style += "-webkit-animation-duration: " + duration + "; -moz-animation-duration: " + duration + "; animation-duration: " + duration + ";";
+        box.style['-webkit-animation-duration'] = duration;
+        box.style['-moz-animation-duration'] = duration;
+        box.style['animation-duration'] = duration;
       }
       if (delay) {
-        style += "-webkit-animation-delay: " + delay + "; -moz-animation-delay: " + delay + "; animation-delay: " + delay + ";";
+        box.style['-webkit-animation-delay'] = delay;
+        box.style['-moz-animation-delay'] = delay;
+        box.style['animation-delay'] = delay;
       }
       if (iteration) {
-        style += "-webkit-animation-iteration-count: " + iteration + "; -moz-animation-iteration-count: " + iteration + "; animation-iteration-count: " + iteration + ";";
+        box.style['-webkit-animation-iteration-count'] = iteration;
+        box.style['-moz-animation-iteration-count'] = iteration;
+        box.style['animation-iteration-count'] = iteration;
       }
-      return style;
+      return box;
     };
 
     WOW.prototype.scrollHandler = function() {
