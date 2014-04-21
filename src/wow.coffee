@@ -60,24 +60,21 @@ class @WOW
     duration  = box.getAttribute('data-wow-duration')
     delay     = box.getAttribute('data-wow-delay')
     iteration = box.getAttribute('data-wow-iteration')
-    animation = box.getAttribute('data-wow-animation')
 
-    @customStyle(box, hidden, duration, delay, iteration, animation)
+    @customStyle(box, hidden, duration, delay, iteration)
 
   resetStyle: ->
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
-  customStyle: (box, hidden, duration, delay, iteration, animation) ->
+  customStyle: (box, hidden, duration, delay, iteration) ->
     if hidden 
       box.style.visibility = 'hidden'; 
       box.style['-webkit-animation-name'] = 'none'; 
-      box.style['-moz-animation-name'] = 'none'; 
       box.style['animation-name'] = 'none';
     else 
       box.style.visibility = 'visible';
-      box.style['-webkit-animation-name'] = animation; 
-      box.style['-moz-animation-name'] = animation; 
-      box.style['animation-name'] = animation;
+      box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName'); 
+      box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName'); 
 
     if duration
       box.style['-webkit-animation-duration'] = duration; 
