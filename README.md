@@ -10,6 +10,8 @@ Advantages:
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
+Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evolves.
+
 ### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
 
 ## Live examples
