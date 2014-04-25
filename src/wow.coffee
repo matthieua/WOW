@@ -67,29 +67,29 @@ class @WOW
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
-    if hidden 
-      box.style.visibility = 'hidden'; 
-      box.style['-webkit-animation-name'] = 'none'; 
-      box.style['animation-name'] = 'none';
+    if hidden
+      box.style.visibility = 'hidden'
+      box.style['-webkit-animation-name'] = 'none'
+      box.style['animation-name'] = 'none'
     else 
-      box.style.visibility = 'visible';
-      box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName'); 
-      box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName'); 
+      box.style.visibility = 'visible'
+      box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName')
+      box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName')
 
     if duration
-      box.style['-webkit-animation-duration'] = duration; 
-      box.style['-moz-animation-duration'] = duration; 
-      box.style['animation-duration'] = duration;
+      box.style['-webkit-animation-duration'] = duration
+      box.style['-moz-animation-duration'] = duration
+      box.style['animation-duration'] = duration
 
     if delay
-      box.style['-webkit-animation-delay'] = delay; 
-      box.style['-moz-animation-delay'] = delay; 
-      box.style['animation-delay'] = delay;
+      box.style['-webkit-animation-delay'] = delay
+      box.style['-moz-animation-delay'] = delay
+      box.style['animation-delay'] = delay
 
     if iteration
-      box.style['-webkit-animation-iteration-count'] = iteration; 
-      box.style['-moz-animation-iteration-count'] = iteration; 
-      box.style['animation-iteration-count'] = iteration;
+      box.style['-webkit-animation-iteration-count'] = iteration
+      box.style['-moz-animation-iteration-count'] = iteration
+      box.style['animation-iteration-count'] = iteration
 
     box
 
