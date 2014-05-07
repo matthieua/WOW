@@ -71,7 +71,7 @@ class @WOW
       box.style.visibility = 'hidden'
       box.style['-webkit-animation-name'] = 'none'
       box.style['animation-name'] = 'none'
-    else 
+    else
       box.style.visibility = 'visible'
       box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName')
       box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName')
