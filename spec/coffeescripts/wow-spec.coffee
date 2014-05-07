@@ -123,10 +123,9 @@ describe 'WOW', ->
           .toHaveClass 'animated'
         expect $('#simple-5').css 'visibility'
           .toBe 'visible'
-        style = $('#simple-5')[0].style
-        expect style.background
+        expect $('#simple-5')[0].style.background
           .toBe 'yellow'
-        expect style.color
+        expect $('#simple-5')[0].style.color
           .toBe 'red'
         done()
       , timeout
