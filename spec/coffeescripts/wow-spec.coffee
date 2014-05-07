@@ -17,27 +17,39 @@ describe "WOW", ->
         .toBe winHeight
 
     it "has boxes set up for testing", ->
+      boxHeight = 200
+      boxCount = $ '#simple'
+        .children().length
       # Check each box height
       expect $("#simple").height()
-        .toBe 800
+        .toBe boxHeight*boxCount
       expect $("#simple-1").height()
-        .toBe 200
+        .toBe boxHeight
       expect $("#simple-2").height()
-        .toBe 200
+        .toBe boxHeight
       expect $("#simple-3").height()
-        .toBe 200
+        .toBe boxHeight
       expect $("#simple-4").height()
-        .toBe 200
+        .toBe boxHeight
+      expect $("#simple-5").height()
+        .toBe boxHeight
       # Check each box offset
       offset = $("#simple").offset().top
       expect $("#simple-1").offset().top
-        .toBe offset + 200*0
+        .toBe offset + boxHeight*0
       expect $("#simple-2").offset().top
-        .toBe offset + 200*1
+        .toBe offset + boxHeight*1
       expect $("#simple-3").offset().top
-        .toBe offset + 200*2
+        .toBe offset + boxHeight*2
       expect $("#simple-4").offset().top
-        .toBe offset + 200*3
+        .toBe offset + boxHeight*3
+      expect $("#simple-5").offset().top
+        .toBe offset + boxHeight*4
+      style = $("#simple-5")[0].style
+      expect style.background
+        .toBe 'yellow'
+      expect style.color
+        .toBe 'red'
 
   describe "library smoke test", ->
 
