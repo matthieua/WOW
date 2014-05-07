@@ -79,8 +79,12 @@
       return it("does not tamper with the style attribute", function(done) {
         window.scrollTo(0, $("#simple-5").offset().top - winHeight + 150);
         return setTimeout(function() {
+          var style;
           expect($("#simple-5")).toHaveClass("animated");
           expect($("#simple-5").css("visibility")).toBe("visible");
+          style = $("#simple-5")[0].style;
+          expect(style.background).toBe('yellow');
+          expect(style.color).toBe('red');
           return done();
         }, timeout);
       });
