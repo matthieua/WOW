@@ -115,6 +115,22 @@ describe "WOW", ->
         , timeout
       , timeout
 
+    it "does not tamper with the style attribute", (done) ->
+      # Scroll down so that 150px of #simple-4 becomes visible.
+      window.scrollTo 0, $("#simple-5").offset().top - winHeight + 150
+      setTimeout ->
+        expect $ "#simple-5"
+          .toHaveClass "animated"
+        expect $("#simple-5").css "visibility"
+          .toBe "visible"
+        #style = $("#simple-5")[0].style
+        #expect style.background
+        #  .toBe 'yellow'
+        #expect style.color
+        #  .toBe 'red'
+        done()
+      , timeout
+
   describe "custom test environment", ->
 
     beforeEach ->

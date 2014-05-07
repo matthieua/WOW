@@ -61,7 +61,7 @@
         expect($("#simple-4")).not.toHaveClass("animated");
         return expect($("#simple-4").css("visibility")).not.toBe("visible");
       });
-      return it("animates elements after scrolling down and they become visible", function(done) {
+      it("animates elements after scrolling down and they become visible", function(done) {
         window.scrollTo(0, $("#simple-3").offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($("#simple-3")).toHaveClass("animated");
@@ -74,6 +74,14 @@
             expect($("#simple-4").css("visibility")).toBe("visible");
             return done();
           }, timeout);
+        }, timeout);
+      });
+      return it("does not tamper with the style attribute", function(done) {
+        window.scrollTo(0, $("#simple-5").offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect($("#simple-5")).toHaveClass("animated");
+          expect($("#simple-5").css("visibility")).toBe("visible");
+          return done();
         }, timeout);
       });
     });
