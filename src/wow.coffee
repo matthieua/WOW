@@ -76,16 +76,19 @@ class @WOW
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
+    style = window.getComputedStyle(box)
     if hidden
-      box.style.visibility = 'hidden'
-      box.style['-webkit-animation-name'] = 'none'
-      box.style['animation-name'] = 'none'
-    else
-      box.style.visibility = 'visible'
-      style = window.getComputedStyle(box)
-      box.style['-webkit-animation-name'] = style.getPropertyCSSValue('-webkit-animation-name')?.cssText
-      box.style['-moz-animation-name'] = style.getPropertyCSSValue('-moz-animation-name')?.cssText
-      box.style['animation-name'] = style.getPropertyValue('animation-name')
+      animationName = \
+        style.getPropertyCSSValue('-webkit-animation-name') or \
+        style.getPropertyCSSValue('-moz-animation-name') or \
+        style.getPropertyCSSValue('animation-name')
+      box.dataset.wowAnimationName = animationName?.cssText or 'none'
+
+    box.style.visibility = if hidden then 'hidden' else 'visible'
+    box.style.animationName = \
+      box.style.webkitAnimationName = \
+      box.style.mozAnimationName = \
+        if hidden then 'none' else box.dataset.wowAnimationName
 
     if duration
       box.style['-webkit-animation-duration'] = duration
