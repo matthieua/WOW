@@ -100,12 +100,10 @@
     WOW.prototype.animate = (function() {
       if ('requestAnimationFrame' in window) {
         return function(callback) {
-          console.log('A');
           return window.requestAnimationFrame(callback);
         };
       } else {
         return function(callback) {
-          console.log('N');
           return callback();
         };
       }

@@ -66,11 +66,9 @@ class @WOW
   animate: (->
     if 'requestAnimationFrame' of window
       (callback) ->
-        console.log 'A'
         window.requestAnimationFrame callback
     else
       (callback) ->
-        console.log 'N'
         callback()
   )()
 
