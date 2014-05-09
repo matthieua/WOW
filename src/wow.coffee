@@ -90,20 +90,20 @@ class @WOW
       box.style.mozAnimationName = \
         if hidden then 'none' else box.dataset.wowAnimationName
 
-    if duration
-      box.style['-webkit-animation-duration'] = duration
-      box.style['-moz-animation-duration'] = duration
-      box.style['animation-duration'] = duration
+    box.style.animationDuration = \
+      box.style.mozAnimationDuration = \
+      box.style.webkitAnimationDuration = \
+        duration if duration
 
-    if delay
-      box.style['-webkit-animation-delay'] = delay
-      box.style['-moz-animation-delay'] = delay
-      box.style['animation-delay'] = delay
+    box.style.animationDelay = \
+      box.style.mozAnimationDelay = \
+      box.style.webkitAnimationDelay = \
+        delay if delay
 
-    if iteration
-      box.style['-webkit-animation-iteration-count'] = iteration
-      box.style['-moz-animation-iteration-count'] = iteration
-      box.style['animation-iteration-count'] = iteration
+    box.style.animationIteration = \
+      box.style.mozAnimationIteration = \
+      box.style.webkitAnimationIteration = \
+        iteration if iteration
 
     box
 
