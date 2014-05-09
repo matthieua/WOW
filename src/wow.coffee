@@ -73,8 +73,10 @@ class @WOW
       box.style['animation-name'] = 'none'
     else
       box.style.visibility = 'visible'
-      box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName')
-      box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName')
+      style = window.getComputedStyle(box)
+      box.style['-webkit-animation-name'] = style.getPropertyCSSValue('-webkit-animation-name')?.cssText
+      box.style['-moz-animation-name'] = style.getPropertyCSSValue('-moz-animation-name')?.cssText
+      box.style['animation-name'] = style.getPropertyValue('animation-name')
 
     if duration
       box.style['-webkit-animation-duration'] = duration
