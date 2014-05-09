@@ -61,7 +61,18 @@ class @WOW
     delay     = box.getAttribute('data-wow-delay')
     iteration = box.getAttribute('data-wow-iteration')
 
-    @customStyle(box, hidden, duration, delay, iteration)
+    @animate => @customStyle(box, hidden, duration, delay, iteration)
+
+  animate: (->
+    if 'requestAnimationFrame' of window
+      (callback) ->
+        console.log 'A'
+        window.requestAnimationFrame callback
+    else
+      (callback) ->
+        console.log 'N'
+        callback()
+  )()
 
   resetStyle: ->
     box.setAttribute('style', 'visibility: visible;') for box in @boxes

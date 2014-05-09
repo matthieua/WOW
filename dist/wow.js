@@ -90,8 +90,26 @@
       duration = box.getAttribute('data-wow-duration');
       delay = box.getAttribute('data-wow-delay');
       iteration = box.getAttribute('data-wow-iteration');
-      return this.customStyle(box, hidden, duration, delay, iteration);
+      return this.animate((function(_this) {
+        return function() {
+          return _this.customStyle(box, hidden, duration, delay, iteration);
+        };
+      })(this));
     };
+
+    WOW.prototype.animate = (function() {
+      if ('requestAnimationFrame' in window) {
+        return function(callback) {
+          console.log('A');
+          return window.requestAnimationFrame(callback);
+        };
+      } else {
+        return function(callback) {
+          console.log('N');
+          return callback();
+        };
+      }
+    })();
 
     WOW.prototype.resetStyle = function() {
       var box, _i, _len, _ref, _results;
