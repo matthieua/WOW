@@ -10,6 +10,12 @@
 .clearfix:after {
   clear: both;
 }
+pre {
+  text-align: left;
+  background-color: #f8f8ff;
+  padding: 10px;
+  border: 1px solid #dddddd;
+}
 .hide-text {
   font: 0/0 a;
   color: transparent;
