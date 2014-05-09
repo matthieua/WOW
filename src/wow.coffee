@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.7
+# Version : 0.1.8
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -61,37 +61,47 @@ class @WOW
     delay     = box.getAttribute('data-wow-delay')
     iteration = box.getAttribute('data-wow-iteration')
 
-    @customStyle(box, hidden, duration, delay, iteration)
+    @animate => @customStyle(box, hidden, duration, delay, iteration)
+
+  animate: (->
+    if 'requestAnimationFrame' of window
+      (callback) ->
+        window.requestAnimationFrame callback
+    else
+      (callback) ->
+        callback()
+  )()
 
   resetStyle: ->
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
-    if hidden
-      box.style.visibility = 'hidden'
-      box.style['-webkit-animation-name'] = 'none'
-      box.style['animation-name'] = 'none'
-    else
-      box.style.visibility = 'visible'
-      box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName')
-      box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName')
+    box.style.visibility = if hidden then 'hidden' else 'visible'
+    box.dataset.wowAnimationName = @animationName(box) if hidden
 
-    if duration
-      box.style['-webkit-animation-duration'] = duration
-      box.style['-moz-animation-duration'] = duration
-      box.style['animation-duration'] = duration
-
-    if delay
-      box.style['-webkit-animation-delay'] = delay
-      box.style['-moz-animation-delay'] = delay
-      box.style['animation-delay'] = delay
-
-    if iteration
-      box.style['-webkit-animation-iteration-count'] = iteration
-      box.style['-moz-animation-iteration-count'] = iteration
-      box.style['animation-iteration-count'] = iteration
+    @vendorSet box.style, animationDuration: duration if duration
+    @vendorSet box.style, animationDelay: delay if delay
+    @vendorSet box.style, animationIterationCount: iteration if iteration
+    @vendorSet box.style, animationName: if hidden then 'none' else box.dataset.wowAnimationName
 
     box
+
+  vendors: ["moz", "webkit"]
+  vendorSet: (elem, properties) ->
+    for name, value of properties
+      elem["#{name}"] = value
+      elem["#{vendor}#{name.charAt(0).toUpperCase()}#{name.substr 1}"] = value for vendor in @vendors
+  vendorCSS: (elem, property) ->
+    style = window.getComputedStyle(elem)
+    result = style.getPropertyCSSValue(property)
+    result = result or style.getPropertyCSSValue("-#{vendor}-#{property}") for vendor in @vendors
+    result
+
+  animationName: (box) ->
+    try
+      @vendorCSS(box, 'animation-name')?.cssText
+    catch # Opera, fall back to plain property value
+      window.getComputedStyle(box).getPropertyValue('animation-name') or 'none'
 
   # fast window.scroll callback
   scrollHandler: =>

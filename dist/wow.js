@@ -90,8 +90,24 @@
       duration = box.getAttribute('data-wow-duration');
       delay = box.getAttribute('data-wow-delay');
       iteration = box.getAttribute('data-wow-iteration');
-      return this.customStyle(box, hidden, duration, delay, iteration);
+      return this.animate((function(_this) {
+        return function() {
+          return _this.customStyle(box, hidden, duration, delay, iteration);
+        };
+      })(this));
     };
+
+    WOW.prototype.animate = (function() {
+      if ('requestAnimationFrame' in window) {
+        return function(callback) {
+          return window.requestAnimationFrame(callback);
+        };
+      } else {
+        return function(callback) {
+          return callback();
+        };
+      }
+    })();
 
     WOW.prototype.resetStyle = function() {
       var box, _i, _len, _ref, _results;
@@ -105,31 +121,72 @@
     };
 
     WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
+      box.style.visibility = hidden ? 'hidden' : 'visible';
       if (hidden) {
-        box.style.visibility = 'hidden';
-        box.style['-webkit-animation-name'] = 'none';
-        box.style['animation-name'] = 'none';
-      } else {
-        box.style.visibility = 'visible';
-        box.style['-webkit-animation-name'] = window.getComputedStyle(box).getPropertyValue('webkitAnimationName');
-        box.style['animation-name'] = window.getComputedStyle(box).getPropertyValue('animationName');
+        box.dataset.wowAnimationName = this.animationName(box);
       }
       if (duration) {
-        box.style['-webkit-animation-duration'] = duration;
-        box.style['-moz-animation-duration'] = duration;
-        box.style['animation-duration'] = duration;
+        this.vendorSet(box.style, {
+          animationDuration: duration
+        });
       }
       if (delay) {
-        box.style['-webkit-animation-delay'] = delay;
-        box.style['-moz-animation-delay'] = delay;
-        box.style['animation-delay'] = delay;
+        this.vendorSet(box.style, {
+          animationDelay: delay
+        });
       }
       if (iteration) {
-        box.style['-webkit-animation-iteration-count'] = iteration;
-        box.style['-moz-animation-iteration-count'] = iteration;
-        box.style['animation-iteration-count'] = iteration;
+        this.vendorSet(box.style, {
+          animationIterationCount: iteration
+        });
       }
+      this.vendorSet(box.style, {
+        animationName: hidden ? 'none' : box.dataset.wowAnimationName
+      });
       return box;
+    };
+
+    WOW.prototype.vendors = ["moz", "webkit"];
+
+    WOW.prototype.vendorSet = function(elem, properties) {
+      var name, value, vendor, _results;
+      _results = [];
+      for (name in properties) {
+        value = properties[name];
+        elem["" + name] = value;
+        _results.push((function() {
+          var _i, _len, _ref, _results1;
+          _ref = this.vendors;
+          _results1 = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            vendor = _ref[_i];
+            _results1.push(elem["" + vendor + (name.charAt(0).toUpperCase()) + (name.substr(1))] = value);
+          }
+          return _results1;
+        }).call(this));
+      }
+      return _results;
+    };
+
+    WOW.prototype.vendorCSS = function(elem, property) {
+      var result, style, vendor, _i, _len, _ref;
+      style = window.getComputedStyle(elem);
+      result = style.getPropertyCSSValue(property);
+      _ref = this.vendors;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        vendor = _ref[_i];
+        result = result || style.getPropertyCSSValue("-" + vendor + "-" + property);
+      }
+      return result;
+    };
+
+    WOW.prototype.animationName = function(box) {
+      var _ref;
+      try {
+        return (_ref = this.vendorCSS(box, 'animation-name')) != null ? _ref.cssText : void 0;
+      } catch (_error) {
+        return window.getComputedStyle(box).getPropertyValue('animation-name') || 'none';
+      }
     };
 
     WOW.prototype.scrollHandler = function() {

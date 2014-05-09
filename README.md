@@ -24,7 +24,7 @@ Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evo
 
 ## Version
 
-0.1.7
+0.1.8
 
 ## Documentation
 
