@@ -76,36 +76,32 @@ class @WOW
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
-    style = window.getComputedStyle(box)
-    if hidden
-      animationName = \
-        style.getPropertyCSSValue('-webkit-animation-name') or \
-        style.getPropertyCSSValue('-moz-animation-name') or \
-        style.getPropertyCSSValue('animation-name')
-      box.dataset.wowAnimationName = animationName?.cssText or 'none'
-
     box.style.visibility = if hidden then 'hidden' else 'visible'
-    box.style.animationName = \
-      box.style.webkitAnimationName = \
-      box.style.mozAnimationName = \
-        if hidden then 'none' else box.dataset.wowAnimationName
+    box.dataset.wowAnimationName = @animationName(box) if hidden
 
-    box.style.animationDuration = \
-      box.style.mozAnimationDuration = \
-      box.style.webkitAnimationDuration = \
-        duration if duration
-
-    box.style.animationDelay = \
-      box.style.mozAnimationDelay = \
-      box.style.webkitAnimationDelay = \
-        delay if delay
-
-    box.style.animationIteration = \
-      box.style.mozAnimationIteration = \
-      box.style.webkitAnimationIteration = \
-        iteration if iteration
+    @vendorSet box.style, animationDuration: duration if duration
+    @vendorSet box.style, animationDelay: delay if delay
+    @vendorSet box.style, animationIterationCount: iteration if iteration
+    @vendorSet box.style, animationName: if hidden then 'none' else box.dataset.wowAnimationName
 
     box
+
+  vendors: ["moz", "webkit"]
+  vendorSet: (elem, properties) ->
+    for name, value of properties
+      elem["#{name}"] = value
+      elem["#{vendor}#{name.charAt(0).toUpperCase()}#{name.substr 1}"] = value for vendor in @vendors
+  vendorCSS: (elem, property) ->
+    style = window.getComputedStyle(elem)
+    result = style.getPropertyCSSValue(property)
+    result = result or style.getPropertyCSSValue("-#{vendor}-#{property}") for vendor in @vendors
+    result
+
+  animationName: (box) ->
+    try
+      @vendorCSS(box, 'animation-name')?.cssText
+    catch # Opera, fall back to plain property value
+      window.getComputedStyle(box).getPropertyValue('animation-name') or 'none'
 
   # fast window.scroll callback
   scrollHandler: =>

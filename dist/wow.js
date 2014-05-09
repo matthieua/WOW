@@ -121,24 +121,72 @@
     };
 
     WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
-      var animationName, style;
-      style = window.getComputedStyle(box);
-      if (hidden) {
-        animationName = style.getPropertyCSSValue('-webkit-animation-name') || style.getPropertyCSSValue('-moz-animation-name') || style.getPropertyCSSValue('animation-name');
-        box.dataset.wowAnimationName = (animationName != null ? animationName.cssText : void 0) || 'none';
-      }
       box.style.visibility = hidden ? 'hidden' : 'visible';
-      box.style.animationName = box.style.webkitAnimationName = box.style.mozAnimationName = hidden ? 'none' : box.dataset.wowAnimationName;
+      if (hidden) {
+        box.dataset.wowAnimationName = this.animationName(box);
+      }
       if (duration) {
-        box.style.animationDuration = box.style.mozAnimationDuration = box.style.webkitAnimationDuration = duration;
+        this.vendorSet(box.style, {
+          animationDuration: duration
+        });
       }
       if (delay) {
-        box.style.animationDelay = box.style.mozAnimationDelay = box.style.webkitAnimationDelay = delay;
+        this.vendorSet(box.style, {
+          animationDelay: delay
+        });
       }
       if (iteration) {
-        box.style.animationIteration = box.style.mozAnimationIteration = box.style.webkitAnimationIteration = iteration;
+        this.vendorSet(box.style, {
+          animationIterationCount: iteration
+        });
       }
+      this.vendorSet(box.style, {
+        animationName: hidden ? 'none' : box.dataset.wowAnimationName
+      });
       return box;
+    };
+
+    WOW.prototype.vendors = ["moz", "webkit"];
+
+    WOW.prototype.vendorSet = function(elem, properties) {
+      var name, value, vendor, _results;
+      _results = [];
+      for (name in properties) {
+        value = properties[name];
+        elem["" + name] = value;
+        _results.push((function() {
+          var _i, _len, _ref, _results1;
+          _ref = this.vendors;
+          _results1 = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            vendor = _ref[_i];
+            _results1.push(elem["" + vendor + (name.charAt(0).toUpperCase()) + (name.substr(1))] = value);
+          }
+          return _results1;
+        }).call(this));
+      }
+      return _results;
+    };
+
+    WOW.prototype.vendorCSS = function(elem, property) {
+      var result, style, vendor, _i, _len, _ref;
+      style = window.getComputedStyle(elem);
+      result = style.getPropertyCSSValue(property);
+      _ref = this.vendors;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        vendor = _ref[_i];
+        result = result || style.getPropertyCSSValue("-" + vendor + "-" + property);
+      }
+      return result;
+    };
+
+    WOW.prototype.animationName = function(box) {
+      var _ref;
+      try {
+        return (_ref = this.vendorCSS(box, 'animation-name')) != null ? _ref.cssText : void 0;
+      } catch (_error) {
+        return window.getComputedStyle(box).getPropertyValue('animation-name') || 'none';
+      }
     };
 
     WOW.prototype.scrollHandler = function() {
