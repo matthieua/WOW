@@ -120,9 +120,13 @@ class @WOW
 
   animationName: (box) ->
     try
-      @vendorCSS(box, 'animation-name')?.cssText
+      animationName = @vendorCSS(box, 'animation-name').cssText
     catch # Opera, fall back to plain property value
-      window.getComputedStyle(box).getPropertyValue('animation-name') or 'none'
+      animationName = window.getComputedStyle(box).getPropertyValue('animation-name')
+    if animationName is 'none'
+      ''  # SVG/Firefox, unable to get animation name?
+    else
+      animationName
 
   cacheAnimationName: (box) ->
     # https://bugzilla.mozilla.org/show_bug.cgi?id=921834

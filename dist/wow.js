@@ -217,11 +217,16 @@
     };
 
     WOW.prototype.animationName = function(box) {
-      var _ref;
+      var animationName;
       try {
-        return (_ref = this.vendorCSS(box, 'animation-name')) != null ? _ref.cssText : void 0;
+        animationName = this.vendorCSS(box, 'animation-name').cssText;
       } catch (_error) {
-        return window.getComputedStyle(box).getPropertyValue('animation-name') || 'none';
+        animationName = window.getComputedStyle(box).getPropertyValue('animation-name');
+      }
+      if (animationName === 'none') {
+        return '';
+      } else {
+        return animationName;
       }
     };
 
