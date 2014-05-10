@@ -230,6 +230,9 @@
 
     WOW.prototype.offsetTop = function(element) {
       var top;
+      while (element.offsetTop === void 0) {
+        element = element.parentNode;
+      }
       top = element.offsetTop;
       while (element = element.offsetParent) {
         top += element.offsetTop;

@@ -128,6 +128,10 @@ class @WOW
 
   # Calculate element offset top
   offsetTop: (element) ->
+    # SVG elements don't have an offsetTop in Firefox.
+    # This will use their nearest parent that has an offsetTop.
+    # Also, using ('offsetTop' of element) causes an exception in Firefox.
+    element = element.parentNode while element.offsetTop is undefined
     top = element.offsetTop
     top += element.offsetTop while element = element.offsetParent
     top
