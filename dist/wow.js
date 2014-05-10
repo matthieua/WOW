@@ -1,5 +1,5 @@
 (function() {
-  var Util,
+  var Util, WeakMap,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Util = (function() {
@@ -24,6 +24,41 @@
 
   })();
 
+  WeakMap = this.WeakMap || (WeakMap = (function() {
+    function WeakMap() {
+      this.keys = [];
+      this.values = [];
+    }
+
+    WeakMap.prototype.get = function(key) {
+      var i, item, _i, _len, _ref;
+      _ref = this.keys;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        item = _ref[i];
+        if (item === key) {
+          return this.values[i];
+        }
+      }
+    };
+
+    WeakMap.prototype.set = function(key, value) {
+      var i, item, _i, _len, _ref;
+      _ref = this.keys;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        item = _ref[i];
+        if (item === key) {
+          this.values[i] = value;
+          return;
+        }
+      }
+      this.keys.push(key);
+      return this.values.push(value);
+    };
+
+    return WeakMap;
+
+  })());
+
   this.WOW = (function() {
     WOW.prototype.defaults = {
       boxClass: 'wow',
@@ -41,6 +76,7 @@
       this.start = __bind(this.start, this);
       this.scrolled = true;
       this.config = this.util().extend(options, this.defaults);
+      this.animationNameCache = new WeakMap();
     }
 
     WOW.prototype.init = function() {
@@ -121,10 +157,10 @@
     };
 
     WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
-      box.style.visibility = hidden ? 'hidden' : 'visible';
       if (hidden) {
-        box.dataset.wowAnimationName = this.animationName(box);
+        this.cacheAnimationName(box);
       }
+      box.style.visibility = hidden ? 'hidden' : 'visible';
       if (duration) {
         this.vendorSet(box.style, {
           animationDuration: duration
@@ -141,7 +177,7 @@
         });
       }
       this.vendorSet(box.style, {
-        animationName: hidden ? 'none' : box.dataset.wowAnimationName
+        animationName: hidden ? 'none' : this.cachedAnimationName(box)
       });
       return box;
     };
@@ -181,12 +217,25 @@
     };
 
     WOW.prototype.animationName = function(box) {
-      var _ref;
+      var animationName;
       try {
-        return (_ref = this.vendorCSS(box, 'animation-name')) != null ? _ref.cssText : void 0;
+        animationName = this.vendorCSS(box, 'animation-name').cssText;
       } catch (_error) {
-        return window.getComputedStyle(box).getPropertyValue('animation-name') || 'none';
+        animationName = window.getComputedStyle(box).getPropertyValue('animation-name');
       }
+      if (animationName === 'none') {
+        return '';
+      } else {
+        return animationName;
+      }
+    };
+
+    WOW.prototype.cacheAnimationName = function(box) {
+      return this.animationNameCache.set(box, this.animationName(box));
+    };
+
+    WOW.prototype.cachedAnimationName = function(box) {
+      return this.animationNameCache.get(box);
     };
 
     WOW.prototype.scrollHandler = function() {
@@ -222,6 +271,9 @@
 
     WOW.prototype.offsetTop = function(element) {
       var top;
+      while (element.offsetTop === void 0) {
+        element = element.parentNode;
+      }
       top = element.offsetTop;
       while (element = element.offsetParent) {
         top += element.offsetTop;

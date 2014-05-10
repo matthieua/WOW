@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.8
+# Version : 0.1.9
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -16,6 +16,25 @@ class Util
   isMobile: (agent) ->
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
 
+# Minimalistic WeakMap shim, just in case.
+WeakMap = @WeakMap or class WeakMap
+  constructor: ->
+    @keys   = []
+    @values = []
+
+  get: (key) ->
+    for item, i in @keys
+      if item is key
+        return @values[i]
+
+  set: (key, value) ->
+    for item, i in @keys
+      if item is key
+        @values[i] = value
+        return
+    @keys.push(key)
+    @values.push(value)
+
 class @WOW
   defaults:
     boxClass:     'wow'
@@ -26,6 +45,8 @@ class @WOW
   constructor: (options = {}) ->
     @scrolled = true
     @config   = @util().extend(options, @defaults)
+    # Map of elements to animation names:
+    @animationNameCache = new WeakMap()
 
   init: ->
     @element = window.document.documentElement
@@ -76,13 +97,13 @@ class @WOW
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
+    @cacheAnimationName(box) if hidden
     box.style.visibility = if hidden then 'hidden' else 'visible'
-    box.dataset.wowAnimationName = @animationName(box) if hidden
 
     @vendorSet box.style, animationDuration: duration if duration
     @vendorSet box.style, animationDelay: delay if delay
     @vendorSet box.style, animationIterationCount: iteration if iteration
-    @vendorSet box.style, animationName: if hidden then 'none' else box.dataset.wowAnimationName
+    @vendorSet box.style, animationName: if hidden then 'none' else @cachedAnimationName(box)
 
     box
 
@@ -99,9 +120,20 @@ class @WOW
 
   animationName: (box) ->
     try
-      @vendorCSS(box, 'animation-name')?.cssText
+      animationName = @vendorCSS(box, 'animation-name').cssText
     catch # Opera, fall back to plain property value
-      window.getComputedStyle(box).getPropertyValue('animation-name') or 'none'
+      animationName = window.getComputedStyle(box).getPropertyValue('animation-name')
+    if animationName is 'none'
+      ''  # SVG/Firefox, unable to get animation name?
+    else
+      animationName
+
+  cacheAnimationName: (box) ->
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=921834
+    # box.dataset is not supported for SVG elements in Firefox
+    @animationNameCache.set(box, @animationName(box))
+  cachedAnimationName: (box) ->
+    @animationNameCache.get(box)
 
   # fast window.scroll callback
   scrollHandler: =>
@@ -120,6 +152,10 @@ class @WOW
 
   # Calculate element offset top
   offsetTop: (element) ->
+    # SVG elements don't have an offsetTop in Firefox.
+    # This will use their nearest parent that has an offsetTop.
+    # Also, using ('offsetTop' of element) causes an exception in Firefox.
+    element = element.parentNode while element.offsetTop is undefined
     top = element.offsetTop
     top += element.offsetTop while element = element.offsetParent
     top
