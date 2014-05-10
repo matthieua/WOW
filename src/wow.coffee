@@ -16,6 +16,25 @@ class Util
   isMobile: (agent) ->
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
 
+# Minimalistic WeakMap shim, just in case.
+WeakMap = @WeakMap or class WeakMap
+  constructor: ->
+    @keys   = []
+    @values = []
+
+  get: (key) ->
+    for item, i in @keys
+      if item is key
+        return @values[i]
+
+  set: (key, value) ->
+    for item, i in @keys
+      if item is key
+        @values[i] = value
+        return
+    @keys.push(key)
+    @values.push(value)
+
 class @WOW
   defaults:
     boxClass:     'wow'
@@ -26,6 +45,8 @@ class @WOW
   constructor: (options = {}) ->
     @scrolled = true
     @config   = @util().extend(options, @defaults)
+    # Map of elements to animation names:
+    @animationNameCache = new WeakMap()
 
   init: ->
     @element = window.document.documentElement
@@ -104,12 +125,11 @@ class @WOW
       window.getComputedStyle(box).getPropertyValue('animation-name') or 'none'
 
   cacheAnimationName: (box) ->
-    # TODO:
     # https://bugzilla.mozilla.org/show_bug.cgi?id=921834
     # box.dataset is not supported for SVG elements in Firefox
-    box.dataset.animationName = @animationName(box)
+    @animationNameCache.set(box, @animationName(box))
   cachedAnimationName: (box) ->
-    box.dataset.animationName
+    @animationNameCache.get(box)
 
   # fast window.scroll callback
   scrollHandler: =>

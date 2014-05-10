@@ -1,5 +1,5 @@
 (function() {
-  var Util,
+  var Util, WeakMap,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Util = (function() {
@@ -24,6 +24,41 @@
 
   })();
 
+  WeakMap = this.WeakMap || (WeakMap = (function() {
+    function WeakMap() {
+      this.keys = [];
+      this.values = [];
+    }
+
+    WeakMap.prototype.get = function(key) {
+      var i, item, _i, _len, _ref;
+      _ref = this.keys;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        item = _ref[i];
+        if (item === key) {
+          return this.values[i];
+        }
+      }
+    };
+
+    WeakMap.prototype.set = function(key, value) {
+      var i, item, _i, _len, _ref;
+      _ref = this.keys;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        item = _ref[i];
+        if (item === key) {
+          this.values[i] = value;
+          return;
+        }
+      }
+      this.keys.push(key);
+      return this.values.push(value);
+    };
+
+    return WeakMap;
+
+  })());
+
   this.WOW = (function() {
     WOW.prototype.defaults = {
       boxClass: 'wow',
@@ -41,6 +76,7 @@
       this.start = __bind(this.start, this);
       this.scrolled = true;
       this.config = this.util().extend(options, this.defaults);
+      this.animationNameCache = new WeakMap();
     }
 
     WOW.prototype.init = function() {
@@ -190,11 +226,11 @@
     };
 
     WOW.prototype.cacheAnimationName = function(box) {
-      return box.dataset.animationName = this.animationName(box);
+      return this.animationNameCache.set(box, this.animationName(box));
     };
 
     WOW.prototype.cachedAnimationName = function(box) {
-      return box.dataset.animationName;
+      return this.animationNameCache.get(box);
     };
 
     WOW.prototype.scrollHandler = function() {
