@@ -121,10 +121,10 @@
     };
 
     WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
-      box.style.visibility = hidden ? 'hidden' : 'visible';
       if (hidden) {
-        box.dataset.wowAnimationName = this.animationName(box);
+        this.cacheAnimationName(box);
       }
+      box.style.visibility = hidden ? 'hidden' : 'visible';
       if (duration) {
         this.vendorSet(box.style, {
           animationDuration: duration
@@ -141,7 +141,7 @@
         });
       }
       this.vendorSet(box.style, {
-        animationName: hidden ? 'none' : box.dataset.wowAnimationName
+        animationName: hidden ? 'none' : this.cachedAnimationName(box)
       });
       return box;
     };
@@ -187,6 +187,14 @@
       } catch (_error) {
         return window.getComputedStyle(box).getPropertyValue('animation-name') || 'none';
       }
+    };
+
+    WOW.prototype.cacheAnimationName = function(box) {
+      return box.dataset.animationName = this.animationName(box);
+    };
+
+    WOW.prototype.cachedAnimationName = function(box) {
+      return box.dataset.animationName;
     };
 
     WOW.prototype.scrollHandler = function() {

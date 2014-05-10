@@ -76,13 +76,13 @@ class @WOW
     box.setAttribute('style', 'visibility: visible;') for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
+    @cacheAnimationName(box) if hidden
     box.style.visibility = if hidden then 'hidden' else 'visible'
-    box.dataset.wowAnimationName = @animationName(box) if hidden
 
     @vendorSet box.style, animationDuration: duration if duration
     @vendorSet box.style, animationDelay: delay if delay
     @vendorSet box.style, animationIterationCount: iteration if iteration
-    @vendorSet box.style, animationName: if hidden then 'none' else box.dataset.wowAnimationName
+    @vendorSet box.style, animationName: if hidden then 'none' else @cachedAnimationName(box)
 
     box
 
@@ -102,6 +102,14 @@ class @WOW
       @vendorCSS(box, 'animation-name')?.cssText
     catch # Opera, fall back to plain property value
       window.getComputedStyle(box).getPropertyValue('animation-name') or 'none'
+
+  cacheAnimationName: (box) ->
+    # TODO:
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=921834
+    # box.dataset is not supported for SVG elements in Firefox
+    box.dataset.animationName = @animationName(box)
+  cachedAnimationName: (box) ->
+    box.dataset.animationName
 
   # fast window.scroll callback
   scrollHandler: =>
