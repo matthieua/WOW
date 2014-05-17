@@ -67,9 +67,34 @@ var wow = new WOW(
     animateClass: 'animated', // animation css class (default is animated)
     offset:       0,          // distance to the element when triggering the animation (default is 0)
     mobile:       true        // trigger animations on mobile devices (true is default)
+    live:         false       // allow later synchronization (false is default)
   }
 );
 wow.init();
+```
+
+### Asynchronous content support
+
+- JavaScript
+
+```javascript
+var wow = new WOW(
+  {
+    // ... rest of your config
+    live: true
+  }
+);
+wow.init();
+
+// Example
+setTimeout(function () {
+  var moarItems = document.createElement('section');
+  moarItems.className = 'wow slideInRight';
+  document.body.appendChild(moarItems);
+
+  // Use `.sync()` method to let WOW.js know there are new elements appended
+  wow.sync();
+});
 ```
 
 ## Contribute

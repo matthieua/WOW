@@ -41,6 +41,7 @@ class @WOW
     animateClass: 'animated'
     offset:       0
     mobile:       true
+    live:         false
 
   constructor: (options = {}) ->
     @scrolled = true
@@ -147,7 +148,7 @@ class @WOW
           @show(box)
           continue
         box
-      @stop() unless @boxes.length
+      @stop() unless @boxes.length || @config.live
 
 
   # Calculate element offset top
@@ -175,3 +176,12 @@ class @WOW
 
   disabled: ->
     not @config.mobile and @util().isMobile(navigator.userAgent)
+
+  # refresh method for new elements
+  sync: ->
+    if @config.live
+      # Using querySelector as it's even better browser support
+      # @see https://developer.mozilla.org/en-US/docs/Web/API/element.querySelector
+      newElements = @element.querySelectorAll('.' + @config.boxClass + ':not(.' + @config.animateClass + ')')
+      @applyStyle(box, true) for box in newElements
+      @boxes.push newElements...

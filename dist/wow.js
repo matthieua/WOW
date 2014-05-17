@@ -64,7 +64,8 @@
       boxClass: 'wow',
       animateClass: 'animated',
       offset: 0,
-      mobile: true
+      mobile: true,
+      live: false
     };
 
     function WOW(options) {
@@ -263,7 +264,7 @@
           }
           return _results;
         }).call(this);
-        if (!this.boxes.length) {
+        if (!(this.boxes.length || this.config.live)) {
           return this.stop();
         }
       }
@@ -297,6 +298,18 @@
 
     WOW.prototype.disabled = function() {
       return !this.config.mobile && this.util().isMobile(navigator.userAgent);
+    };
+
+    WOW.prototype.sync = function() {
+      var box, newElements, _i, _len, _ref;
+      if (this.config.live) {
+        newElements = this.element.querySelectorAll('.' + this.config.boxClass + ':not(.' + this.config.animateClass + ')');
+        for (_i = 0, _len = newElements.length; _i < _len; _i++) {
+          box = newElements[_i];
+          this.applyStyle(box, true);
+        }
+        return (_ref = this.boxes).push.apply(_ref, newElements);
+      }
     };
 
     return WOW;
