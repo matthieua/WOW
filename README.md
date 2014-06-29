@@ -66,8 +66,8 @@ var wow = new WOW(
     boxClass:     'wow',      // animated element css class (default is wow)
     animateClass: 'animated', // animation css class (default is animated)
     offset:       0,          // distance to the element when triggering the animation (default is 0)
-    mobile:       true        // trigger animations on mobile devices (true is default)
-    live:         false       // allow later synchronization (false is default)
+    mobile:       true,       // trigger animations on mobile devices (default is true)
+    live:         false       // act on asynchronously loaded content (default is false)
   }
 );
 wow.init();
@@ -86,14 +86,11 @@ var wow = new WOW(
 );
 wow.init();
 
-// Example
+// Example content loading
 setTimeout(function () {
   var moarItems = document.createElement('section');
   moarItems.className = 'wow slideInRight';
   document.body.appendChild(moarItems);
-
-  // Use `.sync()` method to let WOW.js know there are new elements appended
-  wow.sync();
 });
 ```
 

@@ -57,6 +57,7 @@ class @WOW
       document.addEventListener 'DOMContentLoaded', @start
 
   start: =>
+    @stopped = false
     @boxes = @element.getElementsByClassName(@config.boxClass)
     if @boxes.length
       if @disabled()
@@ -66,9 +67,24 @@ class @WOW
         window.addEventListener('scroll', @scrollHandler, false)
         window.addEventListener('resize', @scrollHandler, false)
         @interval = setInterval @scrollCallback, 50
+    if @config.live
+      new MutationObserver (records) =>
+        unless @stopped
+          newElements = []
+          for record in records
+            for node in record.addedNodes or []
+              # Not every browser supports `classList`,
+              # but those that support `MutationObserver` all do.
+              newElements.push(node) if node.classList.contains(@config.boxClass)
+          @applyStyle(box, true) for box in newElements
+          @boxes.push newElements...
+      .observe document.body,
+        childList: true
+        subtree: true
 
   # unbind the scroll event
   stop: ->
+    @stopped = true
     window.removeEventListener('scroll', @scrollHandler, false)
     window.removeEventListener('resize', @scrollHandler, false)
     clearInterval @interval if @interval?
@@ -148,7 +164,7 @@ class @WOW
           @show(box)
           continue
         box
-      @stop() unless @boxes.length || @config.live
+      @stop() unless @boxes.length or @config.live
 
 
   # Calculate element offset top
@@ -176,12 +192,3 @@ class @WOW
 
   disabled: ->
     not @config.mobile and @util().isMobile(navigator.userAgent)
-
-  # refresh method for new elements
-  sync: ->
-    if @config.live
-      # Using querySelector as it's even better browser support
-      # @see https://developer.mozilla.org/en-US/docs/Web/API/element.querySelector
-      newElements = @element.querySelectorAll('.' + @config.boxClass + ':not(.' + @config.animateClass + ')')
-      @applyStyle(box, true) for box in newElements
-      @boxes.push newElements...

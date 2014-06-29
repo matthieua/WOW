@@ -92,10 +92,11 @@
 
     WOW.prototype.start = function() {
       var box, _i, _len, _ref;
+      this.stopped = false;
       this.boxes = this.element.getElementsByClassName(this.config.boxClass);
       if (this.boxes.length) {
         if (this.disabled()) {
-          return this.resetStyle();
+          this.resetStyle();
         } else {
           _ref = this.boxes;
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -104,12 +105,41 @@
           }
           window.addEventListener('scroll', this.scrollHandler, false);
           window.addEventListener('resize', this.scrollHandler, false);
-          return this.interval = setInterval(this.scrollCallback, 50);
+          this.interval = setInterval(this.scrollCallback, 50);
         }
+      }
+      if (this.config.live) {
+        return new MutationObserver((function(_this) {
+          return function(records) {
+            var newElements, node, record, _j, _k, _l, _len1, _len2, _len3, _ref1, _ref2;
+            if (!_this.stopped) {
+              newElements = [];
+              for (_j = 0, _len1 = records.length; _j < _len1; _j++) {
+                record = records[_j];
+                _ref1 = record.addedNodes || [];
+                for (_k = 0, _len2 = _ref1.length; _k < _len2; _k++) {
+                  node = _ref1[_k];
+                  if (node.classList.contains(_this.config.boxClass)) {
+                    newElements.push(node);
+                  }
+                }
+              }
+              for (_l = 0, _len3 = newElements.length; _l < _len3; _l++) {
+                box = newElements[_l];
+                _this.applyStyle(box, true);
+              }
+              return (_ref2 = _this.boxes).push.apply(_ref2, newElements);
+            }
+          };
+        })(this)).observe(document.body, {
+          childList: true,
+          subtree: true
+        });
       }
     };
 
     WOW.prototype.stop = function() {
+      this.stopped = true;
       window.removeEventListener('scroll', this.scrollHandler, false);
       window.removeEventListener('resize', this.scrollHandler, false);
       if (this.interval != null) {
@@ -298,18 +328,6 @@
 
     WOW.prototype.disabled = function() {
       return !this.config.mobile && this.util().isMobile(navigator.userAgent);
-    };
-
-    WOW.prototype.sync = function() {
-      var box, newElements, _i, _len, _ref;
-      if (this.config.live) {
-        newElements = this.element.querySelectorAll('.' + this.config.boxClass + ':not(.' + this.config.animateClass + ')');
-        for (_i = 0, _len = newElements.length; _i < _len; _i++) {
-          box = newElements[_i];
-          this.applyStyle(box, true);
-        }
-        return (_ref = this.boxes).push.apply(_ref, newElements);
-      }
     };
 
     return WOW;
