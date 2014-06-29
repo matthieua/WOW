@@ -24,7 +24,7 @@ Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evo
 
 ## Version
 
-0.1.11
+0.1.12
 
 ## Documentation
 
@@ -72,9 +72,14 @@ wow.init();
 
 ### Asynchronous content support
 
-Animations will automatically triggered for any DOM nodes you add after calling
-`wow.init()`. If you do not like that, you can disable this by setting `live`
-to `false`.
+In IE 10+, Chrome 18+ and Firefox 14+, animations will be automatically
+triggered for any DOM nodes you add after calling `wow.init()`. If you do not
+like that, you can disable this by setting `live` to `false`.
+
+If you want to support older browsers (e.g. IE9+), as a fallback, you can call
+the `wow.sync()` method after you have added new DOM elements to animate (but
+`live` should still be set to `true`). Calling `wow.sync()` has no side
+effects.
 
 
 ## Contribute

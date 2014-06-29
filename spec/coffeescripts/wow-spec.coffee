@@ -1,11 +1,25 @@
 describe 'WOW', ->
 
+  # Supress warnings:
+  window.console =
+    warn: ->
+
   # Time to wait after each scroll event:
   # (This should be >= the interval used by the plugin.)
   timeout = 100
 
   # Height of the PhantomJS window:
   winHeight = 300
+
+  describe 'smoke test', ->
+
+    it 'exists', ->
+      expect WOW
+        .toBeDefined()
+
+    it "has an 'init' method", ->
+      expect new WOW().init
+        .toBeDefined()
 
   describe 'simple test environment', ->
 
@@ -51,21 +65,13 @@ describe 'WOW', ->
       expect style.color
         .toBe 'red'
 
-  describe 'library smoke test', ->
-
-    it 'exists', ->
-      expect WOW
-        .toBeDefined()
-
-    it "has an 'init' method", ->
-      expect new WOW().init
-        .toBeDefined()
-
   describe 'library behaviour', ->
+
+    wow = null
 
     beforeEach (done) ->
       loadFixtures 'simple.html'
-      new WOW().init()
+      (wow = new WOW).init()
       setTimeout ->
         done()
       , timeout
@@ -127,6 +133,41 @@ describe 'WOW', ->
           .toBe 'yellow'
         expect $('#simple-5')[0].style.color
           .toBe 'red'
+        done()
+      , timeout
+
+    it 'works with asynchronously loaded content', (done) ->
+      $ '#simple'
+        .append $ '<div/>',
+          id: 'simple-6'
+          class: 'wow'
+      wow.sync()
+      # Scroll down so that 150px of #simple-6 becomes visible.
+      window.scrollTo 0, $('#simple-6').offset().top - winHeight + 150
+      setTimeout ->
+        expect $ '#simple-6'
+          .toHaveClass 'animated'
+        expect $('#simple-6').css 'visibility'
+          .toBe 'visible'
+        done()
+      , timeout
+
+    it 'works with asynchronously loaded nested content', (done) ->
+      $ '#simple'
+        .append $ '<div/>'
+        .children()
+        .first()
+        .append $ '<div/>',
+          id: 'simple-7'
+          class: 'wow'
+      wow.sync()
+      # Scroll down so that 150px of #simple-7 becomes visible.
+      window.scrollTo 0, $('#simple-7').offset().top - winHeight + 150
+      setTimeout ->
+        expect $ '#simple-7'
+          .toHaveClass 'animated'
+        expect $('#simple-7').css 'visibility'
+          .toBe 'visible'
         done()
       , timeout
 
