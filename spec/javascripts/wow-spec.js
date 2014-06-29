@@ -91,7 +91,7 @@
           return done();
         }, timeout);
       });
-      return it('works with asynchronously loaded content', function(done) {
+      it('works with asynchronously loaded content', function(done) {
         $('#simple').append($('<div/>', {
           id: 'simple-6',
           "class": 'wow'
@@ -101,6 +101,19 @@
         return setTimeout(function() {
           expect($('#simple-6')).toHaveClass('animated');
           expect($('#simple-6').css('visibility')).toBe('visible');
+          return done();
+        }, timeout);
+      });
+      return it('works with asynchronously loaded nested content', function(done) {
+        $('#simple').append($('<div/>')).children().first().append($('<div/>', {
+          id: 'simple-7',
+          "class": 'wow'
+        }));
+        wow.sync();
+        window.scrollTo(0, $('#simple-7').offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect($('#simple-7')).toHaveClass('animated');
+          expect($('#simple-7').css('visibility')).toBe('visible');
           return done();
         }, timeout);
       });

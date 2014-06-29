@@ -152,6 +152,25 @@ describe 'WOW', ->
         done()
       , timeout
 
+    it 'works with asynchronously loaded nested content', (done) ->
+      $ '#simple'
+        .append $ '<div/>'
+        .children()
+        .first()
+        .append $ '<div/>',
+          id: 'simple-7'
+          class: 'wow'
+      wow.sync()
+      # Scroll down so that 150px of #simple-7 becomes visible.
+      window.scrollTo 0, $('#simple-7').offset().top - winHeight + 150
+      setTimeout ->
+        expect $ '#simple-7'
+          .toHaveClass 'animated'
+        expect $('#simple-7').css 'visibility'
+          .toBe 'visible'
+        done()
+      , timeout
+
   describe 'custom test environment', ->
 
     beforeEach ->
