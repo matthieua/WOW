@@ -24,7 +24,7 @@ Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evo
 
 ## Version
 
-0.1.9
+0.1.10
 
 ## Documentation
 
@@ -63,11 +63,19 @@ var wow = new WOW(
     boxClass:     'wow',      // animated element css class (default is wow)
     animateClass: 'animated', // animation css class (default is animated)
     offset:       0,          // distance to the element when triggering the animation (default is 0)
-    mobile:       true        // trigger animations on mobile devices (true is default)
+    mobile:       true,       // trigger animations on mobile devices (default is true)
+    live:         true        // act on asynchronously loaded content (default is true)
   }
 );
 wow.init();
 ```
+
+### Asynchronous content support
+
+Animations will automatically triggered for any DOM nodes you add after calling
+`wow.init()`. If you do not like that, you can disable this by setting `live`
+to `false`.
+
 
 ## Contribute
 

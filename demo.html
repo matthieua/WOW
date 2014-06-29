@@ -30,6 +30,7 @@
       <section class="section--purple wow slideInRight" data-wow-delay="2s"></section>
       <section class="section--blue wow bounceInLeft" data-wow-offset="300"></section>
       <section class="section--green wow slideInLeft" data-wow-duration="4s"></section>
+      <button id="moar">LOAD MOAR!!</button>
     </div>
 
     <footer>
@@ -40,10 +41,16 @@
     var wow = new WOW(
       {
         animateClass: 'animated',
-        offset:       100
+        offset:       100,
+        live:         true
       }
     );
     wow.init();
+    document.getElementById('moar').onclick = function() {
+      var section = document.createElement('section');
+      section.className = 'section--purple wow fadeInDown';
+      this.parentNode.insertBefore(section, this);
+    };
   </script>
 </body>
 </html>

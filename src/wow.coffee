@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.9
+# Version : 0.1.10
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -35,12 +35,23 @@ WeakMap = @WeakMap or class WeakMap
     @keys.push(key)
     @values.push(value)
 
+# Dummy Mutation Observer, to avoid raising exceptions.
+MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
+  class MutationObserver
+    constructor: ->
+      console.warn 'MutationObserver is not supported by your browser. ' + \
+        'WOW.js cannot animate asynchronously loaded content.'
+
+    observe: ->
+
+
 class @WOW
   defaults:
     boxClass:     'wow'
     animateClass: 'animated'
     offset:       0
     mobile:       true
+    live:         true
 
   constructor: (options = {}) ->
     @scrolled = true
@@ -56,6 +67,7 @@ class @WOW
       document.addEventListener 'DOMContentLoaded', @start
 
   start: =>
+    @stopped = false
     @boxes = @element.getElementsByClassName(@config.boxClass)
     if @boxes.length
       if @disabled()
@@ -65,9 +77,24 @@ class @WOW
         window.addEventListener('scroll', @scrollHandler, false)
         window.addEventListener('resize', @scrollHandler, false)
         @interval = setInterval @scrollCallback, 50
+    if @config.live
+      new MutationObserver (records) =>
+        unless @stopped
+          newElements = []
+          for record in records
+            for node in record.addedNodes or []
+              # Not every browser supports `classList`,
+              # but those that support `MutationObserver` all do.
+              newElements.push(node) if node.classList.contains(@config.boxClass)
+          @applyStyle(box, true) for box in newElements
+          @boxes.push newElements...
+      .observe document.body,
+        childList: true
+        subtree: true
 
   # unbind the scroll event
   stop: ->
+    @stopped = true
     window.removeEventListener('scroll', @scrollHandler, false)
     window.removeEventListener('resize', @scrollHandler, false)
     clearInterval @interval if @interval?
@@ -147,7 +174,7 @@ class @WOW
           @show(box)
           continue
         box
-      @stop() unless @boxes.length
+      @stop() unless @boxes.length or @config.live
 
 
   # Calculate element offset top

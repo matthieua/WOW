@@ -26,3 +26,11 @@ section {
 .section--green {
   background-color: #2ecc71;
 }
+
+#main {
+  text-align: center;
+}
+
+#more {
+  margin: 20px auto 48px;
+}
