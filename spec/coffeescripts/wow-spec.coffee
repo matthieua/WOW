@@ -116,7 +116,7 @@ describe 'WOW', ->
       , timeout
 
     it 'does not tamper with the style attribute', (done) ->
-      # Scroll down so that 150px of #simple-4 becomes visible.
+      # Scroll down so that 150px of #simple-5 becomes visible.
       window.scrollTo 0, $('#simple-5').offset().top - winHeight + 150
       setTimeout ->
         expect $ '#simple-5'
