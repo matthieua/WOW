@@ -11,6 +11,16 @@ describe 'WOW', ->
   # Height of the PhantomJS window:
   winHeight = 300
 
+  describe 'smoke test', ->
+
+    it 'exists', ->
+      expect WOW
+        .toBeDefined()
+
+    it "has an 'init' method", ->
+      expect new WOW().init
+        .toBeDefined()
+
   describe 'simple test environment', ->
 
     beforeEach ->
@@ -54,16 +64,6 @@ describe 'WOW', ->
         .toBe 'yellow'
       expect style.color
         .toBe 'red'
-
-  describe 'library smoke test', ->
-
-    it 'exists', ->
-      expect WOW
-        .toBeDefined()
-
-    it "has an 'init' method", ->
-      expect new WOW().init
-        .toBeDefined()
 
   describe 'library behaviour', ->
 

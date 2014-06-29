@@ -6,6 +6,14 @@
     };
     timeout = 100;
     winHeight = 300;
+    describe('smoke test', function() {
+      it('exists', function() {
+        return expect(WOW).toBeDefined();
+      });
+      return it("has an 'init' method", function() {
+        return expect(new WOW().init).toBeDefined();
+      });
+    });
     describe('simple test environment', function() {
       beforeEach(function() {
         return loadFixtures('simple.html');
@@ -32,14 +40,6 @@
         style = $('#simple-5')[0].style;
         expect(style.background).toBe('yellow');
         return expect(style.color).toBe('red');
-      });
-    });
-    describe('library smoke test', function() {
-      it('exists', function() {
-        return expect(WOW).toBeDefined();
-      });
-      return it("has an 'init' method", function() {
-        return expect(new WOW().init).toBeDefined();
       });
     });
     describe('library behaviour', function() {
