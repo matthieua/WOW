@@ -35,6 +35,16 @@ WeakMap = @WeakMap or class WeakMap
     @keys.push(key)
     @values.push(value)
 
+# Dummy Mutation Observer, to avoid raising exceptions.
+MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
+  class MutationObserver
+    constructor: ->
+      console.warn 'MutationObserver is not supported by your browser. ' + \
+        'WOW.js cannot animate asynchronously loaded content.'
+
+    observe: ->
+
+
 class @WOW
   defaults:
     boxClass:     'wow'

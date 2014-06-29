@@ -1,5 +1,5 @@
 (function() {
-  var Util, WeakMap,
+  var MutationObserver, Util, WeakMap,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Util = (function() {
@@ -56,6 +56,17 @@
     };
 
     return WeakMap;
+
+  })());
+
+  MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
+    function MutationObserver() {
+      console.warn('MutationObserver is not supported by your browser. ' + 'WOW.js cannot animate asynchronously loaded content.');
+    }
+
+    MutationObserver.prototype.observe = function() {};
+
+    return MutationObserver;
 
   })());
 
