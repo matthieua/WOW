@@ -67,7 +67,7 @@ var wow = new WOW(
     animateClass: 'animated', // animation css class (default is animated)
     offset:       0,          // distance to the element when triggering the animation (default is 0)
     mobile:       true,       // trigger animations on mobile devices (default is true)
-    live:         false       // act on asynchronously loaded content (default is false)
+    live:         true        // act on asynchronously loaded content (default is true)
   }
 );
 wow.init();
@@ -75,24 +75,10 @@ wow.init();
 
 ### Asynchronous content support
 
-- JavaScript
+Animations will automatically triggered for any DOM nodes you add after calling
+`wow.init()`. If you do not like that, you can disable this by setting `live`
+to `false`.
 
-```javascript
-var wow = new WOW(
-  {
-    // ... rest of your config
-    live: true
-  }
-);
-wow.init();
-
-// Example content loading
-setTimeout(function () {
-  var moarItems = document.createElement('section');
-  moarItems.className = 'wow slideInRight';
-  document.body.appendChild(moarItems);
-});
-```
 
 ## Contribute
 

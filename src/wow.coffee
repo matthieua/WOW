@@ -51,7 +51,7 @@ class @WOW
     animateClass: 'animated'
     offset:       0
     mobile:       true
-    live:         false
+    live:         true
 
   constructor: (options = {}) ->
     @scrolled = true
