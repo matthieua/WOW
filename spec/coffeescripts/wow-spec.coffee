@@ -1,5 +1,9 @@
 describe 'WOW', ->
 
+  # Supress warnings:
+  window.console =
+    warn: ->
+
   # Time to wait after each scroll event:
   # (This should be >= the interval used by the plugin.)
   timeout = 100
@@ -63,9 +67,11 @@ describe 'WOW', ->
 
   describe 'library behaviour', ->
 
+    wow = null
+
     beforeEach (done) ->
       loadFixtures 'simple.html'
-      new WOW().init()
+      (wow = new WOW).init()
       setTimeout ->
         done()
       , timeout
@@ -127,6 +133,22 @@ describe 'WOW', ->
           .toBe 'yellow'
         expect $('#simple-5')[0].style.color
           .toBe 'red'
+        done()
+      , timeout
+
+    it 'works with asynchronously loaded content', (done) ->
+      $ '#simple'
+        .append $ '<div/>',
+          id: 'simple-6'
+          class: 'wow'
+      wow.sync()
+      # Scroll down so that 150px of #simple-6 becomes visible.
+      window.scrollTo 0, $('#simple-6').offset().top - winHeight + 150
+      setTimeout ->
+        expect $ '#simple-6'
+          .toHaveClass 'animated'
+        expect $('#simple-6').css 'visibility'
+          .toBe 'visible'
         done()
       , timeout
 

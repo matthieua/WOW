@@ -1,6 +1,9 @@
 (function() {
   describe('WOW', function() {
     var timeout, winHeight;
+    window.console = {
+      warn: function() {}
+    };
     timeout = 100;
     winHeight = 300;
     describe('simple test environment', function() {
@@ -40,9 +43,11 @@
       });
     });
     describe('library behaviour', function() {
+      var wow;
+      wow = null;
       beforeEach(function(done) {
         loadFixtures('simple.html');
-        new WOW().init();
+        (wow = new WOW).init();
         return setTimeout(function() {
           return done();
         }, timeout);
@@ -76,13 +81,26 @@
           }, timeout);
         }, timeout);
       });
-      return it('does not tamper with the style attribute', function(done) {
+      it('does not tamper with the style attribute', function(done) {
         window.scrollTo(0, $('#simple-5').offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($('#simple-5')).toHaveClass('animated');
           expect($('#simple-5').css('visibility')).toBe('visible');
           expect($('#simple-5')[0].style.background).toBe('yellow');
           expect($('#simple-5')[0].style.color).toBe('red');
+          return done();
+        }, timeout);
+      });
+      return it('works with asynchronously loaded content', function(done) {
+        $('#simple').append($('<div/>', {
+          id: 'simple-6',
+          "class": 'wow'
+        }));
+        wow.sync();
+        window.scrollTo(0, $('#simple-6').offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect($('#simple-6')).toHaveClass('animated');
+          expect($('#simple-6').css('visibility')).toBe('visible');
           return done();
         }, timeout);
       });
