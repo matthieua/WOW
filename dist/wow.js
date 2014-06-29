@@ -1,6 +1,7 @@
 (function() {
   var MutationObserver, Util, WeakMap,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Util = (function() {
     function Util() {}
@@ -24,7 +25,7 @@
 
   })();
 
-  WeakMap = this.WeakMap || (WeakMap = (function() {
+  WeakMap = this.WeakMap || this.MozWeakMap || (WeakMap = (function() {
     function WeakMap() {
       this.keys = [];
       this.values = [];
@@ -64,6 +65,8 @@
       console.warn('MutationObserver is not supported by your browser. ' + 'WOW.js cannot animate asynchronously loaded content.');
     }
 
+    MutationObserver.notSupported = true;
+
     MutationObserver.prototype.observe = function() {};
 
     return MutationObserver;
@@ -95,16 +98,27 @@
       var _ref;
       this.element = window.document.documentElement;
       if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
-        return this.start();
+        this.start();
       } else {
-        return document.addEventListener('DOMContentLoaded', this.start);
+        document.addEventListener('DOMContentLoaded', this.start);
       }
+      return this.finished = [];
     };
 
     WOW.prototype.start = function() {
       var box, _i, _len, _ref;
       this.stopped = false;
       this.boxes = this.element.getElementsByClassName(this.config.boxClass);
+      this.all = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.boxes;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          box = _ref[_i];
+          _results.push(box);
+        }
+        return _results;
+      }).call(this);
       if (this.boxes.length) {
         if (this.disabled()) {
           this.resetStyle();
@@ -122,25 +136,22 @@
       if (this.config.live) {
         return new MutationObserver((function(_this) {
           return function(records) {
-            var newElements, node, record, _j, _k, _l, _len1, _len2, _len3, _ref1, _ref2;
-            if (!_this.stopped) {
-              newElements = [];
-              for (_j = 0, _len1 = records.length; _j < _len1; _j++) {
-                record = records[_j];
+            var node, record, _j, _len1, _results;
+            _results = [];
+            for (_j = 0, _len1 = records.length; _j < _len1; _j++) {
+              record = records[_j];
+              _results.push((function() {
+                var _k, _len2, _ref1, _results1;
                 _ref1 = record.addedNodes || [];
+                _results1 = [];
                 for (_k = 0, _len2 = _ref1.length; _k < _len2; _k++) {
                   node = _ref1[_k];
-                  if (node.classList.contains(_this.config.boxClass)) {
-                    newElements.push(node);
-                  }
+                  _results1.push(this.doSync(node));
                 }
-              }
-              for (_l = 0, _len3 = newElements.length; _l < _len3; _l++) {
-                box = newElements[_l];
-                _this.applyStyle(box, true);
-              }
-              return (_ref2 = _this.boxes).push.apply(_ref2, newElements);
+                return _results1;
+              }).call(_this));
             }
+            return _results;
           };
         })(this)).observe(document.body, {
           childList: true,
@@ -155,6 +166,32 @@
       window.removeEventListener('resize', this.scrollHandler, false);
       if (this.interval != null) {
         return clearInterval(this.interval);
+      }
+    };
+
+    WOW.prototype.sync = function(element) {
+      if (MutationObserver.notSupported) {
+        return this.doSync(this.element);
+      }
+    };
+
+    WOW.prototype.doSync = function(element) {
+      var box, _i, _len, _ref, _results;
+      if (!this.stopped) {
+        _ref = (element || this.element).getElementsByClassName(this.config.boxClass);
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          box = _ref[_i];
+          if (__indexOf.call(this.all, box) < 0) {
+            this.applyStyle(box, true);
+            this.boxes.push(box);
+            this.all.push(box);
+            _results.push(this.scrolled = true);
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
       }
     };
 

@@ -41,15 +41,17 @@
     var wow = new WOW(
       {
         animateClass: 'animated',
-        offset:       100,
-        live:         true
+        offset:       100
       }
     );
     wow.init();
     document.getElementById('moar').onclick = function() {
-      var section = document.createElement('section');
+      var div = document.createElement('div'),
+        section = document.createElement('section');
       section.className = 'section--purple wow fadeInDown';
-      this.parentNode.insertBefore(section, this);
+      div.appendChild(section);
+      this.parentNode.insertBefore(div, this);
+      wow.sync();
     };
   </script>
 </body>
