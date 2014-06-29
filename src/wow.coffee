@@ -17,23 +17,24 @@ class Util
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
 
 # Minimalistic WeakMap shim, just in case.
-WeakMap = @WeakMap or class WeakMap
-  constructor: ->
-    @keys   = []
-    @values = []
+WeakMap = @WeakMap or @MozWeakMap or \
+  class WeakMap
+    constructor: ->
+      @keys   = []
+      @values = []
 
-  get: (key) ->
-    for item, i in @keys
-      if item is key
-        return @values[i]
+    get: (key) ->
+      for item, i in @keys
+        if item is key
+          return @values[i]
 
-  set: (key, value) ->
-    for item, i in @keys
-      if item is key
-        @values[i] = value
-        return
-    @keys.push(key)
-    @values.push(value)
+    set: (key, value) ->
+      for item, i in @keys
+        if item is key
+          @values[i] = value
+          return
+      @keys.push(key)
+      @values.push(value)
 
 # Dummy Mutation Observer, to avoid raising exceptions.
 MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
@@ -42,8 +43,9 @@ MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationO
       console.warn 'MutationObserver is not supported by your browser. ' + \
         'WOW.js cannot animate asynchronously loaded content.'
 
-    observe: ->
+    @notSupported: true
 
+    observe: ->
 
 class @WOW
   defaults:
@@ -65,10 +67,12 @@ class @WOW
       @start()
     else
       document.addEventListener 'DOMContentLoaded', @start
+    @finished = []
 
   start: =>
     @stopped = false
     @boxes = @element.getElementsByClassName(@config.boxClass)
+    @all = (box for box in @boxes)
     if @boxes.length
       if @disabled()
         @resetStyle()
@@ -79,15 +83,8 @@ class @WOW
         @interval = setInterval @scrollCallback, 50
     if @config.live
       new MutationObserver (records) =>
-        unless @stopped
-          newElements = []
-          for record in records
-            for node in record.addedNodes or []
-              # Not every browser supports `classList`,
-              # but those that support `MutationObserver` all do.
-              newElements.push(node) if node.classList.contains(@config.boxClass)
-          @applyStyle(box, true) for box in newElements
-          @boxes.push newElements...
+        for record in records
+          @doSync(node) for node in record.addedNodes or []
       .observe document.body,
         childList: true
         subtree: true
@@ -98,6 +95,18 @@ class @WOW
     window.removeEventListener('scroll', @scrollHandler, false)
     window.removeEventListener('resize', @scrollHandler, false)
     clearInterval @interval if @interval?
+
+  sync: (element) ->
+    @doSync(@element) if MutationObserver.notSupported
+
+  doSync: (element) ->
+    unless @stopped
+      for box in (element or @element).getElementsByClassName(@config.boxClass)
+        unless box in @all
+          @applyStyle(box, true)
+          @boxes.push box
+          @all.push box
+          @scrolled = true
 
   # show box element
   show: (box) ->
