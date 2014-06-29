@@ -36,12 +36,12 @@ WeakMap = @WeakMap or @MozWeakMap or \
       @keys.push(key)
       @values.push(value)
 
-# Dummy Mutation Observer, to avoid raising exceptions.
+# Dummy MutationObserver, to avoid raising exceptions.
 MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
   class MutationObserver
     constructor: ->
-      console.warn 'MutationObserver is not supported by your browser. ' + \
-        'WOW.js cannot animate asynchronously loaded content.'
+      console.warn 'MutationObserver is not supported by your browser.'
+      console.warn 'WOW.js cannot detect dom mutations, please call .sync() after loading new content.'
 
     @notSupported: true
 
@@ -101,7 +101,9 @@ class @WOW
 
   doSync: (element) ->
     unless @stopped
-      for box in (element or @element).getElementsByClassName(@config.boxClass)
+      element ||= @element
+      element = element.parentNode or element
+      for box in element.getElementsByClassName(@config.boxClass)
         unless box in @all
           @applyStyle(box, true)
           @boxes.push box

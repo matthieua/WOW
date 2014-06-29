@@ -62,7 +62,8 @@
 
   MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
     function MutationObserver() {
-      console.warn('MutationObserver is not supported by your browser. ' + 'WOW.js cannot animate asynchronously loaded content.');
+      console.warn('MutationObserver is not supported by your browser.');
+      console.warn('WOW.js cannot detect dom mutations, please call .sync() after loading new content.');
     }
 
     MutationObserver.notSupported = true;
@@ -178,7 +179,9 @@
     WOW.prototype.doSync = function(element) {
       var box, _i, _len, _ref, _results;
       if (!this.stopped) {
-        _ref = (element || this.element).getElementsByClassName(this.config.boxClass);
+        element || (element = this.element);
+        element = element.parentNode || element;
+        _ref = element.getElementsByClassName(this.config.boxClass);
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           box = _ref[_i];
