@@ -180,6 +180,7 @@
       var box, _i, _len, _ref, _results;
       if (!this.stopped) {
         element || (element = this.element);
+        if(element.nodeType !== 1) return;
         element = element.parentNode || element;
         _ref = element.getElementsByClassName(this.config.boxClass);
         _results = [];
