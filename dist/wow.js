@@ -179,7 +179,9 @@
     WOW.prototype.doSync = function(element) {
       var box, _i, _len, _ref, _results;
       if (!this.stopped) {
-        element || (element = this.element);
+        if (element == null) {
+          element = this.element;
+        }
         element = element.parentNode || element;
         _ref = element.getElementsByClassName(this.config.boxClass);
         _results = [];
@@ -374,7 +376,7 @@
     };
 
     WOW.prototype.util = function() {
-      return this._util || (this._util = new Util());
+      return this._util != null ? this._util : this._util = new Util();
     };
 
     WOW.prototype.disabled = function() {
