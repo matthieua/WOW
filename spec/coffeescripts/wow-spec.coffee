@@ -192,6 +192,14 @@ describe 'WOW', ->
         .toBe 200
       expect $('#custom-4').height()
         .toBe 200
+      expect $('#custom-5').height()
+        .toBe 200
+      expect $('#custom-6').height()
+        .toBe 200
+      expect $('#custom-7').height()
+        .toBe 200
+      expect $('#custom-8').height()
+        .toBe 200
       # Check each box offset
       offset = $('#custom').offset().top
       expect $('#custom-1').offset().top
