@@ -102,6 +102,7 @@ class @WOW
   doSync: (element) ->
     unless @stopped
       element ||= @element
+      return unless element.nodeType is 1
       element = element.parentNode or element
       for box in element.getElementsByClassName(@config.boxClass)
         unless box in @all
