@@ -183,7 +183,7 @@ describe 'WOW', ->
     it 'has boxes set up for testing', ->
       # Check each box height
       expect $('#custom').height()
-        .toBe 1600
+        .toBe 800
       expect $('#custom-1').height()
         .toBe 200
       expect $('#custom-2').height()
@@ -191,14 +191,6 @@ describe 'WOW', ->
       expect $('#custom-3').height()
         .toBe 200
       expect $('#custom-4').height()
-        .toBe 200
-      expect $('#custom-5').height()
-        .toBe 200
-      expect $('#custom-6').height()
-        .toBe 200
-      expect $('#custom-7').height()
-        .toBe 200
-      expect $('#custom-8').height()
         .toBe 200
       # Check each box offset
       offset = $('#custom').offset().top
@@ -210,14 +202,6 @@ describe 'WOW', ->
         .toBe offset + 200*2
       expect $('#custom-4').offset().top
         .toBe offset + 200*3
-      expect $('#custom-5').offset().top
-        .toBe offset + 200*4
-      expect $('#custom-6').offset().top
-        .toBe offset + 200*5
-      expect $('#custom-7').offset().top
-        .toBe offset + 200*6
-      expect $('#custom-8').offset().top
-        .toBe offset + 200*7
 
   describe 'library behaviour with custom settings', ->
 
@@ -228,27 +212,32 @@ describe 'WOW', ->
         animateClass: 'fancy'
         offset:       10
       .init()
-      new WOW
-        boxClass:     'block-2'
-        animateClass: 'fancy'
-        offset:       10
-      .init()
       setTimeout ->
         done()
       , timeout
+
+    it "creates two instances of the WOW.js with different configs", ->
+      wow1 = new WOW
+        boxClass:     'block1'
+        animateClass: 'fancy1'
+        offset:       10
+      wow2 = new WOW
+        boxClass:     'block2'
+        animateClass: 'fancy2'
+        offset:       20
+
+      expect wow1.config.boxClass
+        .toBe "block1"
+      expect wow1.config.animateClass
+        .toBe "fancy1"
+      expect wow1.config.offset
+        .toBe 10
 
     it "does not touch elements that don't have the marker class", (done) ->
       # Scroll down so that 15px of #custom-1 becomes visible.
       window.scrollTo 0, $('#custom-1').offset().top - winHeight + 15
       setTimeout ->
         expect $ '#custom-1'
-          .not.toHaveClass 'fancy'
-        done()
-      , timeout
-
-      window.scrollTo 0, $('#custom-5').offset().top - winHeight + 15
-      setTimeout ->
-        expect $ '#custom-5'
           .not.toHaveClass 'fancy'
         done()
       , timeout
@@ -304,55 +293,3 @@ describe 'WOW', ->
           done()
         , timeout
       , timeout
-
-    it "animates elements (with different boxClass) that are partially visible on the page based on the 'offset' config", (done) ->
-      setTimeout ->
-        # Scroll down so that 5px of #custom-6 becomes visible.
-        window.scrollTo 0, $('#custom-6').offset().top - winHeight + 5
-        expect $ '#custom-6'
-          .not.toHaveClass 'fancy'
-        window.scrollTo 0, $('#custom-6').offset().top - winHeight + 15
-        setTimeout ->
-          # Scroll down so that 15px of #custom-6 becomes visible.
-          expect $ '#custom-6'
-            .toHaveClass 'fancy'
-          expect $('#custom-6').css 'visibility'
-            .toBe 'visible'
-          done()
-        , timeout
-      , timeout
-
-    it 'animates elements (with different boxClass) after scrolling down and they become visible', (done) ->
-      # Scroll down so that 150px of #custom-7 becomes visible.
-      window.scrollTo 0, $('#custom-7').offset().top - winHeight + 150
-      setTimeout ->
-        expect $ '#custom-7'
-          .toHaveClass 'fancy'
-        expect $('#custom-7').css 'visibility'
-          .toBe 'visible'
-        expect $('#custom-7')[0].style.webkitAnimationIterationCount
-          .toBe '2'
-        expect $ '#custom-7'
-          .not.toHaveClass 'fancy'
-        # Scroll down so that 150px of #custom-4 becomes visible.
-        window.scrollTo 0, $('#custom-8').offset().top - winHeight + 150
-        setTimeout ->
-          expect $ '#custom-8'
-            .toHaveClass 'fancy'
-          expect $('#custom-8').css 'visibility'
-            .toBe 'visible'
-          expect $('#custom-8')[0].style.webkitAnimationIterationCount
-            .toBe 'infinite'
-          expect $('#custom-8')[0].style.webkitAnimationDuration
-            .toBe '2s'
-          expect $('#custom-8')[0].style.webkitAnimationDelay
-            .toBe '1s'
-          done()
-        , timeout
-      , timeout
-
-    it 'does not animate elements (with different boxClass) not yet visible on the page', ->
-      expect $ '#custom-7'
-        .not.toHaveClass 'fancy'
-      expect $ '#custom-8'
-        .not.toHaveClass 'fancy'

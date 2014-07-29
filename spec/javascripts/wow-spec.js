@@ -127,24 +127,16 @@
       });
       return it('has boxes set up for testing', function() {
         var offset;
-        expect($('#custom').height()).toBe(1600);
+        expect($('#custom').height()).toBe(800);
         expect($('#custom-1').height()).toBe(200);
         expect($('#custom-2').height()).toBe(200);
         expect($('#custom-3').height()).toBe(200);
         expect($('#custom-4').height()).toBe(200);
-        expect($('#custom-5').height()).toBe(200);
-        expect($('#custom-6').height()).toBe(200);
-        expect($('#custom-7').height()).toBe(200);
-        expect($('#custom-8').height()).toBe(200);
         offset = $('#custom').offset().top;
         expect($('#custom-1').offset().top).toBe(offset + 200 * 0);
         expect($('#custom-2').offset().top).toBe(offset + 200 * 1);
         expect($('#custom-3').offset().top).toBe(offset + 200 * 2);
-        expect($('#custom-4').offset().top).toBe(offset + 200 * 3);
-        expect($('#custom-5').offset().top).toBe(offset + 200 * 4);
-        expect($('#custom-6').offset().top).toBe(offset + 200 * 5);
-        expect($('#custom-7').offset().top).toBe(offset + 200 * 6);
-        return expect($('#custom-8').offset().top).toBe(offset + 200 * 7);
+        return expect($('#custom-4').offset().top).toBe(offset + 200 * 3);
       });
     });
     return describe('library behaviour with custom settings', function() {
@@ -155,24 +147,30 @@
           animateClass: 'fancy',
           offset: 10
         }).init();
-        new WOW({
-          boxClass: 'block-2',
-          animateClass: 'fancy',
-          offset: 10
-        }).init();
         return setTimeout(function() {
           return done();
         }, timeout);
       });
+      it("creates two instances of the WOW.js with different configs", function() {
+        var wow1, wow2;
+        wow1 = new WOW({
+          boxClass: 'block1',
+          animateClass: 'fancy1',
+          offset: 10
+        });
+        wow2 = new WOW({
+          boxClass: 'block2',
+          animateClass: 'fancy2',
+          offset: 20
+        });
+        expect(wow1.config.boxClass).toBe("block1");
+        expect(wow1.config.animateClass).toBe("fancy1");
+        return expect(wow1.config.offset).toBe(10);
+      });
       it("does not touch elements that don't have the marker class", function(done) {
         window.scrollTo(0, $('#custom-1').offset().top - winHeight + 15);
-        setTimeout(function() {
-          expect($('#custom-1')).not.toHaveClass('fancy');
-          return done();
-        }, timeout);
-        window.scrollTo(0, $('#custom-5').offset().top - winHeight + 15);
         return setTimeout(function() {
-          expect($('#custom-5')).not.toHaveClass('fancy');
+          expect($('#custom-1')).not.toHaveClass('fancy');
           return done();
         }, timeout);
       });
@@ -192,7 +190,7 @@
         expect($('#custom-3')).not.toHaveClass('fancy');
         return expect($('#custom-4')).not.toHaveClass('fancy');
       });
-      it('animates elements after scrolling down and they become visible', function(done) {
+      return it('animates elements after scrolling down and they become visible', function(done) {
         window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($('#custom-3')).toHaveClass('fancy');
@@ -209,40 +207,6 @@
             return done();
           }, timeout);
         }, timeout);
-      });
-      it("animates elements (with different boxClass) that are partially visible on the page based on the 'offset' config", function(done) {
-        return setTimeout(function() {
-          window.scrollTo(0, $('#custom-6').offset().top - winHeight + 5);
-          expect($('#custom-6')).not.toHaveClass('fancy');
-          window.scrollTo(0, $('#custom-6').offset().top - winHeight + 15);
-          return setTimeout(function() {
-            expect($('#custom-6')).toHaveClass('fancy');
-            expect($('#custom-6').css('visibility')).toBe('visible');
-            return done();
-          }, timeout);
-        }, timeout);
-      });
-      it('animates elements (with different boxClass) after scrolling down and they become visible', function(done) {
-        window.scrollTo(0, $('#custom-7').offset().top - winHeight + 150);
-        return setTimeout(function() {
-          expect($('#custom-7')).toHaveClass('fancy');
-          expect($('#custom-7').css('visibility')).toBe('visible');
-          expect($('#custom-7')[0].style.webkitAnimationIterationCount).toBe('2');
-          expect($('#custom-7')).not.toHaveClass('fancy');
-          window.scrollTo(0, $('#custom-8').offset().top - winHeight + 150);
-          return setTimeout(function() {
-            expect($('#custom-8')).toHaveClass('fancy');
-            expect($('#custom-8').css('visibility')).toBe('visible');
-            expect($('#custom-8')[0].style.webkitAnimationIterationCount).toBe('infinite');
-            expect($('#custom-8')[0].style.webkitAnimationDuration).toBe('2s');
-            expect($('#custom-8')[0].style.webkitAnimationDelay).toBe('1s');
-            return done();
-          }, timeout);
-        }, timeout);
-      });
-      return it('does not animate elements (with different boxClass) not yet visible on the page', function() {
-        expect($('#custom-7')).not.toHaveClass('fancy');
-        return expect($('#custom-8')).not.toHaveClass('fancy');
       });
     });
   });
