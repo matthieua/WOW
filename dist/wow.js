@@ -107,15 +107,15 @@
     };
 
     WOW.prototype.start = function() {
-      var box, item, _i, _len, _ref;
+      var box, _i, _len, _ref;
       this.stopped = false;
       this.boxes = (function() {
         var _i, _len, _ref, _results;
         _ref = this.element.getElementsByClassName(this.config.boxClass);
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
-          _results.push(item);
+          box = _ref[_i];
+          _results.push(box);
         }
         return _results;
       }).call(this);
@@ -381,7 +381,7 @@
       var bottom, offset, top, viewBottom, viewTop;
       offset = box.getAttribute('data-wow-offset') || this.config.offset;
       viewTop = window.pageYOffset;
-      viewBottom = viewTop + this.element.clientHeight - offset;
+      viewBottom = viewTop + Math.min(this.element.clientHeight, innerHeight) - offset;
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;

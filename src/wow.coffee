@@ -202,7 +202,7 @@ class @WOW
   isVisible: (box) ->
     offset     = box.getAttribute('data-wow-offset') or @config.offset
     viewTop    = window.pageYOffset
-    viewBottom = viewTop + @element.clientHeight - offset
+    viewBottom = viewTop + Math.min(@element.clientHeight, innerHeight) - offset
     top        = @offsetTop(box)
     bottom     = top + box.clientHeight
 
