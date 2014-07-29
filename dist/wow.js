@@ -8,13 +8,13 @@
 
     Util.prototype.extend = function(custom, defaults) {
       var key, value;
-      for (key in custom) {
-        value = custom[key];
-        if (value != null) {
-          defaults[key] = value;
+      for (key in defaults) {
+        value = defaults[key];
+        if (custom[key] == null) {
+          custom[key] = value;
         }
       }
-      return defaults;
+      return custom;
     };
 
     Util.prototype.isMobile = function(agent) {
@@ -179,7 +179,9 @@
     WOW.prototype.doSync = function(element) {
       var box, _i, _len, _ref, _results;
       if (!this.stopped) {
-        element || (element = this.element);
+        if (element == null) {
+          element = this.element;
+        }
         if (element.nodeType !== 1) {
           return;
         }
@@ -377,7 +379,7 @@
     };
 
     WOW.prototype.util = function() {
-      return this._util || (this._util = new Util());
+      return this._util != null ? this._util : this._util = new Util();
     };
 
     WOW.prototype.disabled = function() {
