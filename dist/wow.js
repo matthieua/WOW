@@ -107,9 +107,18 @@
     };
 
     WOW.prototype.start = function() {
-      var box, _i, _len, _ref;
+      var box, item, _i, _len, _ref;
       this.stopped = false;
-      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
+      this.boxes = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.element.getElementsByClassName(this.config.boxClass);
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          item = _ref[_i];
+          _results.push(item);
+        }
+        return _results;
+      }).call(this);
       this.all = (function() {
         var _i, _len, _ref, _results;
         _ref = this.boxes;

@@ -70,7 +70,7 @@ class @WOW
 
   start: =>
     @stopped = false
-    @boxes = @element.getElementsByClassName(@config.boxClass)
+    @boxes = (box for box in @element.getElementsByClassName(@config.boxClass))
     @all = (box for box in @boxes)
     if @boxes.length
       if @disabled()
