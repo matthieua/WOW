@@ -127,7 +127,7 @@
       });
       return it('has boxes set up for testing', function() {
         var offset;
-        expect($('#custom').height()).toBe(800);
+        expect($('#custom').height()).toBe(1600);
         expect($('#custom-1').height()).toBe(200);
         expect($('#custom-2').height()).toBe(200);
         expect($('#custom-3').height()).toBe(200);
@@ -144,6 +144,11 @@
         loadFixtures('custom.html');
         new WOW({
           boxClass: 'block',
+          animateClass: 'fancy',
+          offset: 10
+        }).init();
+        new WOW({
+          boxClass: 'block-2',
           animateClass: 'fancy',
           offset: 10
         }).init();

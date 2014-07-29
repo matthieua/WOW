@@ -183,7 +183,7 @@ describe 'WOW', ->
     it 'has boxes set up for testing', ->
       # Check each box height
       expect $('#custom').height()
-        .toBe 800
+        .toBe 1600
       expect $('#custom-1').height()
         .toBe 200
       expect $('#custom-2').height()
@@ -209,6 +209,11 @@ describe 'WOW', ->
       loadFixtures 'custom.html'
       new WOW
         boxClass:     'block'
+        animateClass: 'fancy'
+        offset:       10
+      .init()
+      new WOW
+        boxClass:     'block-2'
         animateClass: 'fancy'
         offset:       10
       .init()
