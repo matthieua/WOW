@@ -202,6 +202,14 @@ describe 'WOW', ->
         .toBe offset + 200*2
       expect $('#custom-4').offset().top
         .toBe offset + 200*3
+      expect $('#custom-5').offset().top
+        .toBe offset + 200*4
+      expect $('#custom-6').offset().top
+        .toBe offset + 200*5
+      expect $('#custom-7').offset().top
+        .toBe offset + 200*6
+      expect $('#custom-8').offset().top
+        .toBe offset + 200*7
 
   describe 'library behaviour with custom settings', ->
 

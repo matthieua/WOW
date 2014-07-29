@@ -136,7 +136,11 @@
         expect($('#custom-1').offset().top).toBe(offset + 200 * 0);
         expect($('#custom-2').offset().top).toBe(offset + 200 * 1);
         expect($('#custom-3').offset().top).toBe(offset + 200 * 2);
-        return expect($('#custom-4').offset().top).toBe(offset + 200 * 3);
+        expect($('#custom-4').offset().top).toBe(offset + 200 * 3);
+        expect($('#custom-5').offset().top).toBe(offset + 200 * 4);
+        expect($('#custom-6').offset().top).toBe(offset + 200 * 5);
+        expect($('#custom-7').offset().top).toBe(offset + 200 * 6);
+        return expect($('#custom-8').offset().top).toBe(offset + 200 * 7);
       });
     });
     return describe('library behaviour with custom settings', function() {
