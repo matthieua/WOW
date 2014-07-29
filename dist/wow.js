@@ -8,13 +8,13 @@
 
     Util.prototype.extend = function(custom, defaults) {
       var key, value;
-      for (key in custom) {
-        value = custom[key];
-        if (value != null) {
-          defaults[key] = value;
+      for (key in defaults) {
+        value = defaults[key];
+        if (custom[key] == null) {
+          custom[key] = value;
         }
       }
-      return defaults;
+      return custom;
     };
 
     Util.prototype.isMobile = function(agent) {
@@ -91,11 +91,7 @@
       this.scrollHandler = __bind(this.scrollHandler, this);
       this.start = __bind(this.start, this);
       this.scrolled = true;
-      if (Object.keys(options).length === 0) {
-        this.config = this.defaults;
-      } else {
-        this.config = options;
-      }
+      this.config = this.util().extend(options, this.defaults);
       this.animationNameCache = new WeakMap();
     }
 

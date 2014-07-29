@@ -9,9 +9,8 @@
 
 class Util
   extend: (custom, defaults) ->
-    for key, value of custom
-      defaults[key] = value if value?
-    defaults
+    custom[key] ?= value for key, value of defaults
+    custom
 
   isMobile: (agent) ->
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
@@ -57,10 +56,7 @@ class @WOW
 
   constructor: (options = {}) ->
     @scrolled = true
-    if Object.keys(options).length == 0
-      @config = @defaults
-    else
-      @config = options
+    @config   = @util().extend(options, @defaults)
     # Map of elements to animation names:
     @animationNameCache = new WeakMap()
 
