@@ -91,7 +91,11 @@
       this.scrollHandler = __bind(this.scrollHandler, this);
       this.start = __bind(this.start, this);
       this.scrolled = true;
-      this.config = this.util().extend(options, this.defaults);
+      if (Object.keys(options).length === 0) {
+        this.config = this.defaults;
+      } else {
+        this.config = options;
+      }
       this.animationNameCache = new WeakMap();
     }
 

@@ -57,7 +57,10 @@ class @WOW
 
   constructor: (options = {}) ->
     @scrolled = true
-    @config   = @util().extend(options, @defaults)
+    if Object.keys(options).length == 0
+      @config = @defaults
+    else
+      @config = options
     # Map of elements to animation names:
     @animationNameCache = new WeakMap()
 
