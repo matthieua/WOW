@@ -100,7 +100,7 @@ class @WOW
 
   doSync: (element) ->
     unless @stopped
-      element ||= @element
+      element ?= @element
       element = element.parentNode or element
       for box in element.getElementsByClassName(@config.boxClass)
         unless box in @all
@@ -208,7 +208,7 @@ class @WOW
     top <= viewBottom and bottom >= viewTop
 
   util: ->
-    @_util ||= new Util()
+    @_util ?= new Util()
 
   disabled: ->
     not @config.mobile and @util().isMobile(navigator.userAgent)
