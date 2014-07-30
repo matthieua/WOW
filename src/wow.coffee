@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 0.1.12
+# Version : 1.0.0
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
@@ -9,9 +9,8 @@
 
 class Util
   extend: (custom, defaults) ->
-    for key, value of custom
-      defaults[key] = value if value?
-    defaults
+    custom[key] ?= value for key, value of defaults
+    custom
 
   isMobile: (agent) ->
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
@@ -71,7 +70,7 @@ class @WOW
 
   start: =>
     @stopped = false
-    @boxes = @element.getElementsByClassName(@config.boxClass)
+    @boxes = (box for box in @element.getElementsByClassName(@config.boxClass))
     @all = (box for box in @boxes)
     if @boxes.length
       if @disabled()
@@ -101,7 +100,8 @@ class @WOW
 
   doSync: (element) ->
     unless @stopped
-      element ||= @element
+      element ?= @element
+      return unless element.nodeType is 1
       element = element.parentNode or element
       for box in element.getElementsByClassName(@config.boxClass)
         unless box in @all
@@ -202,14 +202,14 @@ class @WOW
   isVisible: (box) ->
     offset     = box.getAttribute('data-wow-offset') or @config.offset
     viewTop    = window.pageYOffset
-    viewBottom = viewTop + @element.clientHeight - offset
+    viewBottom = viewTop + Math.min(@element.clientHeight, innerHeight) - offset
     top        = @offsetTop(box)
     bottom     = top + box.clientHeight
 
     top <= viewBottom and bottom >= viewTop
 
   util: ->
-    @_util ||= new Util()
+    @_util ?= new Util()
 
   disabled: ->
     not @config.mobile and @util().isMobile(navigator.userAgent)

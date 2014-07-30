@@ -151,6 +151,22 @@
           return done();
         }, timeout);
       });
+      it("creates two instances of the WOW.js with different configs", function() {
+        var wow1, wow2;
+        wow1 = new WOW({
+          boxClass: 'block1',
+          animateClass: 'fancy1',
+          offset: 10
+        });
+        wow2 = new WOW({
+          boxClass: 'block2',
+          animateClass: 'fancy2',
+          offset: 20
+        });
+        expect(wow1.config.boxClass).toBe("block1");
+        expect(wow1.config.animateClass).toBe("fancy1");
+        return expect(wow1.config.offset).toBe(10);
+      });
       it("does not touch elements that don't have the marker class", function(done) {
         window.scrollTo(0, $('#custom-1').offset().top - winHeight + 15);
         return setTimeout(function() {

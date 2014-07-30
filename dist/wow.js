@@ -8,13 +8,13 @@
 
     Util.prototype.extend = function(custom, defaults) {
       var key, value;
-      for (key in custom) {
-        value = custom[key];
-        if (value != null) {
-          defaults[key] = value;
+      for (key in defaults) {
+        value = defaults[key];
+        if (custom[key] == null) {
+          custom[key] = value;
         }
       }
-      return defaults;
+      return custom;
     };
 
     Util.prototype.isMobile = function(agent) {
@@ -109,7 +109,16 @@
     WOW.prototype.start = function() {
       var box, _i, _len, _ref;
       this.stopped = false;
-      this.boxes = this.element.getElementsByClassName(this.config.boxClass);
+      this.boxes = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.element.getElementsByClassName(this.config.boxClass);
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          box = _ref[_i];
+          _results.push(box);
+        }
+        return _results;
+      }).call(this);
       this.all = (function() {
         var _i, _len, _ref, _results;
         _ref = this.boxes;
@@ -179,7 +188,12 @@
     WOW.prototype.doSync = function(element) {
       var box, _i, _len, _ref, _results;
       if (!this.stopped) {
-        element || (element = this.element);
+        if (element == null) {
+          element = this.element;
+        }
+        if (element.nodeType !== 1) {
+          return;
+        }
         element = element.parentNode || element;
         _ref = element.getElementsByClassName(this.config.boxClass);
         _results = [];
@@ -367,14 +381,14 @@
       var bottom, offset, top, viewBottom, viewTop;
       offset = box.getAttribute('data-wow-offset') || this.config.offset;
       viewTop = window.pageYOffset;
-      viewBottom = viewTop + this.element.clientHeight - offset;
+      viewBottom = viewTop + Math.min(this.element.clientHeight, innerHeight) - offset;
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;
     };
 
     WOW.prototype.util = function() {
-      return this._util || (this._util = new Util());
+      return this._util != null ? this._util : this._util = new Util();
     };
 
     WOW.prototype.disabled = function() {
