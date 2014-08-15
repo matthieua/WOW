@@ -10,7 +10,7 @@ Advantages:
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
-Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evolves.
+Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 ### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
 
@@ -113,13 +113,14 @@ If you find a bug, please report it [here on Github](https://github.com/matthieu
 
 Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
 
-+ [@mattaussaguel](http://twitter.com/mattaussaguel)
-+ [Github Profile](http://github.com/matthieua)
++ [@mattaussaguel](//twitter.com/mattaussaguel)
++ [Github Profile](//github.com/matthieua)
 
 ## Contributors
 
 Thanks to everyone who has contributed to the project so far:
 
-- Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
+- Attila Oláh - [@attilaolah](//twitter.com/attilaolah) - [Github Profile](//github.com/attilaolah)
+- [and many others](//github.com/matthieua/WOW/graphs/contributors)
 
-Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys)
+Initiated and designed by [Vincent Le Moign](//www.webalys.com/), [@webalys](//twitter.com/webalys)
