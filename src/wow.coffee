@@ -70,7 +70,7 @@ class @WOW
 
   start: =>
     @stopped = false
-    @boxes = (box for box in @element.getElementsByClassName(@config.boxClass))
+    @boxes = (box for box in @element.querySelectorAll(".#{@config.boxClass}"))
     @all = (box for box in @boxes)
     if @boxes.length
       if @disabled()
@@ -103,7 +103,7 @@ class @WOW
       element ?= @element
       return unless element.nodeType is 1
       element = element.parentNode or element
-      for box in element.getElementsByClassName(@config.boxClass)
+      for box in element.querySelectorAll(".#{@config.boxClass}")
         unless box in @all
           @applyStyle(box, true)
           @boxes.push box
