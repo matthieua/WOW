@@ -1,4 +1,4 @@
-# WOW.js [![Build Status](https://secure.travis-ci.org/matthieua/WOW.png?branch=master)](http://travis-ci.org/matthieua/WOW)
+# WOW.js [![Build Status](https://secure.travis-ci.org/matthieua/WOW.svg?branch=master)](http://travis-ci.org/matthieua/WOW)
 
 Reveal CSS animation as you scroll down a page.
 By default, you can use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
