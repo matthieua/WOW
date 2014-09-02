@@ -39,8 +39,8 @@ WeakMap = @WeakMap or @MozWeakMap or \
 MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
   class MutationObserver
     constructor: ->
-      console.warn 'MutationObserver is not supported by your browser.'
-      console.warn 'WOW.js cannot detect dom mutations, please call .sync() after loading new content.'
+      console?.warn 'MutationObserver is not supported by your browser.'
+      console?.warn 'WOW.js cannot detect dom mutations, please call .sync() after loading new content.'
 
     @notSupported: true
 
