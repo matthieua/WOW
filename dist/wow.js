@@ -1,5 +1,5 @@
 (function() {
-  var MutationObserver, Util, WeakMap,
+  var MutationObserver, Util, WeakMap, getComputedStyle, getComputedStyleRX,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
@@ -77,6 +77,24 @@
     return MutationObserver;
 
   })());
+
+  getComputedStyle = this.getComputedStyle || function(el, pseudo) {
+    this.getPropertyValue = function(prop) {
+      var _ref;
+      if (prop === 'float') {
+        prop = 'styleFloat';
+      }
+      if (getComputedStyleRX.test(prop)) {
+        prop.replace(getComputedStyleRX, function(_, char) {
+          return char.toUpperCase();
+        });
+      }
+      return ((_ref = el.currentStyle) != null ? _ref[prop] : void 0) || null;
+    };
+    return this;
+  };
+
+  getComputedStyleRX = /(\-([a-z]){1})/g;
 
   this.WOW = (function() {
     WOW.prototype.defaults = {
@@ -306,7 +324,7 @@
 
     WOW.prototype.vendorCSS = function(elem, property) {
       var result, style, vendor, _i, _len, _ref;
-      style = window.getComputedStyle(elem);
+      style = getComputedStyle(elem);
       result = style.getPropertyCSSValue(property);
       _ref = this.vendors;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -321,7 +339,7 @@
       try {
         animationName = this.vendorCSS(box, 'animation-name').cssText;
       } catch (_error) {
-        animationName = window.getComputedStyle(box).getPropertyValue('animation-name');
+        animationName = getComputedStyle(box).getPropertyValue('animation-name');
       }
       if (animationName === 'none') {
         return '';

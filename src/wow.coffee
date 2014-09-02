@@ -46,6 +46,18 @@ MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationO
 
     observe: ->
 
+# getComputedStyle shim, from http://stackoverflow.com/a/21797294
+getComputedStyle = @getComputedStyle or \
+  (el, pseudo) ->
+    @getPropertyValue = (prop) ->
+      prop = 'styleFloat' if prop is 'float'
+      prop.replace(getComputedStyleRX, (_, char)->
+        char.toUpperCase()
+      ) if getComputedStyleRX.test prop
+      el.currentStyle?[prop] or null
+    @
+getComputedStyleRX = /(\-([a-z]){1})/g
+
 class @WOW
   defaults:
     boxClass:     'wow'
@@ -151,7 +163,7 @@ class @WOW
       elem["#{name}"] = value
       elem["#{vendor}#{name.charAt(0).toUpperCase()}#{name.substr 1}"] = value for vendor in @vendors
   vendorCSS: (elem, property) ->
-    style = window.getComputedStyle(elem)
+    style = getComputedStyle(elem)
     result = style.getPropertyCSSValue(property)
     result = result or style.getPropertyCSSValue("-#{vendor}-#{property}") for vendor in @vendors
     result
@@ -160,7 +172,7 @@ class @WOW
     try
       animationName = @vendorCSS(box, 'animation-name').cssText
     catch # Opera, fall back to plain property value
-      animationName = window.getComputedStyle(box).getPropertyValue('animation-name')
+      animationName = getComputedStyle(box).getPropertyValue('animation-name')
     if animationName is 'none'
       ''  # SVG/Firefox, unable to get animation name?
     else
