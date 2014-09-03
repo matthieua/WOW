@@ -21,6 +21,26 @@
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
     };
 
+    Util.prototype.addEvent = function(elem, event, fn) {
+      if (elem.addEventListener != null) {
+        return elem.addEventListener(event, fn, false);
+      } else if (elem.attachEvent != null) {
+        return elem.attachEvent("on" + event, func);
+      } else {
+        return elem[event] = fn;
+      }
+    };
+
+    Util.prototype.removeEvent = function(elem, event, fn) {
+      if (elem.removeEventListener != null) {
+        return elem.removeEventListener(event, fn, false);
+      } else if (elem.detachEvent != null) {
+        return elem.detachEvent("on" + event, func);
+      } else {
+        return delete elem[event];
+      }
+    };
+
     return Util;
 
   })();
@@ -123,7 +143,7 @@
       if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
         this.start();
       } else {
-        document.addEventListener('DOMContentLoaded', this.start);
+        this.util().addEvent(document, 'DOMContentLoaded', this.start);
       }
       return this.finished = [];
     };
@@ -160,8 +180,8 @@
             box = _ref[_i];
             this.applyStyle(box, true);
           }
-          window.addEventListener('scroll', this.scrollHandler, false);
-          window.addEventListener('resize', this.scrollHandler, false);
+          this.util().addEvent(window, 'scroll', this.scrollHandler);
+          this.util().addEvent(window, 'resize', this.scrollHandler);
           this.interval = setInterval(this.scrollCallback, 50);
         }
       }
@@ -194,8 +214,8 @@
 
     WOW.prototype.stop = function() {
       this.stopped = true;
-      window.removeEventListener('scroll', this.scrollHandler, false);
-      window.removeEventListener('resize', this.scrollHandler, false);
+      this.util().removeEvent(window, 'scroll', this.scrollHandler);
+      this.util().removeEvent(window, 'resize', this.scrollHandler);
       if (this.interval != null) {
         return clearInterval(this.interval);
       }
