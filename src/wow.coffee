@@ -31,6 +31,11 @@ class Util
     else # fallback
       delete elem[event]
 
+  innerHeight: ->
+    if 'innerHeight' of window
+      window.innerHeight
+    else document.documentElement.clientHeight
+
 # Minimalistic WeakMap shim, just in case.
 WeakMap = @WeakMap or @MozWeakMap or \
   class WeakMap
@@ -230,7 +235,7 @@ class @WOW
   isVisible: (box) ->
     offset     = box.getAttribute('data-wow-offset') or @config.offset
     viewTop    = window.pageYOffset
-    viewBottom = viewTop + Math.min(@element.clientHeight, innerHeight) - offset
+    viewBottom = viewTop + Math.min(@element.clientHeight, @util().innerHeight()) - offset
     top        = @offsetTop(box)
     bottom     = top + box.clientHeight
 
