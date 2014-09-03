@@ -19,7 +19,7 @@ class Util
     if elem.addEventListener? # W3C DOM
       elem.addEventListener event, fn, false
     else if elem.attachEvent? # IE DOM
-      elem.attachEvent "on#{event}", func
+      elem.attachEvent "on#{event}", fn
     else # fallback
       elem[event] = fn
 
@@ -27,7 +27,7 @@ class Util
     if elem.removeEventListener? # W3C DOM
       elem.removeEventListener event, fn, false
     else if elem.detachEvent? # IE DOM
-      elem.detachEvent "on#{event}", func
+      elem.detachEvent "on#{event}", fn
     else # fallback
       delete elem[event]
 
