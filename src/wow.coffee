@@ -15,6 +15,22 @@ class Util
   isMobile: (agent) ->
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent)
 
+  addEvent: (elem, event, fn) ->
+    if elem.addEventListener? # W3C DOM
+      elem.addEventListener event, fn, false
+    else if elem.attachEvent? # IE DOM
+      elem.attachEvent "on#{event}", func
+    else # fallback
+      elem[event] = fn
+
+  removeEvent: (elem, event, fn) ->
+    if elem.removeEventListener? # W3C DOM
+      elem.removeEventListener event, fn, false
+    else if elem.detachEvent? # IE DOM
+      elem.detachEvent "on#{event}", func
+    else # fallback
+      delete elem[event]
+
 # Minimalistic WeakMap shim, just in case.
 WeakMap = @WeakMap or @MozWeakMap or \
   class WeakMap
@@ -77,7 +93,7 @@ class @WOW
     if document.readyState in ["interactive", "complete"]
       @start()
     else
-      document.addEventListener 'DOMContentLoaded', @start
+      @util().addEvent document, 'DOMContentLoaded', @start
     @finished = []
 
   start: =>
@@ -89,8 +105,8 @@ class @WOW
         @resetStyle()
       else
         @applyStyle(box, true) for box in @boxes
-        window.addEventListener('scroll', @scrollHandler, false)
-        window.addEventListener('resize', @scrollHandler, false)
+        @util().addEvent window, 'scroll', @scrollHandler
+        @util().addEvent window, 'resize', @scrollHandler
         @interval = setInterval @scrollCallback, 50
     if @config.live
       new MutationObserver (records) =>
@@ -103,8 +119,8 @@ class @WOW
   # unbind the scroll event
   stop: ->
     @stopped = true
-    window.removeEventListener('scroll', @scrollHandler, false)
-    window.removeEventListener('resize', @scrollHandler, false)
+    @util().removeEvent window, 'scroll', @scrollHandler
+    @util().removeEvent window, 'resize', @scrollHandler
     clearInterval @interval if @interval?
 
   sync: (element) ->
