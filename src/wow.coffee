@@ -1,7 +1,7 @@
 #
 # Name    : wow
 # Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
-# Version : 1.0.1
+# Version : 1.0.2
 # Repo    : https://github.com/matthieua/WOW
 # Website : http://mynameismatthieu.com/wow
 #
