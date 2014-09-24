@@ -132,16 +132,18 @@ class @WOW
     @doSync(@element) if MutationObserver.notSupported
 
   doSync: (element) ->
-    unless @stopped
-      element ?= @element
-      return unless element.nodeType is 1
-      element = element.parentNode or element
-      for box in element.querySelectorAll(".#{@config.boxClass}")
-        unless box in @all
+    element ?= @element
+    return unless element.nodeType is 1
+    element = element.parentNode or element
+    for box in element.querySelectorAll(".#{@config.boxClass}")
+      unless box in @all
+        @boxes.push box
+        @all.push box
+        if @stopped or @disabled()
+          @resetStyle()
+        else
           @applyStyle(box, true)
-          @boxes.push box
-          @all.push box
-          @scrolled = true
+        @scrolled = true
 
   # show box element
   show: (box) ->
@@ -165,7 +167,7 @@ class @WOW
   )()
 
   resetStyle: ->
-    box.setAttribute('style', 'visibility: visible;') for box in @boxes
+    box.style.visibility = 'visible' for box in @boxes
 
   customStyle: (box, hidden, duration, delay, iteration) ->
     @cacheAnimationName(box) if hidden

@@ -237,29 +237,31 @@
 
     WOW.prototype.doSync = function(element) {
       var box, _i, _len, _ref, _results;
-      if (!this.stopped) {
-        if (element == null) {
-          element = this.element;
-        }
-        if (element.nodeType !== 1) {
-          return;
-        }
-        element = element.parentNode || element;
-        _ref = element.querySelectorAll("." + this.config.boxClass);
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          box = _ref[_i];
-          if (__indexOf.call(this.all, box) < 0) {
-            this.applyStyle(box, true);
-            this.boxes.push(box);
-            this.all.push(box);
-            _results.push(this.scrolled = true);
-          } else {
-            _results.push(void 0);
-          }
-        }
-        return _results;
+      if (element == null) {
+        element = this.element;
       }
+      if (element.nodeType !== 1) {
+        return;
+      }
+      element = element.parentNode || element;
+      _ref = element.querySelectorAll("." + this.config.boxClass);
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        box = _ref[_i];
+        if (__indexOf.call(this.all, box) < 0) {
+          this.boxes.push(box);
+          this.all.push(box);
+          if (this.stopped || this.disabled()) {
+            this.resetStyle();
+          } else {
+            this.applyStyle(box, true);
+          }
+          _results.push(this.scrolled = true);
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
     };
 
     WOW.prototype.show = function(box) {
@@ -297,7 +299,7 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         box = _ref[_i];
-        _results.push(box.setAttribute('style', 'visibility: visible;'));
+        _results.push(box.style.visibility = 'visible');
       }
       return _results;
     };
