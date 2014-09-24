@@ -1,4 +1,4 @@
-# WOW [![Build Status](https://secure.travis-ci.org/matthieua/WOW.png?branch=master)](http://travis-ci.org/matthieua/WOW)
+# WOW.js [![Build Status](https://secure.travis-ci.org/matthieua/WOW.svg?branch=master)](http://travis-ci.org/matthieua/WOW)
 
 Reveal CSS animation as you scroll down a page.
 By default, you can use it to trigger [animate.css](https://github.com/daneden/animate.css) animations.
@@ -10,7 +10,7 @@ Advantages:
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
-Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evolves.
+Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 ### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
 
@@ -24,7 +24,7 @@ Follow [@mattaussaguel](http://twitter.com/mattaussaguel) for updates as WOW evo
 
 ## Version
 
-1.0.1
+1.0.2
 
 ## Documentation
 
@@ -110,13 +110,14 @@ If you find a bug, please report it [here on Github](https://github.com/matthieu
 
 Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
 
-+ [@mattaussaguel](http://twitter.com/mattaussaguel)
-+ [Github Profile](http://github.com/matthieua)
++ [@mattaussaguel](//twitter.com/mattaussaguel)
++ [Github Profile](//github.com/matthieua)
 
 ## Contributors
 
 Thanks to everyone who has contributed to the project so far:
 
-- Attila Oláh - [@attilaolah](http://twitter.com/attilaolah) - [Github Profile](http://github.com/attilaolah)
+- Attila Oláh - [@attilaolah](//twitter.com/attilaolah) - [Github Profile](//github.com/attilaolah)
+- [and many others](//github.com/matthieua/WOW/graphs/contributors)
 
-Initiated and designed by [Vincent Le Moign](http://www.webalys.com/), [@webalys](https://twitter.com/webalys)
+Initiated and designed by [Vincent Le Moign](//www.webalys.com/), [@webalys](//twitter.com/webalys)

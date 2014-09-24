@@ -1,5 +1,5 @@
 (function() {
-  var MutationObserver, Util, WeakMap,
+  var MutationObserver, Util, WeakMap, getComputedStyle, getComputedStyleRX,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
@@ -19,6 +19,34 @@
 
     Util.prototype.isMobile = function(agent) {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
+    };
+
+    Util.prototype.addEvent = function(elem, event, fn) {
+      if (elem.addEventListener != null) {
+        return elem.addEventListener(event, fn, false);
+      } else if (elem.attachEvent != null) {
+        return elem.attachEvent("on" + event, fn);
+      } else {
+        return elem[event] = fn;
+      }
+    };
+
+    Util.prototype.removeEvent = function(elem, event, fn) {
+      if (elem.removeEventListener != null) {
+        return elem.removeEventListener(event, fn, false);
+      } else if (elem.detachEvent != null) {
+        return elem.detachEvent("on" + event, fn);
+      } else {
+        return delete elem[event];
+      }
+    };
+
+    Util.prototype.innerHeight = function() {
+      if ('innerHeight' in window) {
+        return window.innerHeight;
+      } else {
+        return document.documentElement.clientHeight;
+      }
     };
 
     return Util;
@@ -62,8 +90,12 @@
 
   MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
     function MutationObserver() {
-      console.warn('MutationObserver is not supported by your browser.');
-      console.warn('WOW.js cannot detect dom mutations, please call .sync() after loading new content.');
+      if (typeof console !== "undefined" && console !== null) {
+        console.warn('MutationObserver is not supported by your browser.');
+      }
+      if (typeof console !== "undefined" && console !== null) {
+        console.warn('WOW.js cannot detect dom mutations, please call .sync() after loading new content.');
+      }
     }
 
     MutationObserver.notSupported = true;
@@ -73,6 +105,24 @@
     return MutationObserver;
 
   })());
+
+  getComputedStyle = this.getComputedStyle || function(el, pseudo) {
+    this.getPropertyValue = function(prop) {
+      var _ref;
+      if (prop === 'float') {
+        prop = 'styleFloat';
+      }
+      if (getComputedStyleRX.test(prop)) {
+        prop.replace(getComputedStyleRX, function(_, char) {
+          return char.toUpperCase();
+        });
+      }
+      return ((_ref = el.currentStyle) != null ? _ref[prop] : void 0) || null;
+    };
+    return this;
+  };
+
+  getComputedStyleRX = /(\-([a-z]){1})/g;
 
   this.WOW = (function() {
     WOW.prototype.defaults = {
@@ -101,7 +151,7 @@
       if ((_ref = document.readyState) === "interactive" || _ref === "complete") {
         this.start();
       } else {
-        document.addEventListener('DOMContentLoaded', this.start);
+        this.util().addEvent(document, 'DOMContentLoaded', this.start);
       }
       return this.finished = [];
     };
@@ -138,8 +188,8 @@
             box = _ref[_i];
             this.applyStyle(box, true);
           }
-          window.addEventListener('scroll', this.scrollHandler, false);
-          window.addEventListener('resize', this.scrollHandler, false);
+          this.util().addEvent(window, 'scroll', this.scrollHandler);
+          this.util().addEvent(window, 'resize', this.scrollHandler);
           this.interval = setInterval(this.scrollCallback, 50);
         }
       }
@@ -172,8 +222,8 @@
 
     WOW.prototype.stop = function() {
       this.stopped = true;
-      window.removeEventListener('scroll', this.scrollHandler, false);
-      window.removeEventListener('resize', this.scrollHandler, false);
+      this.util().removeEvent(window, 'scroll', this.scrollHandler);
+      this.util().removeEvent(window, 'resize', this.scrollHandler);
       if (this.interval != null) {
         return clearInterval(this.interval);
       }
@@ -187,29 +237,31 @@
 
     WOW.prototype.doSync = function(element) {
       var box, _i, _len, _ref, _results;
-      if (!this.stopped) {
-        if (element == null) {
-          element = this.element;
-        }
-        if (element.nodeType !== 1) {
-          return;
-        }
-        element = element.parentNode || element;
-        _ref = element.querySelectorAll("." + this.config.boxClass);
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          box = _ref[_i];
-          if (__indexOf.call(this.all, box) < 0) {
-            this.applyStyle(box, true);
-            this.boxes.push(box);
-            this.all.push(box);
-            _results.push(this.scrolled = true);
-          } else {
-            _results.push(void 0);
-          }
-        }
-        return _results;
+      if (element == null) {
+        element = this.element;
       }
+      if (element.nodeType !== 1) {
+        return;
+      }
+      element = element.parentNode || element;
+      _ref = element.querySelectorAll("." + this.config.boxClass);
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        box = _ref[_i];
+        if (__indexOf.call(this.all, box) < 0) {
+          this.boxes.push(box);
+          this.all.push(box);
+          if (this.stopped || this.disabled()) {
+            this.resetStyle();
+          } else {
+            this.applyStyle(box, true);
+          }
+          _results.push(this.scrolled = true);
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
     };
 
     WOW.prototype.show = function(box) {
@@ -247,7 +299,7 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         box = _ref[_i];
-        _results.push(box.setAttribute('style', 'visibility: visible;'));
+        _results.push(box.style.visibility = 'visible');
       }
       return _results;
     };
@@ -302,7 +354,7 @@
 
     WOW.prototype.vendorCSS = function(elem, property) {
       var result, style, vendor, _i, _len, _ref;
-      style = window.getComputedStyle(elem);
+      style = getComputedStyle(elem);
       result = style.getPropertyCSSValue(property);
       _ref = this.vendors;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -317,7 +369,7 @@
       try {
         animationName = this.vendorCSS(box, 'animation-name').cssText;
       } catch (_error) {
-        animationName = window.getComputedStyle(box).getPropertyValue('animation-name');
+        animationName = getComputedStyle(box).getPropertyValue('animation-name');
       }
       if (animationName === 'none') {
         return '';
@@ -381,7 +433,7 @@
       var bottom, offset, top, viewBottom, viewTop;
       offset = box.getAttribute('data-wow-offset') || this.config.offset;
       viewTop = window.pageYOffset;
-      viewBottom = viewTop + Math.min(this.element.clientHeight, innerHeight) - offset;
+      viewBottom = viewTop + Math.min(this.element.clientHeight, this.util().innerHeight()) - offset;
       top = this.offsetTop(box);
       bottom = top + box.clientHeight;
       return top <= viewBottom && bottom >= viewTop;
