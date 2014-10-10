@@ -15,8 +15,7 @@
     "url"  : "git://github.com/matthieua/WOW.git"
   },
   "bugs" : {
-    "url" : "https://github.com/matthieua/WOW/issues",
-    "url": "https://github.com/matthieua/WOW/blob/master/LICENSE-MIT"
+    "url" : "https://github.com/matthieua/WOW/issues"
   },
   "licenses": [{
     "type": "MIT",
