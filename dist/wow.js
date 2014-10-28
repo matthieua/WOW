@@ -188,11 +188,11 @@
             box = _ref[_i];
             this.applyStyle(box, true);
           }
-          this.util().addEvent(window, 'scroll', this.scrollHandler);
-          this.util().addEvent(window, 'resize', this.scrollHandler);
-          this.interval = setInterval(this.scrollCallback, 50);
         }
       }
+      this.util().addEvent(window, 'scroll', this.scrollHandler);
+      this.util().addEvent(window, 'resize', this.scrollHandler);
+      this.interval = setInterval(this.scrollCallback, 50);
       if (this.config.live) {
         return new MutationObserver((function(_this) {
           return function(records) {

@@ -110,9 +110,9 @@ class @WOW
         @resetStyle()
       else
         @applyStyle(box, true) for box in @boxes
-        @util().addEvent window, 'scroll', @scrollHandler
-        @util().addEvent window, 'resize', @scrollHandler
-        @interval = setInterval @scrollCallback, 50
+    @util().addEvent window, 'scroll', @scrollHandler
+    @util().addEvent window, 'resize', @scrollHandler
+    @interval = setInterval @scrollCallback, 50
     if @config.live
       new MutationObserver (records) =>
         for record in records
