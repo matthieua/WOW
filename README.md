@@ -18,9 +18,9 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 - [Fliplingo](https://www.fliplingo.com)
 - [Streamline Icons](http://www.streamlineicons.com)
-- [NastyIcons](http://www.nastyicons.com)
 - [Microsoft Stories](http://www.microsoft.com/en-us/news/stories/garage/)
-
+- [Box Notes](https://www.box.com/notes/)
+- [Popcorn Time](http://popcorn-time.se/)
 
 ## Version
 
