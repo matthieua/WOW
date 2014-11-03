@@ -30,7 +30,7 @@
         <div class="container">
           <div class="row">
             <div class="span12 center"><img src="img/wow-logo.jpg" height="177" data-wow-iteration="3" data-wow-duration="0.15s" class="wow pulse">
-            <h2 data-wow-duration="0.5s" class="wow bounceInDown">
+              <h2 data-wow-duration="0.5s" class="wow bounceInDown">
                 Reveal Animations When You Scroll. Very <a target="_blank" href="http://daneden.github.io/animate.css/" title="Animate.css">Animate.css </a>Friend :-)
                 <br>
                 Easily customize animation settings: style, delay, length, offset, iterations...
@@ -119,59 +119,65 @@
       <div class="container-white">
         <div class="container">
           <div class="row">
-          <div class="span12 center">
-            <h2>Brought to you by:</h2>
-            <p>
-              <br>
-              <a href="https://www.fliplingo.com/" title="Fliplingo" target="_blank">
-                <img src="img/fliplingo-logo.png" alt="Fliplingo" class="center wow tada" data-wow-offset="100">
-              </a>
-            </p>
-          </div>
+            <div class="span12 center">
+              <h2>Brought to you by:</h2>
+              <p>
+                <div class="wow zoomIn" data-wow-duration="1s" data-wow-offset="100">
+                  <div class="wow tada" data-wow-delay="1s" data-wow-duration="1s">
+                    <div class="wow rubberBand" data-wow-delay="2500ms" data-wow-duration="1s">
+                    <div class="wow pulse" data-wow-delay="4s" data-wow-iteration="infinite" data-wow-duration="2s">
+                      <a href="https://www.fliplingo.com/" title="Fliplingo" target="_blank">
+                        <img src="img/fliplingo-logo.png" alt="Fliplingo" class="center" >
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </p>
+            </div>
             <div class="span12 center">
               <h2>See WOW.js revealing animations on these websites:</h2>
               <p>
                 <a target="_blank" href="https://www.fliplingo.com/report" title="Fliplingo - Automated translation on Twitter">* Fliplingo Reports *</a>
                 <br>
                 <a href="http://www.microsoft.com/en-us/news/stories/garage/" title="Microsoft Stories" target="_blank">* Microsoft
-                Stories *</a>
-                <br>
-                <a href="http://www.streamlineicons.com/" title="Streamline Icons" target="_blank">* Streamline Icons *</a>
-                <br>
-                <a href="http://popcorn-time.se/" title="Popcorn Time" target="_blank">* Popcorn Time *</a>
-                <br>
-                <a href="https://www.box.com/notes/" title="Box Notes" target="_blank">* Box Notes *</a>
-              </p>
-              <h2>Installing WOW.js takes only seconds: <a href="docs.html">Read the documentation</a></h2>
-              <p class="small">Developed by <a href="http://mynameismatthieu.com" title="Matthieu Aussaguel" target="_blank">Matthieu Aussaguel</a> &ndash;
-                Initiated & Designed by <a target="_blank" href="http://www.webalys.com/" title="Webalys - Free Resources for Designers">Webalys</a>
-              </p>
-              <p class="small">
-                Contributed by <a href="http://attilaolah.eu/" title="Attila Oláh" target="_blank">Attila Oláh</a>
-              </p>
-              <p class="small">CSS animations powered by  <a href="https://github.com/matthieua/WOW">WOW.js </a>and <a href="https://daneden.me/animate" target="_blank" title="Animate.css">Animate.css</a></p><br><br>
-            </div>
+                  Stories *</a>
+                  <br>
+                  <a href="http://www.streamlineicons.com/" title="Streamline Icons" target="_blank">* Streamline Icons *</a>
+                  <br>
+                  <a href="http://popcorn-time.se/" title="Popcorn Time" target="_blank">* Popcorn Time *</a>
+                  <br>
+                  <a href="https://www.box.com/notes/" title="Box Notes" target="_blank">* Box Notes *</a>
+                </p>
+                <h2>Installing WOW.js takes only seconds: <a href="docs.html">Read the documentation</a></h2>
+                <p class="small">Developed by <a href="http://mynameismatthieu.com" title="Matthieu Aussaguel" target="_blank">Matthieu Aussaguel</a> &ndash;
+                  Initiated & Designed by <a target="_blank" href="http://www.webalys.com/" title="Webalys - Free Resources for Designers">Webalys</a>
+                </p>
+                <p class="small">
+                  Contributed by <a href="http://attilaolah.eu/" title="Attila Oláh" target="_blank">Attila Oláh</a>
+                </p>
+                <p class="small">CSS animations powered by  <a href="https://github.com/matthieua/WOW">WOW.js </a>and <a href="https://daneden.me/animate" target="_blank" title="Animate.css">Animate.css</a></p><br><br>
+              </div>
 
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </body>
-  <!-- Wow -->
-  <script src="dist/wow.min.js"></script>
-  <script>
-   new WOW().init();
- </script>
- <!-- Google Analytics -->
- <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    </body>
+    <!-- Wow -->
+    <script src="dist/wow.min.js"></script>
+    <script>
+     new WOW().init();
+   </script>
+   <!-- Google Analytics -->
+   <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-15651803-17', 'mynameismatthieu.com');
-  ga('send', 'pageview');
+    ga('create', 'UA-15651803-17', 'mynameismatthieu.com');
+    ga('send', 'pageview');
 
-</script>
+  </script>
 
-</html>
+  </html>
