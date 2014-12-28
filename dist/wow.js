@@ -113,8 +113,8 @@
         prop = 'styleFloat';
       }
       if (getComputedStyleRX.test(prop)) {
-        prop.replace(getComputedStyleRX, function(_, char) {
-          return char.toUpperCase();
+        prop.replace(getComputedStyleRX, function(_, _char) {
+          return _char.toUpperCase();
         });
       }
       return ((_ref = el.currentStyle) != null ? _ref[prop] : void 0) || null;
