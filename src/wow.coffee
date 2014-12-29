@@ -72,8 +72,8 @@ getComputedStyle = @getComputedStyle or \
   (el, pseudo) ->
     @getPropertyValue = (prop) ->
       prop = 'styleFloat' if prop is 'float'
-      prop.replace(getComputedStyleRX, (_, char)->
-        char.toUpperCase()
+      prop.replace(getComputedStyleRX, (_, _char)->
+        _char.toUpperCase()
       ) if getComputedStyleRX.test prop
       el.currentStyle?[prop] or null
     @
