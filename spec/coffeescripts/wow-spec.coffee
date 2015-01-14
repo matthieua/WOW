@@ -205,12 +205,17 @@ describe 'WOW', ->
 
   describe 'library behaviour with custom settings', ->
 
+    called = false
+
     beforeEach (done) ->
+      called = false
       loadFixtures 'custom.html'
       new WOW
         boxClass:     'block'
         animateClass: 'fancy'
         offset:       10
+        callback:     ->
+          called = true
       .init()
       setTimeout ->
         done()
@@ -292,4 +297,14 @@ describe 'WOW', ->
             .toBe '1s'
           done()
         , timeout
+      , timeout
+
+    it "fires the callback", (done) ->
+      called = false  # reset
+      # Scroll down so that 150px of #custom-3 becomes visible.
+      window.scrollTo 0, $('#custom-3').offset().top - winHeight + 150
+      setTimeout ->
+        expect called
+          .toBe true
+        done()
       , timeout

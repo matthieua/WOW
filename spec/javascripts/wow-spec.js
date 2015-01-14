@@ -140,12 +140,18 @@
       });
     });
     return describe('library behaviour with custom settings', function() {
+      var called;
+      called = false;
       beforeEach(function(done) {
+        called = false;
         loadFixtures('custom.html');
         new WOW({
           boxClass: 'block',
           animateClass: 'fancy',
-          offset: 10
+          offset: 10,
+          callback: function() {
+            return called = true;
+          }
         }).init();
         return setTimeout(function() {
           return done();
@@ -190,7 +196,7 @@
         expect($('#custom-3')).not.toHaveClass('fancy');
         return expect($('#custom-4')).not.toHaveClass('fancy');
       });
-      return it('animates elements after scrolling down and they become visible', function(done) {
+      it('animates elements after scrolling down and they become visible', function(done) {
         window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($('#custom-3')).toHaveClass('fancy');
@@ -206,6 +212,14 @@
             expect($('#custom-4')[0].style.webkitAnimationDelay).toBe('1s');
             return done();
           }, timeout);
+        }, timeout);
+      });
+      return it("fires the callback", function(done) {
+        called = false;
+        window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect(called).toBe(true);
+          return done();
         }, timeout);
       });
     });
