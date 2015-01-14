@@ -86,6 +86,7 @@ class @WOW
     offset:       0
     mobile:       true
     live:         true
+    callback:     null
 
   constructor: (options = {}) ->
     @scrolled = true
@@ -150,6 +151,7 @@ class @WOW
   show: (box) ->
     @applyStyle(box)
     box.className = "#{box.className} #{@config.animateClass}"
+    @config.callback(box) if @config.callback?
 
   applyStyle: (box, hidden) ->
     duration  = box.getAttribute('data-wow-duration')
