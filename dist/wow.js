@@ -130,7 +130,8 @@
       animateClass: 'animated',
       offset: 0,
       mobile: true,
-      live: true
+      live: true,
+      callback: null
     };
 
     function WOW(options) {
@@ -268,7 +269,10 @@
 
     WOW.prototype.show = function(box) {
       this.applyStyle(box);
-      return box.className = "" + box.className + " " + this.config.animateClass;
+      box.className = "" + box.className + " " + this.config.animateClass;
+      if (this.config.callback != null) {
+        return this.config.callback(box);
+      }
     };
 
     WOW.prototype.applyStyle = function(box, hidden) {
