@@ -175,6 +175,13 @@ class @WOW
     @config.callback(box) if @config.callback?
     @util().emitEvent(box, @wowEvent)
 
+    @util().addEvent(box, 'animationend', @resetAnimation)
+    @util().addEvent(box, 'oanimationend', @resetAnimation)
+    @util().addEvent(box, 'webkitAnimationEnd', @resetAnimation)
+    @util().addEvent(box, 'MSAnimationEnd', @resetAnimation)
+
+    box
+
   applyStyle: (box, hidden) ->
     duration  = box.getAttribute('data-wow-duration')
     delay     = box.getAttribute('data-wow-delay')
@@ -193,6 +200,11 @@ class @WOW
 
   resetStyle: ->
     box.style.visibility = 'visible' for box in @boxes
+
+  resetAnimation: (event) ->
+  	if event.type.toLowerCase().indexOf('animationend') >= 0
+  		target = event.target || event.srcElement
+  		target.className = target.className.replace('animated', '').trim()
 
   customStyle: (box, hidden, duration, delay, iteration) ->
     @cacheAnimationName(box) if hidden

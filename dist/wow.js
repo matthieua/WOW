@@ -307,7 +307,12 @@
       if (this.config.callback != null) {
         this.config.callback(box);
       }
-      return this.util().emitEvent(box, this.wowEvent);
+      this.util().emitEvent(box, this.wowEvent);
+      this.util().addEvent(box, 'animationend', this.resetAnimation);
+      this.util().addEvent(box, 'oanimationend', this.resetAnimation);
+      this.util().addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
+      this.util().addEvent(box, 'MSAnimationEnd', this.resetAnimation);
+      return box;
     };
 
     WOW.prototype.applyStyle = function(box, hidden) {
@@ -343,6 +348,14 @@
         results.push(box.style.visibility = 'visible');
       }
       return results;
+    };
+
+    WOW.prototype.resetAnimation = function(event) {
+      var target;
+      if (event.type.toLowerCase().indexOf('animationend') >= 0) {
+        target = event.target || event.srcElement;
+        return target.className = target.className.replace('animated', '').trim();
+      }
     };
 
     WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
