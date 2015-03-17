@@ -354,7 +354,7 @@
       var target;
       if (event.type.toLowerCase().indexOf('animationend') >= 0) {
         target = event.target || event.srcElement;
-        return target.className = target.className.replace('animated', '').trim();
+        return target.className = target.className.replace(config.animateClass, '').trim();
       }
     };
 

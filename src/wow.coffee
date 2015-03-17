@@ -204,7 +204,7 @@ class @WOW
   resetAnimation: (event) ->
   	if event.type.toLowerCase().indexOf('animationend') >= 0
   		target = event.target || event.srcElement
-  		target.className = target.className.replace('animated', '').trim()
+  		target.className = target.className.replace(config.animateClass, '').trim()
 
   customStyle: (box, hidden, duration, delay, iteration) ->
     @cacheAnimationName(box) if hidden
