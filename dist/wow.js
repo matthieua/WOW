@@ -47,10 +47,10 @@
     Util.prototype.emitEvent = function(elem, event) {
       if (elem.dispatchEvent != null) {
         return elem.dispatchEvent(event);
-      } else if (elem[event] != null) {
+      } else if (event in (elem != null)) {
         return elem[event]();
-      } else if (elem['on' + event] != null) {
-        return elem['on' + event]();
+      } else if (("on" + event) in (elem != null)) {
+        return elem["on" + event]();
       }
     };
 
