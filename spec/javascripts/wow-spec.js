@@ -153,6 +153,9 @@
             return called = true;
           }
         }).init();
+        $('.block').on('block', function() {
+          return $(this).addClass('triggered');
+        });
         return setTimeout(function() {
           return done();
         }, timeout);
@@ -214,12 +217,25 @@
           }, timeout);
         }, timeout);
       });
-      return it("fires the callback", function(done) {
+      it("fires the callback", function(done) {
         called = false;
         window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
         return setTimeout(function() {
           expect(called).toBe(true);
           return done();
+        }, timeout);
+      });
+      return it('fires the callback on the visible element', function(done) {
+        window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect($('#custom-3')).toHaveClass('triggered');
+          expect($('#custom-4')).not.toHaveClass('triggered');
+          window.scrollTo(0, $('#custom-4').offset().top - winHeight + 150);
+          return setTimeout(function() {
+            expect($('#custom-3')).toHaveClass('triggered');
+            expect($('#custom-4')).toHaveClass('triggered');
+            return done();
+          }, timeout);
         }, timeout);
       });
     });
