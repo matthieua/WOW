@@ -30,10 +30,10 @@ class Util
   emitEvent: (elem, event) ->
     if elem.dispatchEvent? # W3C DOM
       elem.dispatchEvent(event)
-    else if event of elem? 
-      elem[event]();
+    else if event of elem?
+      elem[event]()
     else if "on#{event}" of elem?
-      elem["on#{event}"]();
+      elem["on#{event}"]()
 
   addEvent: (elem, event, fn) ->
     if elem.addEventListener? # W3C DOM
