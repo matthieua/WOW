@@ -201,7 +201,7 @@ class @WOW
   resetStyle: ->
     box.style.visibility = 'visible' for box in @boxes
 
-  resetAnimation: (event) ->
+  resetAnimation: (event) =>
     if event.type.toLowerCase().indexOf('animationend') >= 0
       target = event.target || event.srcElement
       target.className = target.className.replace(@config.animateClass, '').trim()
