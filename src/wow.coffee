@@ -202,9 +202,9 @@ class @WOW
     box.style.visibility = 'visible' for box in @boxes
 
   resetAnimation: (event) ->
-  	if event.type.toLowerCase().indexOf('animationend') >= 0
-  		target = event.target || event.srcElement
-  		target.className = target.className.replace(@config.animateClass, '').trim()
+    if event.type.toLowerCase().indexOf('animationend') >= 0
+      target = event.target || event.srcElement
+      target.className = target.className.replace(@config.animateClass, '').trim()
 
   customStyle: (box, hidden, duration, delay, iteration) ->
     @cacheAnimationName(box) if hidden
