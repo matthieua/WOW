@@ -23,7 +23,7 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 ## Version
 
-1.1.1
+1.1.2
 
 ## Documentation
 
