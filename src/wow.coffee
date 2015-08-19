@@ -288,3 +288,8 @@ class @WOW
 
   disabled: ->
     not @config.mobile and @util().isMobile(navigator.userAgent)
+
+if define?.amd?
+  define "wow", [], => WOW
+else if module?.exports?
+  module.exports = @WOW
