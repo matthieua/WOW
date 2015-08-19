@@ -70,7 +70,8 @@ var wow = new WOW(
     callback:     function(box) {
       // the callback is fired every time an animation is started
       // the argument that is passed in is the DOM node being animated
-    }
+    },
+    scrollContainer: null // optional scroll container selector, otherwise use window
   }
 );
 wow.init();
