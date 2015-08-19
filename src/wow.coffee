@@ -101,18 +101,18 @@ getComputedStyleRX = /(\-([a-z]){1})/g
 
 class @WOW
   defaults:
-    boxClass:     'wow'
-    animateClass: 'animated'
-    offset:       0
-    mobile:       true
-    live:         true
-    callback:     null
-    scrollContainer: undefined
+    boxClass:        'wow'
+    animateClass:    'animated'
+    offset:          0
+    mobile:          true
+    live:            true
+    callback:        null
+    scrollContainer: null
 
   constructor: (options = {}) ->
     @scrolled = true
     @config   = @util().extend(options, @defaults)
-    if typeof options.scrollContainer is 'string'
+    if options.scrollContainer?
       @config.scrollContainer = document.querySelector(options.scrollContainer)
     # Map of elements to animation names:
     @animationNameCache = new WeakMap()
