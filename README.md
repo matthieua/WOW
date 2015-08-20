@@ -33,6 +33,14 @@ It just take seconds to install and use WOW.js!
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
 
+### Installation
+
+- Bower
+
+```bash
+   bower install wowjs
+```
+
 ### Basic usage
 
 - HTML
