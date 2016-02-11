@@ -25,6 +25,12 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 1.1.2
 
+## License
+
+### Commercial license
+
+If you want to use WOW.js to develop commercial sites, themes, projects, and applications, the Commercial license is the appropriate license. With this option, your source code is kept proprietary. Purchase a WOW.js Commercial License at [uplabs.com/posts/wow-js-commercial](http://www.uplabs.com/posts/wow-js-commercial?utm_source=wow&utm_medium=pricing&utm_campaign=wow)
+
 ## Documentation
 
 It just take seconds to install and use WOW.js!
