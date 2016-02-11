@@ -460,4 +460,65 @@ p {
 .top__element {
   visibility: hidden;
 }
+
+.pricing a {
+  padding-top:   20px;
+  display:       block;
+  border:        2px solid #9b59b6;
+  border-radius: 4px;
+}
+
+.pricing a:hover {
+  border-color: #5bd5a0;
+  color: #5bd5a0;
+}
+
+.pricing-title {
+  font-size: 16px;
+}
+.pricing-name {
+  font-size: 32px;
+}
+
+.pricing-type {
+  font-size: 16px;
+}
+
+.pricing-description {
+  margin: 20px 0;
+  font-size: 24px
+}
+
+.pricing a:hover .price {
+  background-color: #5bd5a0;
+}
+
+.pricing span{
+  display: block;
+  line-height: 1.4;
+}
+
+.pricing .price {
+  background-color: #1daee9;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.pricing--single a {
+  border-color: #1daee9;
+  color: #1daee9;
+}
+
+.pricing--extended a {
+  border-color: #eb3980;
+  color: #eb3980;
+}
+
+
+.pricing--extended .price {
+  background-color: #eb3980;
+}
+
+.pricing--extended {
+  border-color: #eb3980;
 }
