@@ -31,6 +31,11 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 If you want to use WOW.js to develop commercial sites, themes, projects, and applications, the Commercial license is the appropriate license. With this option, your source code is kept proprietary. Purchase a WOW.js Commercial License at [uplabs.com/posts/wow-js-commercial](http://www.uplabs.com/posts/wow-js-commercial?utm_source=wow&utm_medium=pricing&utm_campaign=wow)
 
+### Open source license
+If you are creating an open source application under a license compatible with the GNU GPL license v3, you may use this project under the terms of the GPLv3.
+
+
+
 ## Documentation
 
 It just take seconds to install and use WOW.js!
@@ -104,6 +109,8 @@ effects.
 
 
 ## Contribute
+
+You're more than welcome to contribute to this project. Please note: your code may be used as part of a commercial product if merged. Be clear about what license applies to your patch. The MIT license or public domain unlicense are permissive, and allow integration of your patch into this project as part of a commercial product.
 
 The library is written in CoffeeScript, please update `wow.coffee` file.
 
