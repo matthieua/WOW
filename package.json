@@ -10,6 +10,7 @@
     "email" : "matthieu.aussaguel@gmail.com",
     "url"   : "http://mynameismatthieu.com/"
   },
+  "main": "./dist/wow.js",
   "repository" : {
     "type" : "git",
     "url"  : "git://github.com/matthieua/WOW.git"
