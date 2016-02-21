@@ -11,7 +11,7 @@
     "animation",
     "reveal"
   ],
-  "license": "MIT",
+  "license": "GPLv3",
   "ignore": [
     "**/.*",
     "node_modules",

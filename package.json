@@ -19,8 +19,8 @@
     "url" : "https://github.com/matthieua/WOW/issues"
   },
   "licenses": [{
-    "type": "MIT",
-    "url": "http://matthieuaussaguel.mit-license.org/"
+    "type": "GPLv3",
+    "url": "http://mynameismatthieu.com/WOW"
   }],
   "devDependencies" : {
     "grunt"                : "latest",
