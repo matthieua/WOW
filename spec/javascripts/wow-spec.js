@@ -140,13 +140,22 @@
       });
     });
     return describe('library behaviour with custom settings', function() {
+      var called;
+      called = false;
       beforeEach(function(done) {
+        called = false;
         loadFixtures('custom.html');
         new WOW({
           boxClass: 'block',
           animateClass: 'fancy',
-          offset: 10
+          offset: 10,
+          callback: function() {
+            return called = true;
+          }
         }).init();
+        $('.block').on('block', function() {
+          return $(this).addClass('triggered');
+        });
         return setTimeout(function() {
           return done();
         }, timeout);
@@ -190,7 +199,7 @@
         expect($('#custom-3')).not.toHaveClass('fancy');
         return expect($('#custom-4')).not.toHaveClass('fancy');
       });
-      return it('animates elements after scrolling down and they become visible', function(done) {
+      it('animates elements after scrolling down and they become visible', function(done) {
         window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
         return setTimeout(function() {
           expect($('#custom-3')).toHaveClass('fancy');
@@ -204,6 +213,27 @@
             expect($('#custom-4')[0].style.webkitAnimationIterationCount).toBe('infinite');
             expect($('#custom-4')[0].style.webkitAnimationDuration).toBe('2s');
             expect($('#custom-4')[0].style.webkitAnimationDelay).toBe('1s');
+            return done();
+          }, timeout);
+        }, timeout);
+      });
+      it("fires the callback", function(done) {
+        called = false;
+        window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect(called).toBe(true);
+          return done();
+        }, timeout);
+      });
+      return it('fires the callback on the visible element', function(done) {
+        window.scrollTo(0, $('#custom-3').offset().top - winHeight + 150);
+        return setTimeout(function() {
+          expect($('#custom-3')).toHaveClass('triggered');
+          expect($('#custom-4')).not.toHaveClass('triggered');
+          window.scrollTo(0, $('#custom-4').offset().top - winHeight + 150);
+          return setTimeout(function() {
+            expect($('#custom-3')).toHaveClass('triggered');
+            expect($('#custom-4')).toHaveClass('triggered');
             return done();
           }, timeout);
         }, timeout);

@@ -24,12 +24,31 @@ Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
 
 ## Version
 
-1.0.2
+1.1.2
+
+## License
+
+### Commercial license
+
+If you want to use WOW.js to develop commercial sites, themes, projects, and applications, the Commercial license is the appropriate license. With this option, your source code is kept proprietary. Purchase a WOW.js Commercial License at [uplabs.com/posts/wow-js-commercial](http://www.uplabs.com/posts/wow-js-commercial?utm_source=wow&utm_medium=pricing&utm_campaign=wow)
+
+### Open source license
+If you are creating an open source application under a license compatible with the GNU GPL license v3, you may use this project under the terms of the GPLv3.
+
+
 
 ## Documentation
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
+
+### Installation
+
+- Bower
+
+```bash
+   bower install wowjs
+```
 
 ### Basic usage
 
@@ -64,7 +83,12 @@ var wow = new WOW(
     animateClass: 'animated', // animation css class (default is animated)
     offset:       0,          // distance to the element when triggering the animation (default is 0)
     mobile:       true,       // trigger animations on mobile devices (default is true)
-    live:         true        // act on asynchronously loaded content (default is true)
+    live:         true,       // act on asynchronously loaded content (default is true)
+    callback:     function(box) {
+      // the callback is fired every time an animation is started
+      // the argument that is passed in is the DOM node being animated
+    },
+    scrollContainer: null // optional scroll container selector, otherwise use window
   }
 );
 wow.init();
@@ -83,6 +107,8 @@ effects.
 
 
 ## Contribute
+
+You're more than welcome to contribute to this project. Please note: your code may be used as part of a commercial product if merged. Be clear about what license applies to your patch. The MIT license or public domain unlicense are permissive, and allow integration of your patch into this project as part of a commercial product.
 
 The library is written in CoffeeScript, please update `wow.coffee` file.
 

@@ -205,13 +205,23 @@ describe 'WOW', ->
 
   describe 'library behaviour with custom settings', ->
 
+    called = false
+
     beforeEach (done) ->
+      called = false
       loadFixtures 'custom.html'
       new WOW
         boxClass:     'block'
         animateClass: 'fancy'
         offset:       10
+        callback:     ->
+          called = true
       .init()
+
+      # Trigger custom event on dom object, event name is boxClass value
+      $('.block').on 'block', ->
+        $(this).addClass('triggered')
+
       setTimeout ->
         done()
       , timeout
@@ -290,6 +300,35 @@ describe 'WOW', ->
             .toBe '2s'
           expect $('#custom-4')[0].style.webkitAnimationDelay
             .toBe '1s'
+          done()
+        , timeout
+      , timeout
+
+    it "fires the callback", (done) ->
+      called = false  # reset
+      # Scroll down so that 150px of #custom-3 becomes visible.
+      window.scrollTo 0, $('#custom-3').offset().top - winHeight + 150
+      setTimeout ->
+        expect called
+          .toBe true
+        done()
+      , timeout
+
+    it 'fires the callback on the visible element', (done) ->
+      # Scroll down so that 150px of #custom-3 becomes visible.
+      window.scrollTo 0, $('#custom-3').offset().top - winHeight + 150
+      setTimeout ->
+        expect $ '#custom-3'
+          .toHaveClass 'triggered'
+        expect $ '#custom-4'
+          .not.toHaveClass 'triggered'
+        # Scroll down so that 150px of #custom-4 becomes visible.
+        window.scrollTo 0, $('#custom-4').offset().top - winHeight + 150
+        setTimeout ->
+          expect $ '#custom-3'
+            .toHaveClass 'triggered'
+          expect $ '#custom-4'
+            .toHaveClass 'triggered'
           done()
         , timeout
       , timeout

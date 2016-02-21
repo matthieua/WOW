@@ -1,7 +1,7 @@
 {
   "name"            : "wow",
   "title"           : "WOW",
-  "version"         : "1.0.2",
+  "version"         : "1.1.2",
   "description" : "",
   "keywords": [],
   "homepage"        : "",
@@ -10,6 +10,7 @@
     "email" : "matthieu.aussaguel@gmail.com",
     "url"   : "http://mynameismatthieu.com/"
   },
+  "main": "./dist/wow.js",
   "repository" : {
     "type" : "git",
     "url"  : "git://github.com/matthieua/WOW.git"
@@ -18,8 +19,8 @@
     "url" : "https://github.com/matthieua/WOW/issues"
   },
   "licenses": [{
-    "type": "MIT",
-    "url": "http://matthieuaussaguel.mit-license.org/"
+    "type": "GPLv3",
+    "url": "http://mynameismatthieu.com/WOW"
   }],
   "devDependencies" : {
     "grunt"                : "latest",
