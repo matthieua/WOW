@@ -121,7 +121,7 @@
 
   })());
 
-  MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
+  MutationObserver = window.MutationObserver || this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
     function MutationObserver() {
       if (typeof console !== "undefined" && console !== null) {
         console.warn('MutationObserver is not supported by your browser.');

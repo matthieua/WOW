@@ -77,7 +77,7 @@ WeakMap = @WeakMap or @MozWeakMap or \
       @values.push(value)
 
 # Dummy MutationObserver, to avoid raising exceptions.
-MutationObserver = @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
+MutationObserver = window.MutationObserver or @MutationObserver or @WebkitMutationObserver or @MozMutationObserver or \
   class MutationObserver
     constructor: ->
       console?.warn 'MutationObserver is not supported by your browser.'
