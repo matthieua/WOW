@@ -8,11 +8,11 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
+          'dist/wow.min.js': 'dist/wow.js'
         }
       },
       options: {
-        banner : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+        banner : '/*! <%= pkg.title %> - v<%= pkg.version %> - ' +
           '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
           '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
           '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src     : ['spec/javascripts/libs/*.js', 'dist/<%= pkg.name %>.js'],
+      src     : ['spec/javascripts/libs/*.js', 'dist/wow.js'],
       options : {
         specs   : 'spec/javascripts/**/*.js',
         helpers : 'spec/javascripts/helpers/**/*.js'
