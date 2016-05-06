@@ -52,6 +52,12 @@ It just take seconds to install and use WOW.js!
    bower install wowjs
 ```
 
+- NPM
+
+```bash
+   npm install wowjs
+```
+
 ### Basic usage
 
 - HTML
