@@ -424,10 +424,10 @@
     };
 
     WOW.prototype.animationName = function(box) {
-      var animationName;
+      var animationName, error;
       try {
         animationName = this.vendorCSS(box, 'animation-name').cssText;
-      } catch (_error) {
+      } catch (error) {
         animationName = getComputedStyle(box).getPropertyValue('animation-name');
       }
       if (animationName === 'none') {

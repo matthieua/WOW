@@ -50,6 +50,12 @@ If you are creating an open source application under a license compatible with t
    bower install wowjs
 ```
 
+- NPM
+
+```bash
+   npm install wowjs
+```
+
 ### Basic usage
 
 - HTML
