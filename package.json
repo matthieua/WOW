@@ -19,8 +19,8 @@
     "url" : "https://github.com/matthieua/WOW/issues"
   },
   "licenses": [{
-    "type": "GPL-3.0",
-    "url": "http://mynameismatthieu.com/WOW#pricing"
+    "type": "GPLv3",
+    "url": "http://mynameismatthieu.com/WOW"
   }],
   "dependencies": {
     "animate.css": "latest"
