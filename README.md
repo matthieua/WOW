@@ -61,9 +61,12 @@ It just take seconds to install and use WOW.js!
 ### Basic usage
 In order to hide all elements when they are supposed to be hidden. (Anti Flickering)
 - CSS
+
+```css
    .wow {
      visibility: hidden;
    }
+```
 
 - HTML
 
