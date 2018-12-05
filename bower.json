@@ -2,7 +2,7 @@
   "name": "wow",
   "homepage": "https://github.com/matthieua/WOW",
   "authors": [
-    "Matthieu Aussaguel <matthieu.aussaguel@gmail.com>"
+    "Matt Delac <matt@delac.io>"
   ],
   "description": "Reveal CSS animation as you scroll down a page.",
   "main": "dist/wow.js",

@@ -10,7 +10,7 @@ Advantages:
 - Fast execution and lightweight code: the browser will like it ;-)
 - You can change the settings - [see below](#advanced-usage)
 
-Follow [@mattaussaguel](//twitter.com/mattaussaguel) for updates as WOW evolves.
+Follow [@mattdelac_](//twitter.com/mattdelac_) for updates as WOW evolves.
 
 ### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
 
@@ -147,9 +147,9 @@ If you find a bug, please report it [here on Github](https://github.com/matthieu
 
 ## Developer
 
-Developed by Matthieu Aussaguel, [mynameismatthieu.com](http://mynameismatthieu.com)
+Developed by Matt Delac, [delac.io](https://www.delac.io/)
 
-+ [@mattaussaguel](//twitter.com/mattaussaguel)
++ [@mattdelac](//twitter.com/mattdelac_)
 + [Github Profile](//github.com/matthieua)
 
 ## Contributors

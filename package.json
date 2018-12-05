@@ -6,9 +6,9 @@
   "keywords": [],
   "homepage"        : "",
   "author"          : {
-    "name"  : "Matthieu Aussaguel",
-    "email" : "matthieu.aussaguel@gmail.com",
-    "url"   : "http://mynameismatthieu.com/"
+    "name"  : "Matt Delac",
+    "email" : "matt@delac.io",
+    "url"   : "https://www.delac.io/"
   },
   "main": "./dist/wow.js",
   "repository" : {
@@ -20,7 +20,7 @@
   },
   "licenses": [{
     "type": "GPLv3",
-    "url": "http://mynameismatthieu.com/WOW"
+    "url": "https://www.delac.io/WOW"
   }],
   "dependencies": {
     "animate.css": "latest"

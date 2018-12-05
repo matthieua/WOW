@@ -1,9 +1,9 @@
 #
 # Name    : wow
-# Author  : Matthieu Aussaguel, http://mynameismatthieu.com/, @mattaussaguel
+# Author  : Matt Delac, https://www.delac.io/, @mattdelac_
 # Version : 1.1.2
 # Repo    : https://github.com/matthieua/WOW
-# Website : http://mynameismatthieu.com/wow
+# Website : https://www.delac.io/WOW
 #
 
 
