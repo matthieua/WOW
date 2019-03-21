@@ -12,13 +12,7 @@ Advantages:
 
 Follow [@mattdelac_](//twitter.com/mattdelac_) for updates as WOW evolves.
 
-### [LIVE DEMO ➫](http://mynameismatthieu.com/WOW/)
-
-## Live examples
-- [MaterialUp](http://www.materialup.com)
-- [Fliplingo](https://www.fliplingo.com)
-- [Streamline Icons](http://www.streamlineicons.com)
-- [Microsoft Stories](http://www.microsoft.com/en-us/news/stories/garage/)
+### [LIVE DEMO ➫](http://delac.io/WOW/)
 
 
 ## Version
@@ -39,7 +33,7 @@ If you are creating an open source application under a license compatible with t
 ## Documentation
 
 It just take seconds to install and use WOW.js!
-[Read the documentation ➫](http://mynameismatthieu.com/WOW/docs.html)
+[Read the documentation ➫](http://delac.io/WOW/docs.html)
 
 ### Dependencies
 - [animate.css](https://github.com/daneden/animate.css)
