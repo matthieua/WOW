@@ -276,7 +276,7 @@ class @WOW
   # check if box is visible
   isVisible: (box) ->
     offset     = box.getAttribute('data-wow-offset') or @config.offset
-    viewTop    = (@config.scrollContainer && @config.scrollContainer.scrollTop) || window.pageYOffset
+    viewTop    = if @config.scrollContainer then @config.scrollContainer.scrollTop else window.pageYOffset
     viewBottom = viewTop + Math.min(@element.clientHeight, @util().innerHeight()) - offset
     top        = @offsetTop(box)
     bottom     = top + box.clientHeight
