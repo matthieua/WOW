@@ -193,7 +193,7 @@ class @WOW
     @animate => @customStyle(box, hidden, duration, delay, iteration)
 
   animate: (->
-    if 'requestAnimationFrame' of window
+    if typeof window != 'undefined' and 'requestAnimationFrame' of window
       (callback) ->
         window.requestAnimationFrame callback
     else
