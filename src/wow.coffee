@@ -6,7 +6,6 @@
 # Website : https://www.delac.io/WOW
 #
 
-
 class Util
   extend: (custom, defaults) ->
     custom[key] ?= value for key, value of defaults
@@ -99,7 +98,7 @@ getComputedStyle = @getComputedStyle or \
     @
 getComputedStyleRX = /(\-([a-z]){1})/g
 
-class @WOW
+class WOW
   defaults:
     boxClass:        'wow'
     animateClass:    'animated'
@@ -288,3 +287,13 @@ class @WOW
 
   disabled: ->
     not @config.mobile and @util().isMobile(navigator.userAgent)
+
+umd = (factory) ->
+	if typeof exports is 'object'
+		module.exports = factory()
+	else if typeof define is 'function' and define.amd
+		define([], factory)
+	else
+		@WOW = factory()
+
+umd -> WOW
