@@ -278,8 +278,8 @@ class @WOW
     offset     = box.getAttribute('data-wow-offset') or @config.offset
     viewTop    = (@config.scrollContainer && @config.scrollContainer.scrollTop) || window.pageYOffset
     viewBottom = viewTop + Math.min(@element.clientHeight, @util().innerHeight()) - offset
-    top        = @offsetTop(box)
-    bottom     = top + box.clientHeight
+    top        = box.getBoundingClientRect().top
+    bottom     = box.getBoundingClientRect().bottom
 
     top <= viewBottom and bottom >= viewTop
 
