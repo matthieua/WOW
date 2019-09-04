@@ -29,7 +29,7 @@
       if (cancel == null) {
         cancel = false;
       }
-      if (detail == null) {
+      if (detail == null) {qweqweqweqwewqe
         detail = null;
       }
       if (document.createEvent != null) {
