@@ -308,7 +308,7 @@
 
     WOW.prototype.show = function(box) {
       this.applyStyle(box);
-      box.className = box.className + " " + this.config.animateClass;
+      box.setAttribute("class", box.getAttribute("class") + " " + this.config.animateClass);
       if (this.config.callback != null) {
         this.config.callback(box);
       }
@@ -359,7 +359,7 @@
       var target;
       if (event.type.toLowerCase().indexOf('animationend') >= 0) {
         target = event.target || event.srcElement;
-        return target.className = target.className.replace(this.config.animateClass, '').trim();
+        target.setAttribute("class", target.getAttribute("class").replace(this.config.animateClass).trim());
       }
     };
 
