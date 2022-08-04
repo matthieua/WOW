@@ -1,9 +1,10 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>WOW</title>
+  <title>Om Namo Shivaaya</title>
   <link rel="stylesheet" href="css/libs/animate.css">
   <link rel="stylesheet" href="css/site.css">
   <style>
@@ -35,18 +36,19 @@
     wow = new WOW(
       {
         animateClass: 'animated',
-        offset:       100,
-        callback:     function(box) {
+        offset: 100,
+        callback: function (box) {
           console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
         }
       }
     );
     wow.init();
-    document.getElementById('moar').onclick = function() {
+    document.getElementById('moar').onclick = function () {
       var section = document.createElement('section');
       section.className = 'section--purple wow fadeInDown';
       this.parentNode.insertBefore(section, this);
     };
   </script>
 </body>
+
 </html>
