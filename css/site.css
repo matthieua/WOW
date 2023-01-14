@@ -9,10 +9,18 @@ h1 {
   width:  980px;
   margin: 0 auto;
 }
+div section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
 section {
   height: 300px;
   margin: 60px 0;
+  font-size: 30px;
 }
 
 .section--purple {
